@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es" class="brand-cuisinemf">
+  <head>
+    <meta charset="utf-8" />
+    <title>Todas las recetas — Cuisine M&F</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="stylesheet" href="styles_cuisinemf.css" />
+    <script src="cuisinemf.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header" aria-label="Barra principal">
+      <div class="container nav">
+        <a class="brand" href="index.html#hero" aria-label="Volver al inicio">
+          <span class="brand-text">Cuisine M&F</span>
+        </a>
+        <nav id="site-nav" class="links" aria-label="Secciones">
+          <a href="index.html#recetas">Inicio</a>
+          <a href="recetas.html" aria-current="page" class="is-active"
+            >Todas las recetas</a
+          >
+          <a href="index.html#contacto">Contacto</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container">
+        <h1>Todas las recetas</h1>
+        <p class="lead">Explorá todas nuestras recetas disponibles:</p>
+
+        <div class="recipe-gallery">
+          <!-- Tarta de coco -->
+          <a class="recipe-card" href="#!">
+            <figure>
+              <img
+                src="imagenes/tartacoco.png"
+                alt="Tarta de coco casera"
+                loading="lazy"
+              />
+              <figcaption class="overlay">
+                <h3 class="title">Tarta de coco</h3>
+                <p class="meta">8 porciones • 🥧 Horno</p>
+              </figcaption>
+            </figure>
+          </a>
+
+          <!-- Chop suey -->
+          <a class="recipe-card" href="#!">
+            <figure>
+              <img
+                src="imagenes/chopsuey.jpg"
+                alt="Chop suey con vegetales"
+                loading="lazy"
+              />
+              <figcaption class="overlay">
+                <h3 class="title">Chop suey</h3>
+                <p class="meta">4 porciones • 🍳 Wok</p>
+              </figcaption>
+            </figure>
+          </a>
+
+          <!-- Empanadas -->
+          <a class="recipe-card" href="#!">
+            <figure>
+              <img
+                src="imagenes/empanada.webp"
+                alt="Empanadas doradas"
+                loading="lazy"
+              />
+              <figcaption class="overlay">
+                <h3 class="title">Empanadas</h3>
+                <p class="meta">12 unidades • 🥟 Horno</p>
+              </figcaption>
+            </figure>
+          </a>
+
+          <!-- Pizza -->
+          <a class="recipe-card" href="#!">
+            <figure>
+              <img
+                src="imagenes/pizza.jpeg"
+                alt="Pizza casera con queso fundido"
+                loading="lazy"
+              />
+              <figcaption class="overlay">
+                <h3 class="title">Pizza casera</h3>
+                <p class="meta">8 porciones • 🍕 Horno</p>
+              </figcaption>
+            </figure>
+          </a>
+
+          <!-- Fetuccini -->
+          <a class="recipe-card" href="#!">
+            <figure>
+              <img
+                src="imagenes/fetuccini.jpg"
+                alt="Fetuccini con salsa al pesto"
+                loading="lazy"
+              />
+              <figcaption class="overlay">
+                <h3 class="title">Fetuccini al pesto</h3>
+                <p class="meta">2 porciones • 🍝 Olla</p>
+              </figcaption>
+            </figure>
+          </a>
+
+          <!-- Galletas de coco -->
+          <a class="recipe-card" href="#!">
+            <figure>
+              <img
+                src="imagenes/galletas-de-coco.webp"
+                alt="Galletas de coco doradas"
+                loading="lazy"
+              />
+              <figcaption class="overlay">
+                <h3 class="title">Galletas de coco</h3>
+                <p class="meta">20 unidades • 🍪 Horno</p>
+              </figcaption>
+            </figure>
+          </a>
+
+          <!-- Alfajores de maicena -->
+          <a class="recipe-card" href="#!">
+            <figure>
+              <img
+                src="imagenes/alfajores-de-maicena.jpg"
+                alt="Alfajores de maicena con coco y dulce de leche"
+                loading="lazy"
+              />
+              <figcaption class="overlay">
+                <h3 class="title">Alfajores de maicena</h3>
+                <p class="meta">18 unidades • 🥮 Horno</p>
+              </figcaption>
+            </figure>
+          </a>
+
+          <!-- Ensalada rusa -->
+          <a class="recipe-card" href="#!">
+            <figure>
+              <img
+                src="imagenes/ensalada-rusa.webp"
+                alt="Ensalada rusa con mayonesa y perejil"
+                loading="lazy"
+              />
+              <figcaption class="overlay">
+                <h3 class="title">Ensalada rusa</h3>
+                <p class="meta">6 porciones • 🥗 Fría</p>
+              </figcaption>
+            </figure>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <small>© Cuisine M&F — Sabores que florecen.</small>
+      </div>
+    </footer>
+
+    <!-- Modal de receta -->
+    <dialog
+      id="recipe-modal"
+      class="recipe-modal"
+      aria-labelledby="recipe-modal-title"
+    >
+      <button class="recipe-modal-close" aria-label="Cerrar">×</button>
+
+      <div class="recipe-modal-media">
+        <img id="recipe-modal-img" alt="" />
+        <div class="recipe-modal-overlay">
+          <h3 id="recipe-modal-title"></h3>
+          <p id="recipe-modal-meta" class="meta"></p>
+        </div>
+      </div>
+
+      <div class="recipe-modal-body">
+        <p class="muted">Próximamente: ingredientes y paso a paso.</p>
+        <div class="modal-actions">
+          <button class="btn secondary" id="recipe-modal-back">Cerrar</button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Login Modal (único) -->
+    <dialog id="login-modal" class="login-modal" aria-labelledby="login-title">
+      <button class="login-modal-close" aria-label="Cerrar">×</button>
+
+      <header class="login-head">
+        <div class="brand"><span class="brand-text">Cuisine M&amp;F</span></div>
+        <h2 id="login-title">Iniciá sesión o registrate</h2>
+        <p class="muted">
+          Para ver ingredientes y “Todas las recetas”, iniciá sesión. ¡A
+          cocinar! 🍳
+        </p>
+      </header>
+
+      <form
+        id="auth-form"
+        class="login-body"
+        autocomplete="on"
+        novalidate
+        aria-live="polite"
+      >
+        <div class="login-tabs" role="tablist" aria-label="Elegí una opción">
+          <div class="login-tab">
+            <input
+              type="radio"
+              name="mode"
+              id="tab-in"
+              value="signin"
+              checked
+            />
+            <label for="tab-in" role="tab" aria-controls="panel-auth"
+              >Iniciar sesión</label
+            >
+          </div>
+          <div class="login-tab">
+            <input type="radio" name="mode" id="tab-up" value="signup" />
+            <label for="tab-up" role="tab" aria-controls="panel-auth"
+              >Registrarme</label
+            >
+          </div>
+        </div>
+
+        <div
+          class="form-grid"
+          id="panel-auth"
+          role="tabpanel"
+          aria-labelledby="tab-in"
+        >
+          <div class="form-row" id="signup-fields" hidden>
+            <label for="name">Nombre</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Tu nombre (opcional)"
+            />
+          </div>
+
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              placeholder="tu@email.com"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <label for="password">Contraseña</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+
+          <p class="form-error" aria-live="assertive"></p>
+
+          <button class="btn btn-wide" type="submit">Continuar</button>
+          <p class="legal">
+            Al continuar aceptás nuestras <a href="#!">condiciones</a> y
+            <a href="#!">privacidad</a>.
+          </p>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>
