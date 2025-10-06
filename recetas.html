@@ -1,165 +1,140 @@
 <!DOCTYPE html>
-<html lang="es" class="brand-cuisinemf">
+<html lang="es" class="brand-tenedorlibre">
   <head>
     <meta charset="utf-8" />
-    <title>Todas las recetas — Cuisine M&F</title>
+    <title>Recetas — por categorías | Tenedor Libre</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
-    <link rel="stylesheet" href="styles_cuisinemf.css" />
-    <script src="cuisinemf.js" defer></script>
+    <link rel="stylesheet" href="stylestenedorlibre.css" />
+    <link rel="stylesheet" href="recetas.css" />
+    <script src="recetas.js" defer></script>
   </head>
+
   <body>
+    <!-- ================= HEADER ================= -->
     <header class="site-header" aria-label="Barra principal">
       <div class="container nav">
         <a class="brand" href="index.html#hero" aria-label="Volver al inicio">
-          <span class="brand-text">Cuisine M&F</span>
+          <img
+            src="imagenes/logo-tenedor.png"
+            alt="Logo de Tenedor Libre"
+            class="brand-logo"
+          />
+          <span class="brand-text">Tenedor Libre</span>
         </a>
+
+        <button
+          class="nav-toggle"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
         <nav id="site-nav" class="links" aria-label="Secciones">
-          <a href="index.html#recetas">Inicio</a>
-          <a href="recetas.html" aria-current="page" class="is-active"
-            >Todas las recetas</a
-          >
+          <a href="index.html#mapa">Mapa</a>
+          <a href="tienda.html" aria-current="page">Tienda</a>
+          <a href="index.html#resenas">Reseñas</a>
           <a href="index.html#contacto">Contacto</a>
+          <a href="#registrarse">Registrarse</a>
         </nav>
       </div>
     </header>
 
+    <!-- ================= MAIN ================= -->
     <main class="section">
       <div class="container">
-        <h1>Todas las recetas</h1>
-        <p class="lead">Explorá todas nuestras recetas disponibles:</p>
+        <div class="actions-row">
+          <h1>Todas las recetas</h1>
+          <button id="btn-see-all" class="btn secondary">Ver todas</button>
+        </div>
+        <p class="lead">
+          Elegí una <b>categoría</b> o mirá <b>todas</b> las recetas.
+        </p>
 
-        <div class="recipe-gallery">
-          <!-- Tarta de coco -->
-          <a class="recipe-card" href="#!">
+        <!-- GRID DE CATEGORÍAS -->
+        <div id="cat-grid" class="cat-grid">
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="saludable">
             <figure>
-              <img
-                src="imagenes/tartacoco.png"
-                alt="Tarta de coco casera"
-                loading="lazy"
-              />
-              <figcaption class="overlay">
-                <h3 class="title">Tarta de coco</h3>
-                <p class="meta">8 porciones • 🥧 Horno</p>
-              </figcaption>
+              <img src="imagenes/saludable.JPG" alt="Categoría Saludable" />
+              <figcaption class="overlay"><h3>Saludable</h3></figcaption>
             </figure>
           </a>
 
-          <!-- Chop suey -->
-          <a class="recipe-card" href="#!">
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="vegetariano">
             <figure>
-              <img
-                src="imagenes/chopsuey.jpg"
-                alt="Chop suey con vegetales"
-                loading="lazy"
-              />
-              <figcaption class="overlay">
-                <h3 class="title">Chop suey</h3>
-                <p class="meta">4 porciones • 🍳 Wok</p>
-              </figcaption>
+              <img src="imagenes/vegano.JPG" alt="Categoría Vegetariano" />
+              <figcaption class="overlay"><h3>Vegetariano</h3></figcaption>
             </figure>
           </a>
 
-          <!-- Empanadas -->
-          <a class="recipe-card" href="#!">
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="dulce">
             <figure>
-              <img
-                src="imagenes/empanada.webp"
-                alt="Empanadas doradas"
-                loading="lazy"
-              />
-              <figcaption class="overlay">
-                <h3 class="title">Empanadas</h3>
-                <p class="meta">12 unidades • 🥟 Horno</p>
-              </figcaption>
+              <img src="imagenes/dulce.JPG" alt="Categoría Dulce" />
+              <figcaption class="overlay"><h3>Dulce</h3></figcaption>
             </figure>
           </a>
 
-          <!-- Pizza -->
-          <a class="recipe-card" href="#!">
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="romantica">
             <figure>
-              <img
-                src="imagenes/pizza.jpeg"
-                alt="Pizza casera con queso fundido"
-                loading="lazy"
-              />
-              <figcaption class="overlay">
-                <h3 class="title">Pizza casera</h3>
-                <p class="meta">8 porciones • 🍕 Horno</p>
-              </figcaption>
+              <img src="imagenes/cena.png" alt="Cena romántica" />
+              <figcaption class="overlay"><h3>Cena romántica</h3></figcaption>
             </figure>
           </a>
 
-          <!-- Fetuccini -->
-          <a class="recipe-card" href="#!">
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="paises">
             <figure>
-              <img
-                src="imagenes/fetuccini.jpg"
-                alt="Fetuccini con salsa al pesto"
-                loading="lazy"
-              />
-              <figcaption class="overlay">
-                <h3 class="title">Fetuccini al pesto</h3>
-                <p class="meta">2 porciones • 🍝 Olla</p>
-              </figcaption>
+              <img src="imagenes/mundo.png" alt="Países" />
+              <figcaption class="overlay"><h3>Países</h3></figcaption>
             </figure>
           </a>
 
-          <!-- Galletas de coco -->
-          <a class="recipe-card" href="#!">
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="minutos10">
             <figure>
-              <img
-                src="imagenes/galletas-de-coco.webp"
-                alt="Galletas de coco doradas"
-                loading="lazy"
-              />
-              <figcaption class="overlay">
-                <h3 class="title">Galletas de coco</h3>
-                <p class="meta">20 unidades • 🍪 Horno</p>
-              </figcaption>
+              <img src="imagenes/10min.png" alt="10 minutos" />
+              <figcaption class="overlay"><h3>10 minutos</h3></figcaption>
             </figure>
           </a>
 
-          <!-- Alfajores de maicena -->
-          <a class="recipe-card" href="#!">
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="sintacc">
             <figure>
-              <img
-                src="imagenes/alfajores-de-maicena.jpg"
-                alt="Alfajores de maicena con coco y dulce de leche"
-                loading="lazy"
-              />
-              <figcaption class="overlay">
-                <h3 class="title">Alfajores de maicena</h3>
-                <p class="meta">18 unidades • 🥮 Horno</p>
-              </figcaption>
+              <img src="imagenes/SINTAC.png" alt="SIN TACC" />
+              <figcaption class="overlay"><h3>SIN TACC</h3></figcaption>
             </figure>
           </a>
 
-          <!-- Ensalada rusa -->
-          <a class="recipe-card" href="#!">
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="pastas">
             <figure>
-              <img
-                src="imagenes/ensalada-rusa.webp"
-                alt="Ensalada rusa con mayonesa y perejil"
-                loading="lazy"
-              />
-              <figcaption class="overlay">
-                <h3 class="title">Ensalada rusa</h3>
-                <p class="meta">6 porciones • 🥗 Fría</p>
-              </figcaption>
+              <img src="imagenes/pasta.png" alt="Pastas y Salsas" />
+              <figcaption class="overlay"><h3>Pastas y Salsas</h3></figcaption>
             </figure>
           </a>
         </div>
+
+        <!-- RECETAS DE UNA CATEGORÍA -->
+        <section id="category-view" hidden>
+          <div class="back-row">
+            <button id="back-to-cats" class="btn secondary small">
+              ← Volver a categorías
+            </button>
+            <h2 id="category-title" style="margin: 0 0 0 12px"></h2>
+          </div>
+          <div id="category-gallery" class="recipe-gallery"></div>
+        </section>
       </div>
     </main>
 
+    <!-- ================= FOOTER ================= -->
     <footer class="site-footer">
       <div class="container">
-        <small>© Cuisine M&F — Sabores que florecen.</small>
+        <small>© Tenedor Libre — Buffet en casa.</small>
       </div>
     </footer>
 
-    <!-- Modal de receta -->
+    <!-- ================= MODAL DE RECETA ================= -->
     <dialog
       id="recipe-modal"
       class="recipe-modal"
@@ -167,35 +142,44 @@
     >
       <button class="recipe-modal-close" aria-label="Cerrar">×</button>
 
+      <!-- Imagen superior -->
       <div class="recipe-modal-media">
         <img id="recipe-modal-img" alt="" />
-        <div class="recipe-modal-overlay">
-          <h3 id="recipe-modal-title"></h3>
-          <p id="recipe-modal-meta" class="meta"></p>
-        </div>
       </div>
 
-      <div class="recipe-modal-body">
-        <p class="muted">Próximamente: ingredientes y paso a paso.</p>
-        <div class="modal-actions">
-          <button class="btn secondary" id="recipe-modal-back">Cerrar</button>
+      <!-- Contenido -->
+      <div class="recipe-modal-content">
+        <h3 id="recipe-modal-title">Receta</h3>
+
+        <!-- Línea de metadatos -->
+        <div id="recipe-modal-meta" class="recipe-meta">
+          <span>⏱️ 20 min</span>
+          <span>👥 2 porciones</span>
+          <span>🍳 horno</span>
+        </div>
+
+        <!-- Cuerpo dinámico -->
+        <div class="recipe-modal-body">
+          <p class="muted">Próximamente: ingredientes y paso a paso.</p>
+
+          <div class="modal-actions">
+            <button class="btn secondary" id="recipe-modal-back">Cerrar</button>
+          </div>
         </div>
       </div>
     </dialog>
 
-    <!-- Login Modal (único) -->
+    <!-- ================= LOGIN MODAL ================= -->
     <dialog id="login-modal" class="login-modal" aria-labelledby="login-title">
       <button class="login-modal-close" aria-label="Cerrar">×</button>
-
       <header class="login-head">
-        <div class="brand"><span class="brand-text">Cuisine M&amp;F</span></div>
+        <div class="brand"><span class="brand-text">Tenedor Libre</span></div>
         <h2 id="login-title">Iniciá sesión o registrate</h2>
         <p class="muted">
           Para ver ingredientes y “Todas las recetas”, iniciá sesión. ¡A
           cocinar! 🍳
         </p>
       </header>
-
       <form
         id="auth-form"
         class="login-body"
@@ -212,15 +196,15 @@
               value="signin"
               checked
             />
-            <label for="tab-in" role="tab" aria-controls="panel-auth"
-              >Iniciar sesión</label
-            >
+            <label for="tab-in" role="tab" aria-controls="panel-auth">
+              Iniciar sesión
+            </label>
           </div>
           <div class="login-tab">
             <input type="radio" name="mode" id="tab-up" value="signup" />
-            <label for="tab-up" role="tab" aria-controls="panel-auth"
-              >Registrarme</label
-            >
+            <label for="tab-up" role="tab" aria-controls="panel-auth">
+              Registrarme
+            </label>
           </div>
         </div>
 
@@ -266,11 +250,10 @@
           </div>
 
           <p class="form-error" aria-live="assertive"></p>
-
           <button class="btn btn-wide" type="submit">Continuar</button>
           <p class="legal">
-            Al continuar aceptás nuestras <a href="#!">condiciones</a> y
-            <a href="#!">privacidad</a>.
+            Al continuar aceptás nuestras
+            <a href="#!">condiciones</a> y <a href="#!">privacidad</a>.
           </p>
         </div>
       </form>

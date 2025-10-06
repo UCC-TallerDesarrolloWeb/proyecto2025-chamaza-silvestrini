@@ -1,6 +1,93 @@
 # proyecto2025
 Estructura de Proyecto Taller de Desarrollo Web - 2025
 
+# Tenedor Libre — Buffet en Casa
+
+**Proyecto final de la materia "Taller de Desarrollo Web"**  
+Sitio web de recetas interactivas con categorias, login/registro, tienda, reseñas y mapa.
+
+---
+
+## Indice
+
+1. [Descripcion del Proyecto](#descripción-del-proyecto)
+2. [Autores](#autores)
+3. [Contenido del Sitio](#contenido-del-sitio)
+4. [Tecnologías Utilizadas](#tecnologías-utilizadas)
+5. [Estructura del Proyecto](#estructura-del-proyecto)
+6. [Licencia](#licencia)
+
+---
+
+## Descripcion del Proyecto
+
+**Tenedor Libre** es una pagina web que funciona como un recetario virtual con enfoque visual, ordenado por categorias (Saludable, Vegetariano, Dulce, Pastas, etc.).  
+El usuario puede:
+- Ver todas las recetas por categoria o filtrar.
+- Acceder a los ingredientes y cantidades.
+- Iniciar sesion o registrarse para ver recetas completas.
+- Explorar una tienda de productos de cocina, mapa de ferias y clases, y una seccion de reseñas con puntuaciones.
+
+---
+
+## Autores
+
+| Nombre | Universidad |
+|:-------|:-------------|
+| **Florencia Chamaza** | Universidad Catolica de Cordoba |
+| **Mia Silvestrini** | Universidad Catolica de Cordoba |
+
+---
+
+##  Contenido de la Pagina
+
+### Secciones Principales
+
+1. **Inicio**  
+   Presentacion del proyecto con el boton *“Explorar recetas”*.
+
+2. **Categorias de Recetas**  
+   Visualizacion de categorias 
+   Al hacer clic, redirige a `recetas.html` filtrando las recetas correspondientes.
+
+3. **Recetas por Categoria**  
+   Cada receta muestra foto, nombre, tiempo, porciones e ingredientes con sus cantidades.  
+
+4. **Tienda**  
+   Productos destacados relacionados a la cocina (ej. cuchillos, sartenes, especias).
+
+5. **Mapa**  
+   Muestra un mapa de Cordoba con ubicaciones de ferias, clases y restaurantes.
+
+6. **Reseñas**  
+   Los usuarios pueden dejar su nombre, comentario y puntaje de estrellas.
+
+7. **Formulario de Contacto**  
+   Para mensajes o colaboraciones con el equipo de Tenedor Libre.
+
+8. **Login / Registro**  
+   Acceso mediante modal o en `login.html`, con almacenamiento local (localStorage).
+
+---
+
+## Tecnologias Utilizadas
+
+| Tecnologia | Uso Principal |
+|-------------|----------------|
+| **HTML5** | Estructura del sitio |
+| **CSS3 (Flexbox, Grid)** | Estilos, diseño responsivo y tema visual |
+| **JavaScript (Vanilla)** | Interactividad, login, categorias dinamicas y modales |
+| **LocalStorage / SessionStorage** | Almacenamiento local de usuario y recetas |
+| **Markdown (.md)** | Documentacion del proyecto |
+| **Git & GitHub** | Control de versiones y hosting |
+| **GitHub Pages** | Publicacion del sitio web |
+
+---
+
+## 📁 Estructura del Proyecto
+
+
+
 ## Requisitos del Primer Parcial
 
 ### Sobre el Sketch

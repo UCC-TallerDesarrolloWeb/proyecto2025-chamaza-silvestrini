@@ -1,26 +1,23 @@
 <!DOCTYPE html>
-<html lang="es" class="brand-cuisinemf">
+<html lang="es" class="brand-tenedorlibre">
   <head>
     <meta charset="utf-8" />
-    <title>Ingresar / Registrarme — Cuisine M&F</title>
+    <title>Ingresar / Registrarme — Tenedor Libre</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="dark light" />
     <meta
       name="description"
-      content="Iniciá sesión o creá tu cuenta para ver todas las recetas de Cuisine M&F."
+      content="Iniciá sesión o creá tu cuenta para ver todas las recetas de Tenedor Libre."
     />
-    <link rel="stylesheet" href="styles_cuisinemf.css" />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="stylestenedorlibre.css" />
+    <!-- Si tenés Auth/Intent en tu JS global, lo usamos. No es obligatorio. -->
+    <script src="tenedorlibre.js" defer></script>
   </head>
-
   <body>
     <main class="auth-wrap">
       <section class="auth-card" role="dialog" aria-labelledby="title">
         <header class="auth-head">
-          <div class="brand"><span class="brand-text">Cuisine M&F</span></div>
+          <div class="brand"><span class="brand-text">Tenedor Libre</span></div>
           <h1 id="title" style="margin: 6px 0 0">Iniciá sesión o registrate</h1>
           <p class="auth-sub">
             Para ver recetas completas y “Todas las recetas”,
@@ -28,7 +25,6 @@
           </p>
         </header>
 
-        <!-- Tabs -->
         <div class="auth-tabs" role="tablist" aria-label="Elegí una opción">
           <div class="auth-tab">
             <input
@@ -50,7 +46,6 @@
           </div>
         </div>
 
-        <!-- Form único -->
         <form
           id="auth-form"
           class="auth-body"
@@ -65,7 +60,7 @@
             role="tabpanel"
             aria-labelledby="tab-signin"
           >
-            <!-- ======= INICIAR SESIÓN ======= -->
+            <!-- ======= INICIAR SESIÓN: USUARIO + CONTRASEÑA ======= -->
             <fieldset id="signin-fields">
               <div class="form-row">
                 <label for="su-username">Nombre de usuario</label>
@@ -92,7 +87,7 @@
               </div>
             </fieldset>
 
-            <!-- ======= REGISTRARME ======= -->
+            <!-- ======= REGISTRARME: NOMBRE, APELLIDO, TELÉFONO, MAIL, USUARIO, CONTRASEÑA ======= -->
             <fieldset id="signup-fields">
               <div class="grid-2">
                 <div class="form-row">
@@ -170,18 +165,10 @@
             </p>
           </div>
         </form>
-
-        <!-- Enlaces auxiliares (opcionales) -->
-        <nav class="links" aria-label="Ayuda">
-          <a href="#" onclick="alert('Demo: contactá soporte');return false;"
-            >¿Olvidaste tu contraseña?</a
-          >
-          <a href="index.html">← Volver al inicio</a>
-        </nav>
       </section>
     </main>
 
-    <!-- Script: tabs, validación, storage y redirección -->
+    <!-- Lógica: tabs, validación, guardado en localStorage, redirección -->
     <script>
       (function () {
         const $ = (s) => document.querySelector(s);
@@ -189,12 +176,15 @@
         const form = $("#auth-form");
         const err = $(".form-error");
 
-        /* Tabs / modo */
+        // ===== Tabs: cambiar modo y requireds =====
         const setMode = (mode) => {
           form.setAttribute("data-mode", mode);
+
           const up = mode === "signup";
+          // Sign in requireds
           $("#su-username").required = !up;
           $("#su-password").required = !up;
+          // Sign up requireds
           [
             "#sg-first",
             "#sg-last",
@@ -206,17 +196,15 @@
             const el = $(sel);
             if (el) el.required = up;
           });
+
           err.textContent = "";
         };
-        $$("#tab-signin, #tab-signup").forEach((r) =>
-          r.addEventListener("change", () => setMode(r.value))
-        );
+        $$("#tab-signin, #tab-signup").forEach((r) => {
+          r.addEventListener("change", () => setMode(r.value));
+        });
+        setMode("signin");
 
-        // Permitir abrir directo en "Registrarme" con ?mode=signup
-        const qsMode = new URLSearchParams(location.search).get("mode");
-        setMode(qsMode === "signup" ? "signup" : "signin");
-
-        /* Helpers de storage */
+        // ===== Storage helpers =====
         const USERS_KEY = "cmf_users";
         const CURR_KEY = "cmf_current_user";
         const loadUsers = () => {
@@ -237,17 +225,27 @@
           } catch {}
         };
 
-        /* Redirección post-auth (default: recetas.html) */
         const getRedirectTarget = () => {
+          // 1) Intent de tu sitio (si existe), 2) ?redirect de la URL, 3) recetas
+          try {
+            if (window.Intent && typeof Intent.load === "function") {
+              const it = Intent.load();
+              if (it && it.href) {
+                Intent.clear?.();
+                return it.href;
+              }
+              Intent.clear?.();
+            }
+          } catch {}
           const p = new URLSearchParams(location.search);
           return p.get("redirect") || "recetas.html";
         };
 
-        /* Validación simple */
-        const isEmail = (s) => /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(s || "");
+        // ===== Validadores simples =====
+        const isEmail = (s) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s || "");
         const minLen = (s, n) => (s || "").length >= n;
 
-        /* Submit */
+        // ===== Submit =====
         form.addEventListener("submit", (e) => {
           e.preventDefault();
           err.textContent = "";
@@ -267,6 +265,10 @@
               return;
             }
 
+            // Sesión
+            try {
+              Auth?.setAuthed?.(u.email, u.first + " " + u.last);
+            } catch {}
             try {
               localStorage.setItem(
                 "cmf_auth",
@@ -325,6 +327,9 @@
           };
           saveUsers(users);
 
+          try {
+            Auth?.setAuthed?.(email, first + " " + last);
+          } catch {}
           try {
             localStorage.setItem(
               "cmf_auth",

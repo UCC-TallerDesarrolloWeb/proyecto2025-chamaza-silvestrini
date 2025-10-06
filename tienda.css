@@ -1,0 +1,298 @@
+/* ===== Tenedor Libre — Tienda ===== */
+:root{
+  --beige-25:#FFFBF1; --beige-50:#FFF6E6; --beige-100:#FCEFD7; --beige-200:#F6E5C3; --beige-300:#EED8A8; --beige-400:#E2C98B; --beige-500:#D6BA72;
+  --brown-900:#2B1A12; --brown-800:#3D2A20; --brown-700:#5C4033; --brown-600:#7A523F; --brown-500:#976B52; --brown-400:#B6866C;
+  --fg:var(--brown-900); --ink-light:#fff; --muted:#6b6f76; --surface:#fff; --card:#fffdf8; --border:#e6dcc9; --shadow:0 10px 24px rgba(0,0,0,.12);
+
+  /* Colores del camión (podés cambiarlos fácil) */
+  --truck-body:#e9edf1;
+  --truck-cab:#ff6b63;
+  --truck-glass1:#e7f6ff;
+  --truck-glass2:#bcdaf6;
+  --truck-trim:#7b7f85;
+  --truck-tyre:#1e1f22;
+  --truck-head:#ffd089;
+  --truck-deco:#d4dde6;
+}
+
+/* Botones / cards básicos */
+.btn{appearance:none;border:1px solid var(--brown-500);background:var(--brown-600);color:#fff;padding:.7rem 1rem;border-radius:12px;font-weight:700;cursor:pointer}
+.btn:hover{filter:brightness(1.03)}
+.btn.small{padding:.45rem .7rem;border-radius:10px;font-weight:600;font-size:.95rem}
+.btn.secondary{background:var(--beige-300);color:var(--brown-900);border-color:color-mix(in lab,var(--beige-400),black 18%)}
+.btn.primary{background:var(--brown-700)}
+.btn.danger{background:#b63a3a;border-color:#b63a3a}
+.btn.inline{font-size:.9rem;padding:10px 18px;border-radius:10px;font-weight:600;border:none;transition:.2s ease}
+.btn.inline{background:var(--brown-600);color:#fff}
+.btn.inline:hover{background:var(--brown-500);transform:translateY(-1px)}
+.btn.secondary.inline{background:var(--beige-300);color:var(--brown-900)}
+.btn.secondary.inline:hover{background:var(--beige-200);transform:translateY(-1px)}
+
+/* === Grilla de productos === */
+.shop-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:18px;
+}
+.shop-grid .card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,.06);
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.shop-grid .card h3{font-size:1.05rem;line-height:1.2;margin:2px 0 4px;color:var(--brown-900)}
+.shop-grid .card img{aspect-ratio:1/1;object-fit:cover;border-radius:12px;background:#fff}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,.06);padding:12px;display:flex;flex-direction:column;gap:10px}
+.card h3{font-size:1.05rem;line-height:1.2;margin:2px 0 4px;color:var(--brown-900)}
+.grid.cards .card img{aspect-ratio:1/1;object-fit:cover;border-radius:12px;background:#fff}
+.price{font-weight:800;color:var(--brown-700)}
+.card .meta-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.card .tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:.78rem;padding:3px 8px;border:1px solid color-mix(in lab,var(--beige-400),black 18%);border-radius:999px;background:var(--beige-300);color:var(--fg)}
+.empty{padding:18px;border:1px dashed color-mix(in lab,var(--beige-400),black 24%);border-radius:14px;text-align:center;color:var(--muted);background:#fff}
+
+/* ===== Toolbar de filtros ===== */
+.shop-toolbar{
+  background:#fff;
+  padding:14px 16px;border-radius:18px;box-shadow:0 4px 12px rgba(0,0,0,.1);margin-bottom:22px;transition:.3s ease
+}
+.shop-toolbar:hover{box-shadow:0 6px 18px rgba(0,0,0,.18)}
+
+.filters-row{display:flex; align-items:flex-end; gap:12px; flex-wrap:wrap;}
+.field{display:flex; flex-direction:column; gap:6px; min-width:180px}
+.field.short{min-width:120px; width:120px}
+.field.buttons{display:flex; flex-direction:row; gap:10px; align-items:center; justify-content:flex-start; min-width:auto}
+
+.shop-select,.shop-input, .filters-row input[type="search"]{
+  font-size:.95rem;padding:10px 12px;border-radius:12px;border:1px solid color-mix(in lab,var(--beige-400),black 20%);
+  background:#fffaf3;color:var(--brown-800);box-shadow:inset 0 1px 2px rgba(0,0,0,.05);transition:border-color .2s,box-shadow .2s
+}
+.shop-select:focus,.shop-input:focus,.filters-row input[type="search"]:focus{
+  outline:none;border-color:var(--brown-500);box-shadow:0 0 0 3px color-mix(in lab,var(--brown-400),#fff 60%)
+}
+
+/* ===== Carrito ===== */
+.cart-btn{position:relative}
+.cart-count{position:absolute;top:-6px;right:-6px;background:var(--brown-600);color:var(--ink-light);border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;padding:0 6px;font-size:.8rem;font-weight:800}
+dialog.cart{width:min(720px,96vw);border:1px solid var(--border);border-radius:14px;padding:0;overflow:hidden}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--surface)}
+.cart-body{padding:14px 16px}
+.cart-list{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.cart-item{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:center;border-bottom:1px dashed var(--border);padding-bottom:8px}
+.cart-foot{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--surface);border-top:1px solid var(--border)}
+.cart-total{font-weight:800}
+
+/* Responsive fino */
+@media (max-width:540px){
+  .field{min-width:140px}
+  .field.short{min-width:100px;width:100px}
+  .cart-item{grid-template-columns:1fr auto;grid-auto-flow:row}
+  .cart-item > div:nth-child(3){justify-self:end}
+}
+
+/* ===== Botón de pedido con camión (centrado + profundidad + inclinación) ===== */
+.order-btn{
+  position:relative; overflow:hidden; isolation:isolate;
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  border-radius:999px; padding:12px 20px; font-weight:800;
+  background:var(--brown-700); color:#fff; border:1px solid var(--brown-600);
+  box-shadow:0 6px 14px rgba(0,0,0,.18);
+  transition:transform .12s ease;
+}
+.order-btn:disabled{opacity:.9; cursor:default}
+.order-btn.nope{animation:btn-shake .45s ease}
+
+/* Texto: oculto suave pero mantiene ancho fijo */
+.order-btn .label{position:relative; z-index:2; white-space:nowrap; transition:opacity .35s ease;}
+.order-btn.ordering .label{opacity:0}
+
+/* Pista suave */
+.order-btn .road{
+  position:absolute; inset:0 10px; border-radius:999px;
+  background:linear-gradient(to bottom, rgba(255,255,255,.08), rgba(0,0,0,.1));
+  opacity:.2; z-index:1;
+}
+
+/* === Caja + Camión (la caja se ve llegar, entra al centro y luego parte) === */
+
+/* La caja nace FUERA del camión (a la izquierda) para que se vea el recorrido */
+.order-btn .box{
+  position:absolute;
+  left:calc(50% - 32px - 20px); /* 50% (centro botón) - 32px (mitad camión) - 20px (margen fuera) */
+  top:50%;
+  width:12px; height:12px;
+  transform:translateY(-50%); transform-origin:center;
+  background:linear-gradient(180deg, #ffd07a 0%, #ffba3c 100%);
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow:inset 0 -1px 0 rgba(0,0,0,.25), 0 1px 0 rgba(255,255,255,.4);
+  z-index:2; visibility:hidden; opacity:0;
+}
+.order-btn .box::before,
+.order-btn .box::after{
+  /* cinta vertical y brillito de tapa */
+  content:""; position:absolute; left:50%; transform:translateX(-50%);
+  border-radius:1px; pointer-events:none;
+}
+.order-btn .box::before{ top:0; width:2px; height:100%; background:rgba(0,0,0,.08); }
+.order-btn .box::after{ top:-2px; width:110%; height:2px; background:rgba(255,255,255,.65); }
+
+/* Camión CENTRADO y más alto en z-index, así la caja desaparece "adentro" al final */
+.order-btn .truck{
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:64px; height:32px; z-index:3; display:block; opacity:0;
+}
+
+/* Secuencia:
+   0–1.35s → camión centrado, aparece la caja a la izquierda, sube a horquillas, se mete al centro y se pierde detrás
+   1.35–2.7s → camión arranca y se va */
+.order-btn.ordering .box{
+  visibility:visible; opacity:1;
+  animation:box-load-visible 1.35s ease-out forwards;
+}
+.order-btn.ordering .truck{
+  opacity:1;
+  animation:
+    truck-bounce-centered 1.35s ease-in-out,
+    truck-drive-centered 1.35s 1.35s cubic-bezier(.25,.9,.25,1) forwards;
+}
+
+/* Ruedas: ritmo acorde */
+.order-btn.ordering .wheel{ animation:wheel-spin 1.6s linear infinite; }
+
+/* Estados extra */
+.order-btn.done .truck{ animation:truck-exit-centered .6s ease-in forwards; }
+.order-btn.done .box{ opacity:0; }
+
+/* ---- Partes del camión — estética mejorada ---- */
+.truck .body{
+  position:absolute; left:10px; top:3px; width:30px; height:18px; border-radius:4px;
+  background:linear-gradient(180deg, var(--truck-body) 0%, #dfe6ee 100%);
+  box-shadow:inset 0 -1px 0 rgba(0,0,0,.14), 0 0 0 1px rgba(0,0,0,.06);
+}
+.truck .body::before{
+  /* panel puerta trasera */
+  content:""; position:absolute; inset:3px 4px 4px 4px; border-radius:3px;
+  background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(0,0,0,.04));
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);
+}
+.truck .body::after{
+  /* franja lateral (y también usamos este ::after para la profundidad animada) */
+  content:""; position:absolute; inset:0;
+  border-radius:4px; pointer-events:none;
+  background:
+    radial-gradient(120% 140% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,.45) 70%),
+    linear-gradient(90deg, transparent 3px, var(--truck-deco) 20%, transparent calc(100% - 3px));
+  opacity:.12; /* sube con cargo-depth */
+}
+.order-btn.ordering .truck .body::after{ animation:cargo-depth 1.35s ease-out forwards; }
+
+.truck .cab{
+  position:absolute; right:2px; top:4px; width:20px; height:16px;
+  background:linear-gradient(180deg, var(--truck-cab) 0%, color-mix(in lab, var(--truck-cab), black 12%) 100%);
+  border-radius:4px 4px 3px 3px;
+  box-shadow:inset 0 -1px 0 rgba(0,0,0,.15), 0 0 0 1px rgba(0,0,0,.06);
+}
+.truck .cab::before{
+  /* paragolpe */
+  content:""; position:absolute; left:-2px; right:-1px; bottom:-2px; height:4px;
+  background:linear-gradient(180deg, #d0d6dc, #aab3bd);
+  border-radius:2px; box-shadow:0 1px 0 rgba(0,0,0,.15);
+}
+.truck .cab::after{
+  /* vidrio */
+  content:""; position:absolute; left:3px; right:4px; top:3px; height:8px; border-radius:2px;
+  background:linear-gradient(180deg, var(--truck-glass1), var(--truck-glass2));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);
+}
+/* reflejo suave al ordenar */
+.order-btn.ordering .cab::after{ animation:glass-sheen 1.2s ease-out forwards; }
+
+.truck .light{
+  position:absolute; right:-2px; top:10px; width:6px; height:4px;
+  background:radial-gradient(circle at 30% 50%, #ffe1a7, var(--truck-head));
+  border-radius:2px; box-shadow:0 0 8px var(--truck-head);
+}
+
+.truck .forks{
+  position:absolute; left:0; top:6px; width:12px; height:2px;
+  background:linear-gradient(180deg,#f2f6fa,#c8d0d8);
+  box-shadow:0 4px 0 #d3dbe5, 0 0 0 1px rgba(0,0,0,.05);
+}
+
+.truck .wheel{
+  position:absolute; bottom:-3px; width:12px; height:12px; border-radius:50%;
+  background:radial-gradient(circle at 50% 50%, var(--truck-tyre) 60%, #0f1013 100%);
+  box-shadow:inset 0 0 0 2px var(--truck-trim), 0 2px 2px rgba(0,0,0,.25);
+  animation:wheel-spin 1.2s linear infinite paused;
+}
+.truck .wheel::before{
+  content:""; position:absolute; inset:3px; border-radius:50%;
+  background:radial-gradient(circle, #cfd6dd, #aab3bd);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.18);
+}
+.truck .wheel::after{
+  content:""; position:absolute; left:5px; top:5px; width:2px; height:2px; border-radius:50%;
+  background:#6b737c;
+}
+.truck .wheel.left{left:14px}
+.truck .wheel.right{right:6px}
+
+/* Estela/exhaust (suave) */
+.order-btn.ordering .truck::before{
+  content:""; position:absolute; left:-10px; top:8px; width:8px; height:8px;
+  border-radius:50%; background:rgba(255,255,255,.35); filter:blur(0.6px);
+  animation:exhaust 1s ease-out infinite;
+}
+
+/* ===== Keyframes — caja visible, entra al centro y parte ===== */
+@keyframes box-load-visible{
+  0%   { transform:translate(0px, -50%)  rotate(0)     scale(1);   opacity:0; }
+  12%  { transform:translate(6px, -50%)  rotate(0)     scale(1);   opacity:1; }      /* aparece y se acerca */
+  35%  { transform:translate(16px,-122%) rotate(-12deg) scale(1);  opacity:1; }      /* sube a horquillas */
+  60%  { transform:translate(30px,-122%) rotate(-8deg)  scale(1);  opacity:1; }      /* avanza hacia el centro */
+  82%  { transform:translate(38px, -90%) rotate(-3deg)  scale(.97);opacity:.9; }     /* entrando */
+  100% { transform:translate(44px, -50%) rotate(0)      scale(.9); opacity:0; }      /* adentro y detrás */
+}
+
+/* Profundidad del interior del furgón (oscurece al cargar) */
+@keyframes cargo-depth{
+  0%   { opacity:.12; }
+  50%  { opacity:.28; }
+  100% { opacity:.48; }
+}
+
+/* Camión centrado: rebote quieto y salida a la derecha */
+@keyframes truck-bounce-centered{
+  0%,100%{ transform:translate(-50%,-50%); }
+  50%    { transform:translate(-50%, calc(-50% - 1px)); }
+}
+@keyframes truck-drive-centered{
+  from { left:50%; }
+  to   { left:130%; }
+}
+@keyframes truck-exit-centered{
+  from { left:calc(100% - 64px); transform:translate(-50%,-50%); }
+  to   { left:130%; transform:translate(-50%,-50%); }
+}
+
+/* Extras de estilo/feedback */
+@keyframes glass-sheen{
+  0% { box-shadow:inset 0 0 0 1px rgba(255,255,255,.25); }
+  50%{ box-shadow:inset -12px 0 12px rgba(255,255,255,.35), inset 0 0 0 1px rgba(255,255,255,.25); }
+  100%{ box-shadow:inset 0 0 0 1px rgba(255,255,255,.25); }
+}
+@keyframes wheel-spin{ from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@keyframes exhaust{ 0%{opacity:.5; transform:translateX(0) scale(.8)} 100%{opacity:0; transform:translateX(-10px) scale(1.6)} }
+@keyframes btn-shake{
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-4px)}
+  40%{transform:translateX(4px)}
+  60%{transform:translateX(-3px)}
+  80%{transform:translateX(3px)}
+}

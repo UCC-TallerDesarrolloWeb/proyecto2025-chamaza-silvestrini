@@ -1,23 +1,28 @@
 <!DOCTYPE html>
-<html lang="es" class="brand-cuisinemf">
+<html lang="es" class="brand-tenedorlibre">
   <head>
     <meta charset="utf-8" />
-    <title>Cuisine M&F — Recetas, clases y tienda gourmet</title>
+    <title>Tenedor Libre — Buffet en casa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Cuisine M&F — Recetario con fotos, mapa de clases/ferias y tienda de productos de cocina de autor."
+      content="Tenedor Libre — Buffet en casa. Recetario con fotos, mapa de clases/ferias y comunidad gastronómica."
     />
     <meta name="color-scheme" content="dark light" />
-    <link rel="stylesheet" href="styles_cuisinemf.css" />
-    <script src="cuisinemf.js" defer></script>
+    <link rel="stylesheet" href="stylestenedorlibre.css" />
+    <script src="index.js" defer></script>
   </head>
   <body>
     <!-- Header -->
     <header class="site-header" aria-label="Barra principal">
       <div class="container nav">
         <a class="brand" href="#hero" aria-label="Volver al inicio">
-          <span class="brand-text">Cuisine M&F</span>
+          <img
+            src="imagenes/logo-tenedor.png"
+            alt="Logo de Tenedor Libre"
+            class="brand-logo"
+          />
+          <span class="brand-text">Tenedor Libre</span>
         </a>
 
         <button
@@ -32,13 +37,39 @@
         </button>
 
         <nav id="site-nav" class="links" aria-label="Secciones">
-          <a href="#recetas">Recetas</a>
-          <a href="#chefs">Chefs</a>
+          <div class="menu-group has-dropdown">
+            <button
+              id="dd-recetas-btn"
+              class="dd-trigger"
+              aria-expanded="false"
+              aria-controls="dd-recetas"
+            >
+              Categorías ▾
+            </button>
+            <ul id="dd-recetas" class="dropdown" hidden>
+              <li><a href="#categorias" data-cat="saludable">Saludable</a></li>
+              <li>
+                <a href="#categorias" data-cat="vegetariano">Vegetariano</a>
+              </li>
+              <li><a href="#categorias" data-cat="dulce">Dulce</a></li>
+              <li>
+                <a href="#categorias" data-cat="romantica">Cena romántica</a>
+              </li>
+              <li><a href="#categorias" data-cat="paises">Países</a></li>
+              <li><a href="#categorias" data-cat="minutos10">10 minutos</a></li>
+              <li><a href="#categorias" data-cat="sintacc">SIN TACC</a></li>
+              <li>
+                <a href="#categorias" data-cat="pastas">Pastas y Salsas</a>
+              </li>
+              <li><a href="recetas.html" data-see-all>Ver todo</a></li>
+            </ul>
+          </div>
+
           <a href="#mapa">Mapa</a>
-          <a href="#tienda">Tienda</a>
+          <a href="tienda.html">Tienda</a>
           <a href="#resenas">Reseñas</a>
           <a href="#contacto">Contacto</a>
-          <a href="#registrarse">Registrarse</a>
+          <a href="login.html?mode=signup" id="nav-register">Registrarse</a>
         </nav>
       </div>
     </header>
@@ -47,22 +78,22 @@
       <!-- Hero -->
       <section class="hero" id="hero">
         <div class="container">
-          <span class="badge">Cuisine M&F — Sabores que florecen</span>
+          <span class="badge">Tenedor Libre — Buffet en casa</span>
           <h1 class="hero-title">Cocina con estilo, técnica y comunidad</h1>
           <p class="lead">
             Recetas de autor con <b>paso a paso</b>,
             <b>filtros inteligentes</b> y fotos editoriales.<br />
-            Descubrí clases y ferias en el <b>mapa</b> y equipate en la
-            <b>tienda</b>.
+            Descubrí clases y ferias en el <b>mapa</b> y compartí tu experiencia
+            con la comunidad.
           </p>
           <div class="cta">
             <a href="recetas.html" class="btn">Explorar recetas</a>
-            <a href="tienda.html" class="btn secondary">Ver tienda</a>
+            <a href="#mapa" class="btn secondary">Ver mapa</a>
           </div>
         </div>
       </section>
 
-      <!-- Acerca -->
+      <!-- Nuestra cocina -->
       <section
         id="acerca"
         class="section section-soft"
@@ -79,116 +110,72 @@
         </div>
       </section>
 
-      <!-- Recetas -->
-      <section id="recetas" class="section" aria-labelledby="recetas-title">
+      <!-- CATEGORÍAS -->
+      <section id="categorias" class="section" aria-labelledby="cat-title">
         <div class="container">
-          <h2 id="recetas-title">Recetas destacadas</h2>
-
+          <h2 id="cat-title">Categorías</h2>
           <div
-            class="recipe-toolbar"
-            aria-label="Filtros de recetas"
-            style="
-              display: flex;
-              gap: 10px;
-              align-items: center;
-              margin: 10px 0 18px;
-            "
+            class="cat-strip"
+            aria-label="Categorías de recetas (deslizar lateralmente)"
           >
-            <button
-              class="chip chip-gold"
-              aria-pressed="true"
-              data-filter="Todas"
-            >
-              Todas
-            </button>
-            <button class="chip" data-filter="Fácil">Fácil</button>
-            <button class="chip" data-filter="Intermedio">Intermedio</button>
-            <button class="chip" data-filter="Horno">Horno</button>
-            <button class="chip" data-filter="Wok">Wok</button>
-            <!-- Este link será interceptado por el JS: si no hay sesión, abre el login aquí mismo -->
-            <a
-              class="btn tertiary"
-              href="recetas.html"
-              style="margin-left: auto"
-              >Ver todas</a
-            >
-          </div>
+            <article class="cat-card" data-cat="saludable">
+              <img
+                src="imagenes/saludable.JPG"
+                alt="Categoría saludable, ensalada fresca"
+              />
+              <div class="cat-footer">
+                <span>Saludable</span><span class="arrow">→</span>
+              </div>
+            </article>
 
-          <div class="recipe-gallery">
-            <!-- Tarta de coco -->
-            <a
-              class="recipe-card"
-              href="#!"
-              aria-label="Ver receta: Tarta de coco"
-              data-level="Intermedio"
-              data-method="Horno"
-            >
-              <figure>
-                <img
-                  src="imagenes/tartacoco.png"
-                  alt="Tarta de coco casera con dorado parejo"
-                  loading="lazy"
-                />
-                <figcaption class="overlay">
-                  <div class="overlay-top">
-                    <span class="chip chip-dark">60 min</span>
-                    <span class="chip chip-gold">Intermedio</span>
-                  </div>
-                  <h3 class="title">Tarta de coco</h3>
-                  <p class="meta">8 porciones • 🥧 Horno</p>
-                </figcaption>
-              </figure>
-            </a>
+            <article class="cat-card" data-cat="dulce">
+              <img src="imagenes/dulce.JPG" alt="Categoría dulce, alfajores" />
+              <div class="cat-footer">
+                <span>Dulce</span><span class="arrow">→</span>
+              </div>
+            </article>
 
-            <!-- Chop suey -->
-            <a
-              class="recipe-card"
-              href="#!"
-              aria-label="Ver receta: Chop suey"
-              data-level="Fácil"
-              data-method="Wok"
-            >
-              <figure>
-                <img
-                  src="imagenes/chopsuey.jpg"
-                  alt="Chop suey salteado con vegetales y carne"
-                  loading="lazy"
-                />
-                <figcaption class="overlay">
-                  <div class="overlay-top">
-                    <span class="chip chip-dark">30 min</span>
-                    <span class="chip chip-gold">Fácil</span>
-                  </div>
-                  <h3 class="title">Chop suey</h3>
-                  <p class="meta">4 porciones • 🍳 Wok</p>
-                </figcaption>
-              </figure>
-            </a>
+            <article class="cat-card" data-cat="romantica">
+              <img src="imagenes/cena.png" alt="Categoría cena romántica" />
+              <div class="cat-footer">
+                <span>Cena romántica</span><span class="arrow">→</span>
+              </div>
+            </article>
 
-            <!-- Empanadas -->
-            <a
-              class="recipe-card"
-              href="#!"
-              aria-label="Ver receta: Empanadas"
-              data-level="Intermedio"
-              data-method="Horno"
-            >
-              <figure>
-                <img
-                  src="imagenes/empanada.webp"
-                  alt="Empanadas doradas recién horneadas"
-                  loading="lazy"
-                />
-                <figcaption class="overlay">
-                  <div class="overlay-top">
-                    <span class="chip chip-dark">45 min</span>
-                    <span class="chip chip-gold">Intermedio</span>
-                  </div>
-                  <h3 class="title">Empanadas</h3>
-                  <p class="meta">12 unidades • 🥟 Horno</p>
-                </figcaption>
-              </figure>
-            </a>
+            <article class="cat-card" data-cat="vegetariano">
+              <img src="imagenes/vegano.JPG" alt="Categoría vegetariano" />
+              <div class="cat-footer">
+                <span>Vegetariano</span><span class="arrow">→</span>
+              </div>
+            </article>
+
+            <article class="cat-card" data-cat="paises">
+              <img src="imagenes/mundo.png" alt="Categoría países" />
+              <div class="cat-footer">
+                <span>Países</span><span class="arrow">→</span>
+              </div>
+            </article>
+
+            <article class="cat-card" data-cat="minutos10">
+              <img src="imagenes/10min.png" alt="10 minutos" />
+              <div class="cat-footer">
+                <span>10 minutos</span><span class="arrow">→</span>
+              </div>
+            </article>
+
+            <article class="cat-card" data-cat="pastas">
+              <img src="imagenes/pasta.png" alt="Categoría pastas y salsas" />
+              <div class="cat-footer">
+                <span>Pastas y Salsas</span><span class="arrow">→</span>
+              </div>
+            </article>
+
+            <article class="cat-card" data-cat="sintacc">
+              <img src="imagenes/SINTAC.png" alt="Categoría SIN TACC" />
+              <div class="cat-footer">
+                <span>SIN TACC</span><span class="arrow">→</span>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -217,140 +204,67 @@
         </div>
       </section>
 
-      <!-- Tienda -->
-      <section id="tienda" class="section" aria-labelledby="tienda-title">
-        <div class="container">
-          <h2 id="tienda-title">Selecciones de tienda</h2>
-          <div class="grid cards">
-            <article class="card">
-              <img
-                src="imagenes/cuchillo.jpg"
-                alt="Cuchillo de chef"
-                loading="lazy"
-              />
-              <h3>Cuchillo Chef</h3>
-              <p>Acero alemán, balance perfecto. Ideal para mise en place.</p>
-              <button class="btn small">Ver detalle</button>
-            </article>
-            <article class="card">
-              <img
-                src="imagenes/sarten26.webp"
-                alt="Sartén de hierro 26 cm"
-                loading="lazy"
-              />
-              <h3>Sartén de hierro 26 cm</h3>
-              <p>Sellado intenso y distribución uniforme del calor.</p>
-              <button class="btn small">Ver detalle</button>
-            </article>
-            <article class="card">
-              <img
-                src="imagenes/especias.jpg"
-                alt="Mezcla de especias mediterráneas"
-                loading="lazy"
-              />
-              <h3>Especias Mediterráneas</h3>
-              <p>Blend de hierbas con tomillo, romero y limón.</p>
-              <button class="btn small">Ver detalle</button>
-            </article>
-          </div>
-        </div>
-      </section>
-
       <!-- Reseñas -->
       <section id="resenas" class="section" aria-labelledby="resenas-title">
         <div class="container narrow">
           <h2 id="resenas-title">Reseñas de la comunidad</h2>
 
-          <div class="grid">
-            <!-- Formulario para escribir reseña -->
-            <div class="col-6">
-              <div class="card">
-                <div class="card-body">
-                  <h3 style="margin-top: 0">Dejá tu reseña</h3>
-                  <form id="review-form">
-                    <label for="nombre">Nombre</label><br />
-                    <input
-                      id="nombre"
-                      name="nombre"
-                      type="text"
-                      placeholder="Tu nombre"
-                      required
-                      style="
-                        width: 100%;
-                        padding: 10px;
-                        border: 1px solid #e5e7eb;
-                        border-radius: 10px;
-                      "
-                    />
-                    <div style="height: 10px"></div>
-                    <label for="comentario">Comentario</label><br />
-                    <textarea
-                      id="comentario"
-                      name="comentario"
-                      rows="4"
-                      placeholder="¿Cómo fue tu experiencia?"
-                      required
-                      style="
-                        width: 100%;
-                        padding: 10px;
-                        border: 1px solid #e5e7eb;
-                        border-radius: 10px;
-                      "
-                    ></textarea>
-                    <div style="height: 10px"></div>
-                    <label>Puntaje</label>
-                    <div
-                      class="stars"
-                      id="stars-input"
-                      aria-label="Seleccionar puntaje"
-                    >
-                      <button type="button" data-v="1" aria-label="1 estrella">
-                        ★
-                      </button>
-                      <button type="button" data-v="2" aria-label="2 estrellas">
-                        ★
-                      </button>
-                      <button type="button" data-v="3" aria-label="3 estrellas">
-                        ★
-                      </button>
-                      <button type="button" data-v="4" aria-label="4 estrellas">
-                        ★
-                      </button>
-                      <button type="button" data-v="5" aria-label="5 estrellas">
-                        ★
-                      </button>
-                    </div>
-                    <input
-                      type="hidden"
-                      id="puntaje"
-                      name="puntaje"
-                      value="0"
-                    />
-                    <div style="height: 14px"></div>
-                    <button class="btn" type="submit">Publicar reseña</button>
-                  </form>
-                </div>
+          <div class="reseñas-grid">
+            <!-- Formulario -->
+            <div class="reseña-form card">
+              <div class="card-body">
+                <h3>Dejá tu reseña</h3>
+                <form id="review-form">
+                  <label for="nombre">Nombre</label>
+                  <input
+                    id="nombre"
+                    name="nombre"
+                    type="text"
+                    placeholder="Tu nombre"
+                    required
+                  />
+
+                  <label for="comentario">Comentario</label>
+                  <textarea
+                    id="comentario"
+                    name="comentario"
+                    rows="4"
+                    placeholder="¿Cómo fue tu experiencia?"
+                    required
+                  ></textarea>
+
+                  <label>Puntaje</label>
+                  <div
+                    class="stars"
+                    id="stars-input"
+                    aria-label="Seleccionar puntaje"
+                  >
+                    <button type="button" data-v="1">★</button>
+                    <button type="button" data-v="2">★</button>
+                    <button type="button" data-v="3">★</button>
+                    <button type="button" data-v="4">★</button>
+                    <button type="button" data-v="5">★</button>
+                  </div>
+
+                  <input type="hidden" id="puntaje" name="puntaje" value="0" />
+                  <button class="btn" type="submit">Publicar reseña</button>
+                </form>
               </div>
             </div>
 
             <!-- Lista de reseñas -->
-            <div class="col-6">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row-between">
-                    <h3 style="margin: 0">Últimas reseñas</h3>
-                    <span
-                      id="avg"
-                      class="chip chip-gold"
-                      title="Promedio de estrellas"
-                      >⭐ 0.0</span
-                    >
-                  </div>
-                  <div
-                    id="reviews-list"
-                    style="display: grid; gap: 10px; margin-top: 12px"
-                  ></div>
+            <div class="reseña-list card">
+              <div class="card-body">
+                <div class="row-between">
+                  <h3>Últimas reseñas</h3>
+                  <span
+                    id="avg"
+                    class="chip chip-gold"
+                    title="Promedio de estrellas"
+                    >⭐ 0.0</span
+                  >
                 </div>
+                <div id="reviews-list" class="reviews-scroll"></div>
               </div>
             </div>
           </div>
@@ -367,7 +281,6 @@
           <h2 id="contacto-title">Contacto</h2>
           <p class="muted">¿Sos chef, escuela o marca? Conversemos.</p>
           <form class="contact-form" action="#" method="post">
-            <label class="sr-only" for="contact-email">Email</label>
             <input
               id="contact-email"
               name="email"
@@ -375,15 +288,12 @@
               placeholder="Tu@email.com"
               required
             />
-
-            <label class="sr-only" for="contact-msg">Mensaje</label>
             <textarea
               id="contact-msg"
               name="mensaje"
               rows="3"
               placeholder="Contanos cómo te gustaría participar"
             ></textarea>
-
             <button class="btn" type="submit">Enviar</button>
           </form>
         </div>
@@ -393,133 +303,10 @@
     <footer class="site-footer">
       <div class="container">
         <small
-          >© <span class="mono">Cuisine M&amp;F</span>. Sabores que
-          florecen.</small
+          >© <span class="mono">Tenedor Libre</span>. Buffet en casa.</small
         >
         <a class="back-to-top" href="#hero" aria-label="Volver arriba">↑</a>
       </div>
     </footer>
-
-    <!-- Helper -->
-    <span class="sr-only" id="sr-desc"
-      >Contenido visual destacado con textos alternativos descriptivos.</span
-    >
-
-    <!-- Modal de receta -->
-    <dialog
-      id="recipe-modal"
-      class="recipe-modal"
-      aria-labelledby="recipe-modal-title"
-    >
-      <button class="recipe-modal-close" aria-label="Cerrar">×</button>
-
-      <div class="recipe-modal-media">
-        <img id="recipe-modal-img" alt="" />
-        <div class="recipe-modal-overlay">
-          <h3 id="recipe-modal-title"></h3>
-          <p id="recipe-modal-meta" class="meta"></p>
-        </div>
-      </div>
-
-      <div class="recipe-modal-body">
-        <p class="muted">Próximamente: ingredientes y paso a paso.</p>
-        <div class="modal-actions">
-          <button class="btn secondary" id="recipe-modal-back">Cerrar</button>
-        </div>
-      </div>
-    </dialog>
-
-    <!-- Login Modal (inline, único) -->
-    <dialog id="login-modal" class="login-modal" aria-labelledby="login-title">
-      <button class="login-modal-close" aria-label="Cerrar">×</button>
-
-      <header class="login-head">
-        <div class="brand"><span class="brand-text">Cuisine M&amp;F</span></div>
-        <h2 id="login-title">Iniciá sesión o registrate</h2>
-        <p class="muted">
-          Para ver ingredientes y “Todas las recetas”, iniciá sesión. ¡A
-          cocinar! 🍳
-        </p>
-      </header>
-
-      <form
-        id="auth-form"
-        class="login-body"
-        autocomplete="on"
-        novalidate
-        aria-live="polite"
-      >
-        <div class="login-tabs" role="tablist" aria-label="Elegí una opción">
-          <div class="login-tab">
-            <input
-              type="radio"
-              name="mode"
-              id="tab-in"
-              value="signin"
-              checked
-            />
-            <label for="tab-in" role="tab" aria-controls="panel-auth"
-              >Iniciar sesión</label
-            >
-          </div>
-          <div class="login-tab">
-            <input type="radio" name="mode" id="tab-up" value="signup" />
-            <label for="tab-up" role="tab" aria-controls="panel-auth"
-              >Registrarme</label
-            >
-          </div>
-        </div>
-
-        <div
-          class="form-grid"
-          id="panel-auth"
-          role="tabpanel"
-          aria-labelledby="tab-in"
-        >
-          <div class="form-row" id="signup-fields" hidden>
-            <label for="name">Nombre</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              placeholder="Tu nombre (opcional)"
-            />
-          </div>
-
-          <div class="form-row">
-            <label for="email">Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              inputmode="email"
-              autocomplete="email"
-              placeholder="tu@email.com"
-              required
-            />
-          </div>
-
-          <div class="form-row">
-            <label for="password">Contraseña</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autocomplete="current-password"
-              placeholder="••••••••"
-              required
-            />
-          </div>
-
-          <p class="form-error" aria-live="assertive"></p>
-
-          <button class="btn btn-wide" type="submit">Continuar</button>
-          <p class="legal">
-            Al continuar aceptás nuestras <a href="#!">condiciones</a> y
-            <a href="#!">privacidad</a>.
-          </p>
-        </div>
-      </form>
-    </dialog>
   </body>
 </html>
