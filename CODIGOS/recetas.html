@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es" class="brand-tenedorlibre">
+  <head>
+    <meta charset="utf-8" />
+    <title>Recetas — por categorías | Tenedor Libre</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Tu Nombre" />
+    <meta name="keywords" content="recetas, categorías, cocina, sabores, tenedor libre" />
+    <meta name="color-scheme" content="dark light" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../imagenes/logo-tenedor.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../imagenes/logo-tenedor.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../imagenes/logo-tenedor.png" />
+    <link rel="apple-touch-icon" href="../imagenes/logo-tenedor.png" />
+    <!-- Estilos -->
+    <link rel="stylesheet" href="tenedorlibre.css" />
+    <script src="recetas.js" defer></script>
+  </head>
+
+  <body>
+    <!-- ================= HEADER ================= -->
+    <header class="site-header" aria-label="Barra principal">
+      <div class="container nav">
+        <a class="brand" href="index.html#hero" aria-label="Volver al inicio">
+          <img
+            src="../imagenes/logo-tenedor.png"
+            alt="Logo de Tenedor Libre"
+            class="brand-logo"
+          />
+          <span class="brand-text">Tenedor Libre</span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <nav id="site-nav" class="links" aria-label="Secciones">
+          <a href="recetas.html">Categorías</a>
+          <a href="index.html#mapa">Mapa</a>
+          <a href="tienda.html">Tienda</a>
+          <a href="index.html#resenas">Reseñas</a>
+          <a href="index.html#contacto">Contacto</a>
+          <a href="login.html?mode=signup" id="nav-register">Registrarse</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ================= MAIN ================= -->
+    <main class="section">
+      <div class="container">
+        <div class="actions-row">
+          <h1>Todas las recetas</h1>
+          <button id="btn-see-all" class="btn secondary">Ver todas</button>
+        </div>
+        <p class="lead">
+          Elegí una <b>categoría</b> o mirá <b>todas</b> las recetas.
+        </p>
+
+        <!-- GRID DE CATEGORÍAS -->
+        <div id="cat-grid" class="cat-grid">
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="saludable">
+            <figure>
+              <img src="../imagenes/saludable.JPG" alt="Categoría Saludable" />
+              <figcaption class="overlay"><h3>Saludable</h3></figcaption>
+            </figure>
+          </a>
+
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="vegetariano">
+            <figure>
+              <img src="../imagenes/vegano.JPG" alt="Categoría Vegetariano" />
+              <figcaption class="overlay"><h3>Vegetariano</h3></figcaption>
+            </figure>
+          </a>
+
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="dulce">
+            <figure>
+              <img src="../imagenes/dulce.JPG" alt="Categoría Dulce" />
+              <figcaption class="overlay"><h3>Dulce</h3></figcaption>
+            </figure>
+          </a>
+
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="romantica">
+            <figure>
+              <img src="../imagenes/cena.png" alt="Cena romántica" />
+              <figcaption class="overlay"><h3>Cena romántica</h3></figcaption>
+            </figure>
+          </a>
+
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="paises">
+            <figure>
+              <img src="../imagenes/mundo.png" alt="Países" />
+              <figcaption class="overlay"><h3>Países</h3></figcaption>
+            </figure>
+          </a>
+
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="minutos">
+            <figure>
+              <img src="../imagenes/10min.png" alt="10 minutos" />
+              <figcaption class="overlay"><h3>10 minutos</h3></figcaption>
+            </figure>
+          </a>
+
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="sintacc">
+            <figure>
+              <img src="../imagenes/SINTAC.png" alt="SIN TACC" />
+              <figcaption class="overlay"><h3>SIN TACC</h3></figcaption>
+            </figure>
+          </a>
+
+          <a href="#!" class="recipe-card cat-card-tile" data-cat="pastas">
+            <figure>
+              <img src="../imagenes/pasta.png" alt="Pastas y Salsas" />
+              <figcaption class="overlay"><h3>Pastas y Salsas</h3></figcaption>
+            </figure>
+          </a>
+        </div>
+
+        <!-- RECETAS DE UNA CATEGORÍA -->
+        <section id="category-view" hidden>
+          <div class="back-row">
+            <button id="back-to-cats" class="btn secondary small">
+              ← Volver a categorías
+            </button>
+            <h2 id="category-title" class="category-heading"></h2>
+          </div>
+          <div id="category-gallery" class="recipe-gallery"></div>
+        </section>
+      </div>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="site-footer">
+      <div class="container">
+        <small>©️ Tenedor Libre — Buffet en casa.</small>
+      </div>
+    </footer>
+
+    <!-- ================= MODAL DE RECETA ================= -->
+    <dialog
+      id="recipe-modal"
+      class="recipe-modal"
+      aria-labelledby="recipe-modal-title"
+    >
+      <button class="recipe-modal-close" aria-label="Cerrar">×</button>
+
+      <!-- Imagen superior -->
+          <div class="recipe-modal-media">
+            <img id="recipe-modal-img" alt="Imagen detallada de la receta seleccionada" />
+          </div>      <!-- Contenido -->
+      <div class="recipe-modal-content">
+        <h3 id="recipe-modal-title">Receta</h3>
+
+        <!-- Línea de metadatos -->
+        <div id="recipe-modal-meta" class="recipe-meta">
+          <span>⏱️ 20 min</span>
+          <span>👥 2 porciones</span>
+          <span>🍳 horno</span>
+        </div>
+
+        <!-- Cuerpo dinámico -->
+        <div class="recipe-modal-body">
+          <p class="muted">Próximamente: ingredientes y paso a paso.</p>
+
+          <div class="modal-actions">
+            <button class="btn secondary" id="recipe-modal-back">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- ================= LOGIN MODAL ================= -->
+    <dialog id="login-modal" class="login-modal" aria-labelledby="login-title">
+      <button class="login-modal-close" aria-label="Cerrar">×</button>
+      <header class="login-head">
+        <div class="brand"><span class="brand-text">Tenedor Libre</span></div>
+        <h2 id="login-title">Iniciá sesión o registrate</h2>
+        <p class="muted">
+          Para ver ingredientes y “Todas las recetas”, iniciá sesión. ¡A
+          cocinar! 🍳
+        </p>
+      </header>
+      <form
+        id="auth-form"
+        class="login-body"
+        autocomplete="on"
+        novalidate
+        aria-live="polite"
+      >
+        <div class="login-tabs" role="tablist" aria-label="Elegí una opción">
+          <div class="login-tab">
+            <input
+              type="radio"
+              name="mode"
+              id="tab-in"
+              value="signin"
+              checked
+            />
+            <label for="tab-in" role="tab" aria-controls="panel-auth">
+              Iniciar sesión
+            </label>
+          </div>
+          <div class="login-tab">
+            <input type="radio" name="mode" id="tab-up" value="signup" />
+            <label for="tab-up" role="tab" aria-controls="panel-auth">
+              Registrarme
+            </label>
+          </div>
+        </div>
+
+        <div
+          class="form-grid"
+          id="panel-auth"
+          role="tabpanel"
+          aria-labelledby="tab-in"
+        >
+          <div class="form-row" id="signup-fields" hidden>
+            <label for="name">Nombre</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Tu nombre (opcional)"
+            />
+          </div>
+
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              placeholder="tu@email.com"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <label for="password">Contraseña</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+
+          <p class="form-error" aria-live="assertive"></p>
+          <button class="btn btn-wide" type="submit">Continuar</button>
+          <p class="legal">
+            Al continuar aceptás nuestras
+            <a href="#!">condiciones</a> y <a href="#!">privacidad</a>.
+          </p>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

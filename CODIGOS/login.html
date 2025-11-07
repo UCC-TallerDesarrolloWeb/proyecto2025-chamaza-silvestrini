@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es" class="brand-tenedorlibre">
+  <head>
+    <meta charset="utf-8" />
+    <title>Ingresar / Registrarme — Tenedor Libre</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Tu Nombre" />
+    <meta name="keywords" content="registro, login, cuenta, tenedor libre, recetas" />
+    <meta name="color-scheme" content="dark light" />
+    <meta
+      name="description"
+      content="Iniciá sesión o creá tu cuenta para ver todas las recetas de Tenedor Libre."
+    />
+    <link rel="stylesheet" href="tenedorlibre.css" />
+    <script src="tenedorlibre.js" defer></script>
+    <script src="login.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header" aria-label="Barra principal">
+      <div class="container nav">
+        <a class="brand" href="index.html#hero" aria-label="Volver al inicio">
+          <img
+            src="../imagenes/logo-tenedor.png"
+            alt="Logo de Tenedor Libre"
+            class="brand-logo"
+          />
+          <span class="brand-text">Tenedor Libre</span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <nav id="site-nav" class="links" aria-label="Secciones">
+          <a href="recetas.html">Categorías</a>
+          <a href="index.html#mapa">Mapa</a>
+          <a href="tienda.html">Tienda</a>
+          <a href="index.html#resenas">Reseñas</a>
+          <a href="index.html#contacto">Contacto</a>
+          <a href="login.html?mode=signup" id="nav-register">Registrarse</a>
+        </nav>
+      </div>
+    </header>
+    <main class="auth-wrap">
+      <section class="auth-card" role="dialog" aria-labelledby="title">
+        <header class="auth-head">
+          <div class="brand"><span class="brand-text">Tenedor Libre</span></div>
+          <h1 id="title" class="auth-title">Iniciá sesión o registrate</h1>
+          <p class="auth-sub">
+            Para ver recetas completas y “Todas las recetas”,
+            <b>iniciá sesión o creá tu cuenta</b>. 🍳
+          </p>
+        </header>
+
+        <div class="auth-tabs" role="tablist" aria-label="Elegí una opción">
+          <div class="auth-tab">
+            <input
+              type="radio"
+              name="mode"
+              id="tab-signin"
+              value="signin"
+              checked
+            />
+            <label for="tab-signin" role="tab" aria-controls="panel-auth"
+              >Iniciar sesión</label
+            >
+          </div>
+          <div class="auth-tab">
+            <input type="radio" name="mode" id="tab-signup" value="signup" />
+            <label for="tab-signup" role="tab" aria-controls="panel-auth"
+              >Registrarme</label
+            >
+          </div>
+        </div>
+
+        <form
+          id="auth-form"
+          class="auth-body"
+          autocomplete="on"
+          novalidate
+          aria-live="polite"
+          data-mode="signin"
+        >
+          <div
+            class="form-grid"
+            id="panel-auth"
+            role="tabpanel"
+            aria-labelledby="tab-signin"
+          >
+            <!-- ======= INICIAR SESIÓN: USUARIO + CONTRASEÑA ======= -->
+            <fieldset id="signin-fields">
+              <div class="form-row">
+                <label for="su-username">Nombre de usuario</label>
+                <input
+                  id="su-username"
+                  name="su-username"
+                  type="text"
+                  inputmode="text"
+                  autocomplete="username"
+                  placeholder="Tu usuario"
+                  required
+                />
+              </div>
+              <div class="form-row">
+                <label for="su-password">Contraseña</label>
+                <input
+                  id="su-password"
+                  name="su-password"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+            </fieldset>
+
+            <!-- ======= REGISTRARME: NOMBRE, APELLIDO, TELÉFONO, MAIL, USUARIO, CONTRASEÑA ======= -->
+            <fieldset id="signup-fields">
+              <div class="grid-2">
+                <div class="form-row">
+                  <label for="sg-first">Nombre</label>
+                  <input
+                    id="sg-first"
+                    name="sg-first"
+                    type="text"
+                    inputmode="text"
+                    placeholder="Tu nombre"
+                  />
+                </div>
+                <div class="form-row">
+                  <label for="sg-last">Apellido</label>
+                  <input
+                    id="sg-last"
+                    name="sg-last"
+                    type="text"
+                    inputmode="text"
+                    placeholder="Tu apellido"
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <label for="sg-phone">Teléfono</label>
+                <input
+                  id="sg-phone"
+                  name="sg-phone"
+                  type="tel"
+                  inputmode="tel"
+                  placeholder="+54 9 ..."
+                />
+              </div>
+              <div class="form-row">
+                <label for="sg-email">Email</label>
+                <input
+                  id="sg-email"
+                  name="sg-email"
+                  type="email"
+                  inputmode="email"
+                  autocomplete="email"
+                  placeholder="Tu@email.com"
+                />
+              </div>
+              <div class="grid-2">
+                <div class="form-row">
+                  <label for="sg-username">Nombre de usuario</label>
+                  <input
+                    id="sg-username"
+                    name="sg-username"
+                    type="text"
+                    inputmode="text"
+                    placeholder="Tu usuario"
+                  />
+                </div>
+                <div class="form-row">
+                  <label for="sg-password">Contraseña</label>
+                  <input
+                    id="sg-password"
+                    name="sg-password"
+                    type="password"
+                    autocomplete="new-password"
+                    placeholder="Mínimo 6 caracteres"
+                  />
+                </div>
+              </div>
+            </fieldset>
+
+            <p class="form-error" aria-live="assertive"></p>
+            <button class="btn btn-wide" type="submit">Continuar</button>
+            <div class="hl"></div>
+            <p class="legal">
+              Al continuar aceptás nuestras <a href="#!">condiciones</a> y
+              <a href="#!">política de privacidad</a>.
+            </p>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <!-- Lógica en login.js -->
+  </body>
+</html>
