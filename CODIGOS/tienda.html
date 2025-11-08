@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es" class="brand-tenedorlibre">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tienda — Tenedor Libre</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Tu Nombre" />
+    <meta name="keywords" content="tienda, utensilios de cocina, accesorios, recetas, tenedor libre" />
+    <meta name="color-scheme" content="dark light" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../imagenes/logo-tenedor.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../imagenes/logo-tenedor.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../imagenes/logo-tenedor.png" />
+    <link rel="apple-touch-icon" href="../imagenes/logo-tenedor.png" />
+    <!-- Estilos y Scripts -->
+    <link rel="stylesheet" href="tenedorlibre.css" />
+    <script src="tenedorlibre.js" defer></script>
+    <script src="tienda.js" defer></script>
+  </head>
+
+  <body>
+    <header class="site-header" aria-label="Barra principal">
+      <div class="container nav">
+        <a class="brand" href="index.html#hero" aria-label="Volver al inicio">
+          <img
+            src="../imagenes/logo-tenedor.png"
+            alt="Logo de Tenedor Libre"
+            class="brand-logo"
+          />
+          <span class="brand-text">Tenedor Libre</span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <nav id="site-nav" class="links" aria-label="Secciones">
+          <a href="recetas.html">Categorías</a>
+          <a href="index.html#mapa">Mapa</a>
+          <a href="tienda.html" aria-current="page">Tienda</a>
+          <a href="index.html#resenas">Reseñas</a>
+          <a href="index.html#contacto">Contacto</a>
+
+          <!-- ✅ Enlace de registro corregido -->
+          <a href="login.html?mode=signup" id="nav-register">Registrarse</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container">
+        <div class="actions-row">
+          <h1>Tienda</h1>
+          <button
+            id="btn-cart"
+            class="btn secondary cart-btn"
+            aria-label="Ver carrito"
+          >
+            🧺 Carrito
+            <span id="cart-count" class="cart-count" aria-live="polite">0</span>
+          </button>
+        </div>
+
+        <!-- ===== Filtros ===== -->
+        <section class="shop-toolbar" aria-label="Barra de filtros">
+          <div class="filters-row">
+            <div class="field">
+              <label for="q">Buscar</label>
+              <input
+                id="q"
+                type="search"
+                placeholder="Producto o etiqueta…"
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="field short">
+              <label for="minPrice">Precio mín.</label>
+              <input
+                id="minPrice"
+                class="shop-input"
+                type="number"
+                min="0"
+                placeholder="0"
+              />
+            </div>
+
+            <div class="field short">
+              <label for="maxPrice">Precio máx.</label>
+              <input
+                id="maxPrice"
+                class="shop-input"
+                type="number"
+                min="0"
+                placeholder="—"
+              />
+            </div>
+
+            <div class="field">
+              <label for="sort">Orden por precio</label>
+              <select id="sort" class="shop-select">
+                <option value="pop">Destacados</option>
+                <option value="price-asc">Menor a mayor</option>
+                <option value="price-desc">Mayor a menor</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="alpha">Alfabético</label>
+              <select id="alpha" class="shop-select">
+                <option value="none">—</option>
+                <option value="az">A → Z</option>
+                <option value="za">Z → A</option>
+              </select>
+            </div>
+
+            <div class="field buttons">
+              <button id="applyAll" class="btn inline">Aplicar</button>
+              <button id="clearAll" class="btn secondary inline">
+                Limpiar
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Grilla de productos -->
+        <section id="shop-grid" class="shop-grid" aria-live="polite"></section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <small>© Tenedor Libre — Buffet en casa.</small>
+      </div>
+    </footer>
+
+    <!-- Modal del carrito -->
+    <dialog id="cart" class="cart">
+      <div class="cart-head">
+        <strong>Tu carrito</strong>
+        <button
+          id="closeCart"
+          class="btn secondary small"
+          aria-label="Cerrar carrito"
+        >
+          Cerrar
+        </button>
+      </div>
+
+      <div class="cart-body">
+        <ul id="cartList" class="cart-list"></ul>
+      </div>
+
+      <div class="cart-foot">
+        <div class="cart-total">Total: <span id="cartTotal">$0</span></div>
+        <div class="flex-gap-row">
+          <button id="emptyCart" class="btn danger" hidden>Vaciar</button>
+          <button id="finishOrder" class="btn primary" hidden>Finalizar compra</button>
+        </div>
+      </div>
+    </dialog>
+  </body>
+</html>
