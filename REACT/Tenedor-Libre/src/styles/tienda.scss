@@ -1,0 +1,376 @@
+$beige-25:  #FFFBF1;
+$beige-50:  #FFF6E6;
+$beige-100: #FCEFD7;
+$beige-200: #F6E5C3;
+$beige-300: #EED8A8;
+$beige-400: #E2C98B;
+$beige-500: #D6BA72;
+$brown-900: #2B1A12;
+$brown-800: #3D2A20;
+$brown-700: #5C4033;
+$brown-600: #7A523F;
+$brown-500: #976B52;
+$brown-400: #B6866C;
+$ink-light: #fff;
+$muted: #6b6f76;
+$border: #e6dcc9;
+$shadow: 0 10px 24px rgba(0, 0, 0, .12);
+
+// HEADER 
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: $beige-300;
+  border-bottom: 1px solid mix($beige-400, transparent, 80%);
+  transition: box-shadow 0.25s ease;
+
+  &.scrolled {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  gap: 16px;
+  padding-inline: 16px;
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+
+    .brand-logo {
+      width: 42px;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      display: block;
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+      opacity: 1;
+      transform: translateY(1px);
+      transition: transform 0.25s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+      }
+    }
+
+    .brand-text {
+      color: $brown-900;
+      text-transform: uppercase;
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-left: auto;
+
+    a,
+    .link-button {
+      position: relative;
+      padding: 8px 10px;
+      border-radius: 10px;
+      color: $brown-900;
+      font-weight: 500;
+      opacity: 0.95;
+      transition: all 0.25s ease;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+
+      &:hover {
+        background: mix($beige-300, white, 70%);
+      }
+
+      &:focus,
+      &:active {
+        outline: none;
+        background: mix($beige-300, white, 70%);
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 10px;
+        right: 10px;
+        bottom: 4px;
+        height: 2px;
+        background: $brown-500;
+        border-radius: 2px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s ease;
+      }
+
+      &:hover::after,
+      &.is-active::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+}
+
+// BOTONES
+.btn {
+  appearance: none;
+  border: 1px solid $brown-500;
+  background: $brown-600;
+  color: white;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  &:hover { filter: brightness(1.03); }
+  &.small {
+    padding: 0.45rem 0.7rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: .95rem;
+  }
+  &.secondary {
+    background: $beige-300;
+    color: $brown-900;
+    border-color: mix($beige-400, black, 82%);
+  }
+  &.primary { background: $brown-700; }
+  &.danger { background: #b63a3a; border-color: #b63a3a; }
+}
+
+// GRILLA  PRODUCTOS
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+
+  .card {
+    background: white;
+    border: 1px solid $border;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .06);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform .2s ease, box-shadow .2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, .12);
+    }
+
+    img {
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      line-height: 1.2;
+      margin: 2px 0 4px;
+      color: $brown-900;
+    }
+
+    .price { font-weight: 800; color: $brown-700; }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+
+      .tag {
+        font-size: .78rem;
+        padding: 3px 8px;
+        border: 1px solid mix($beige-400, black, 82%);
+        border-radius: 999px;
+        background: $beige-300;
+        color: $brown-900;
+      }
+    }
+  }
+}
+
+// ENCABEZADO DE LA TIENDA Y BOTÓN DEL CARRITO
+.tienda-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.carrito-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: $brown-700;
+  color: $ink-light;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease;
+
+  &:hover { background-color: $brown-600; }
+
+  .cart-count {
+    background-color: $beige-300;
+    color: $brown-900;
+    border-radius: 50%;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+  }
+}
+
+// CARRITO 
+.carrito {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  z-index: 1000;
+
+  .carrito-contenido {
+    background: $beige-100;
+    border: 1px solid $border;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    padding: 2rem;
+    width: min(500px, 90%);
+    color: $brown-900;
+    text-align: left;
+    position: relative;
+
+    .btn.cerrar {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: $brown-700;
+      color: $ink-light;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      &:hover {
+        background-color: $brown-600;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 1.5rem 0;
+
+      li {
+        background: $beige-50;
+        border: 1px solid $border;
+        border-radius: 12px;
+        padding: 0.6rem 1rem;
+        margin-bottom: 0.6rem;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+    }
+
+    .cart-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 1.2rem;
+    }
+  }
+}
+
+// HOME — Hero, Nuestra Cocina, Mapa
+.hero {
+  background-image: linear-gradient(
+      rgba(255, 247, 230, 0.15),
+      rgba(255, 247, 230, 0.65)
+    ),
+    url("/banner.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.95) saturate(1.05);
+  padding: 4rem 0;
+  text-align: center;
+  color: $brown-900;
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .badge {
+    display: inline-block;
+    background: $beige-200;
+    color: $brown-900;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .lead {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: $brown-800;
+  }
+
+  .cta {
+    margin-top: 1.5rem;
+  }
+}
+
+#acerca.section-soft { 
+  background-color: $beige-200; 
+  padding: 3rem 0; 
+  
+  .container.narrow { 
+    max-width: 700px; 
+    margin: 0 auto; 
+    text-align: center; } 
+    
+    h2 { 
+      font-size: 2rem; 
+      color: $brown-900; 
+      margin-bottom: 1rem; } 
+      
+      p { 
+        font-size: 1rem; 
+        color: $brown-700; 
+        line-height: 1.6; }
+}
+
+.map-embed {
+  margin-top: 1.5rem;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+
+  iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+  }
+}

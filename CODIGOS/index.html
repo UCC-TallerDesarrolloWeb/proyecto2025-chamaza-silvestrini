@@ -4,15 +4,23 @@
     <meta charset="utf-8" />
     <title>Tenedor Libre — Buffet en casa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="Tu Nombre" />
+    <meta name="author" content="Tenedor Libre" />
     <meta name="keywords" content="recetas, comunidad, mapa, clases, tenedor libre" />
     <meta
       name="description"
-      content="Tenedor Libre — Buffet en casa. Recetario con fotos, mapa de clases/ferias y comunidad gastronómica."
+      content="Tenedor Libre — Buffet en casa. Recetario con fotos, mapa de clases y comunidad gastronómica."
     />
     <meta name="color-scheme" content="dark light" />
+
     <link rel="stylesheet" href="tenedorlibre.css" />
     <script src="index.js" defer></script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../imagenes/logo-tenedor.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../imagenes/logo-tenedor.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../imagenes/logo-tenedor.png">
+    <link rel="apple-touch-icon" href="../imagenes/logo-tenedor.png">
+    <link rel="shortcut icon" href="../imagenes/logo-tenedor.png">
   </head>
 
   <body>
@@ -51,19 +59,13 @@
             </button>
             <ul id="dd-recetas" class="dropdown" hidden>
               <li><a href="#categorias" data-cat="saludable">Saludable</a></li>
-              <li>
-                <a href="#categorias" data-cat="vegetariano">Vegetariano</a>
-              </li>
+              <li><a href="#categorias" data-cat="vegetariano">Vegetariano</a></li>
               <li><a href="#categorias" data-cat="dulce">Dulce</a></li>
-              <li>
-                <a href="#categorias" data-cat="romantica">Cena romántica</a>
-              </li>
+              <li><a href="#categorias" data-cat="romantica">Cena romántica</a></li>
               <li><a href="#categorias" data-cat="paises">Países</a></li>
               <li><a href="#categorias" data-cat="minutos">10 minutos</a></li>
               <li><a href="#categorias" data-cat="sintacc">SIN TACC</a></li>
-              <li>
-                <a href="#categorias" data-cat="pastas">Pastas y Salsas</a>
-              </li>
+              <li><a href="#categorias" data-cat="pastas">Pastas y Salsas</a></li>
               <li><a href="recetas.html" data-see-all>Ver todo</a></li>
             </ul>
           </div>
@@ -79,8 +81,13 @@
 
     <!-- ================= MAIN ================= -->
     <main>
-      <!-- HERO -->
+      <!-- ===== HERO ===== -->
       <section id="hero" class="hero">
+        <img
+          src="../imagenes/banner.jpg"
+          alt="Banner de Tenedor Libre"
+          class="hero-banner"
+        />
         <div class="container">
           <span class="badge">Tenedor Libre — Buffet en casa</span>
           <h1 class="hero-title">Cocina con estilo, técnica y comunidad</h1>
@@ -97,7 +104,7 @@
         </div>
       </section>
 
-      <!-- NUESTRA COCINA -->
+      <!-- ===== NUESTRA COCINA ===== -->
       <section id="acerca" class="section section-soft">
         <div class="container narrow">
           <h2>Nuestra cocina</h2>
@@ -110,70 +117,53 @@
         </div>
       </section>
 
-      <!-- CATEGORÍAS -->
+      <!-- ===== CATEGORÍAS ===== -->
       <section id="categorias" class="section">
         <div class="container">
           <h2>Categorías</h2>
           <div class="cat-strip">
             <article class="cat-card" data-cat="saludable">
               <img src="../imagenes/saludable.JPG" alt="Saludable" />
-              <div class="cat-footer">
-                <span>Saludable</span><span class="arrow">→</span>
-              </div>
+              <div class="cat-footer"><span>Saludable</span><span class="arrow">→</span></div>
             </article>
             <article class="cat-card" data-cat="dulce">
               <img src="../imagenes/dulce.JPG" alt="Dulce" />
-              <div class="cat-footer">
-                <span>Dulce</span><span class="arrow">→</span>
-              </div>
+              <div class="cat-footer"><span>Dulce</span><span class="arrow">→</span></div>
             </article>
             <article class="cat-card" data-cat="romantica">
               <img src="../imagenes/cena.png" alt="Cena romántica" />
-              <div class="cat-footer">
-                <span>Cena romántica</span><span class="arrow">→</span>
-              </div>
+              <div class="cat-footer"><span>Cena romántica</span><span class="arrow">→</span></div>
             </article>
             <article class="cat-card" data-cat="vegetariano">
               <img src="../imagenes/vegano.JPG" alt="Vegetariano" />
-              <div class="cat-footer">
-                <span>Vegetariano</span><span class="arrow">→</span>
-              </div>
+              <div class="cat-footer"><span>Vegetariano</span><span class="arrow">→</span></div>
             </article>
             <article class="cat-card" data-cat="paises">
               <img src="../imagenes/mundo.png" alt="Países" />
-              <div class="cat-footer">
-                <span>Países</span><span class="arrow">→</span>
-              </div>
+              <div class="cat-footer"><span>Países</span><span class="arrow">→</span></div>
             </article>
             <article class="cat-card" data-cat="minutos">
               <img src="../imagenes/10min.png" alt="10 minutos" />
-              <div class="cat-footer">
-                <span>10 minutos</span><span class="arrow">→</span>
-              </div>
+              <div class="cat-footer"><span>10 minutos</span><span class="arrow">→</span></div>
             </article>
             <article class="cat-card" data-cat="pastas">
               <img src="../imagenes/pasta.png" alt="Pastas y salsas" />
-              <div class="cat-footer">
-                <span>Pastas y salsas</span><span class="arrow">→</span>
-              </div>
+              <div class="cat-footer"><span>Pastas y salsas</span><span class="arrow">→</span></div>
             </article>
             <article class="cat-card" data-cat="sintacc">
               <img src="../imagenes/SINTAC.png" alt="SIN TACC" />
-              <div class="cat-footer">
-                <span>SIN TACC</span><span class="arrow">→</span>
-              </div>
+              <div class="cat-footer"><span>SIN TACC</span><span class="arrow">→</span></div>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- MAPA -->
+      <!-- ===== MAPA ===== -->
       <section id="mapa" class="section section-soft">
         <div class="container">
           <h2>Mapa de clases, ferias y restaurantes</h2>
           <p class="muted">
-            Encontrá experiencias cerca tuyo. Filtrá por técnica, estilo y
-            presupuesto.
+            Encontrá experiencias cerca tuyo. Filtrá por técnica, estilo y presupuesto.
           </p>
           <div class="map-embed">
             <iframe
@@ -186,11 +176,10 @@
         </div>
       </section>
 
-      <!-- ==================== RESEÑAS ==================== -->
+      <!-- ===== RESEÑAS ===== -->
       <section id="resenas" class="section">
         <div class="container narrow">
           <h2>Reseñas de la comunidad</h2>
-
           <div class="reseñas-grid">
             <!-- Formulario -->
             <div class="reseña-form card">
@@ -198,35 +187,17 @@
                 <h3>Dejá tu reseña</h3>
                 <form id="review-form">
                   <label for="nombre">Nombre</label>
-                  <input
-                    id="nombre"
-                    name="name"
-                    type="text"
-                    placeholder="Tu nombre"
-                  />
-
+                  <input id="nombre" name="name" type="text" placeholder="Tu nombre" />
                   <label for="comentario">Comentario</label>
-                  <textarea
-                    id="comentario"
-                    name="text"
-                    rows="4"
-                    placeholder="¿Cómo fue tu experiencia?"
-                    required
-                  ></textarea>
-
+                  <textarea id="comentario" name="text" rows="4" placeholder="¿Cómo fue tu experiencia?" required></textarea>
                   <label>Puntaje</label>
-                  <div
-                    class="stars"
-                    id="stars-input"
-                    aria-label="Seleccionar puntaje"
-                  >
+                  <div class="stars" id="stars-input" aria-label="Seleccionar puntaje">
                     <button type="button" data-v="1">★</button>
                     <button type="button" data-v="2">★</button>
                     <button type="button" data-v="3">★</button>
                     <button type="button" data-v="4">★</button>
                     <button type="button" data-v="5">★</button>
                   </div>
-
                   <input type="hidden" id="puntaje" name="puntaje" value="0" />
                   <button class="btn" type="submit">Publicar reseña</button>
                 </form>
@@ -247,33 +218,26 @@
         </div>
       </section>
 
-      <!-- CONTACTO -->
+      <!-- ===== CONTACTO ===== -->
       <section id="contacto" class="section section-soft">
         <div class="container narrow">
           <h2>Contacto</h2>
           <p class="muted">¿Sos chef, escuela o marca? Conversemos.</p>
           <form class="contact-form">
             <input type="email" placeholder="Tu@email.com" required />
-            <textarea
-              rows="3"
-              placeholder="Contanos cómo te gustaría participar"
-            ></textarea>
+            <textarea rows="3" placeholder="Contanos cómo te gustaría participar"></textarea>
             <button class="btn" type="submit">Enviar</button>
           </form>
         </div>
       </section>
     </main>
 
-    <!-- ================= FOOTER ================= -->
+    <!-- ===== FOOTER ===== -->
     <footer class="site-footer">
       <div class="container">
-        <small
-          >©️ <span class="mono">Tenedor Libre</span>. Buffet en casa.</small
-        >
+        <small>©️ <span class="mono">Tenedor Libre</span>. Buffet en casa.</small>
         <a class="back-to-top" href="#hero" aria-label="Volver arriba">↑</a>
       </div>
     </footer>
-
-    <!-- comportamiento de estrellas en index.js -->
   </body>
 </html>
