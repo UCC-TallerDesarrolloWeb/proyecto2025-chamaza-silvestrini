@@ -1,0 +1,255 @@
+$ivory:       #F8F5F0;
+$linen:       #EDE5DA;
+$linen-soft:  #F3EDE5;
+$linen-border:#D5C9BC;
+$terra:       #C85C2A;
+$terra-hover: #A54620;
+$espresso:    #1C1410;
+$muted:       #6E5C4E;
+
+.recetas-page {
+  padding-bottom: 80px;
+
+  .lead {
+    text-align: left;
+    margin-inline: 0;
+    margin-top: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+}
+
+.actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.actions-btns {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+// Grid de categorías
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.cat-card-tile {
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(28, 20, 16, 0.14);
+  }
+
+  figure {
+    position: relative;
+    margin: 0;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(28,20,16,0.72) 0%, transparent 55%);
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+
+      h3 {
+        color: #fff;
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin: 0;
+        text-shadow: 0 1px 4px rgba(0,0,0,.4);
+      }
+    }
+  }
+}
+
+// Grid de recetas de una categoría
+.recipe-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.recipe-card {
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(28,20,16,.13);
+  }
+
+  figure {
+    position: relative;
+    margin: 0;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(28,20,16,0.76) 0%, transparent 50%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 14px;
+
+      .title {
+        color: #fff;
+        font-size: .95rem;
+        font-weight: 700;
+        margin: 0 0 4px;
+        text-shadow: 0 1px 3px rgba(0,0,0,.4);
+      }
+
+      .meta {
+        color: rgba(255,255,255,0.8);
+        font-size: .78rem;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Modal de receta
+.recipe-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28,20,16,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 16px;
+}
+
+.recipe-modal-box {
+  background: #fff;
+  border-radius: 20px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: $espresso;
+    margin: 0;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: $espresso;
+    margin: 4px 0 0;
+  }
+}
+
+.recipe-modal-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.recipe-modal-meta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: .88rem;
+  color: $muted;
+}
+
+.recipe-ingredients {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  li {
+    font-size: .92rem;
+    padding: 6px 10px;
+    background: $linen-soft;
+    border-radius: 8px;
+    color: $espresso;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+// Botones compartidos
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: .95rem;
+  cursor: pointer;
+  border: none;
+  background: $terra;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.2s ease;
+
+  &:hover { background: $terra-hover; }
+  &.secondary {
+    background: $linen;
+    color: $espresso;
+    border: 1px solid $linen-border;
+    &:hover { background: $linen-border; }
+  }
+  &.small { padding: 8px 14px; font-size: .88rem; }
+}

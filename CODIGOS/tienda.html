@@ -1,16 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" class="brand-tenedorlibre">
   <head>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="../imagenes/favicon.png">
     <title>Tienda — Tenedor Libre</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="Tu Nombre" />
+    <meta name="author" content="Florencia Chamaza, Mia Silvestrini" />
     <meta name="keywords" content="tienda, utensilios de cocina, accesorios, recetas, tenedor libre" />
+    <meta name="description" content="Tienda de Tenedor Libre — Utensilios y accesorios de cocina seleccionados para vos." />
     <meta name="color-scheme" content="dark light" />
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../imagenes/logo-tenedor.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="../imagenes/logo-tenedor.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="../imagenes/logo-tenedor.png" />
     <link rel="apple-touch-icon" href="../imagenes/logo-tenedor.png" />
     <!-- Estilos y Scripts -->
     <link rel="stylesheet" href="tenedorlibre.css" />
@@ -18,12 +17,12 @@
     <script src="tienda.js" defer></script>
   </head>
 
-  <body>
+  <body class="tienda-page">
     <header class="site-header" aria-label="Barra principal">
   <div class="container nav">
     <a class="brand" href="index.html#hero" aria-label="Volver al inicio">
       <img src="../imagenes/logo-tenedor.png" alt="Logo de Tenedor Libre" class="brand-logo" />
-      <span class="brand-text">Tenedor Libre</span>
+      <h1 class="brand-text">Tenedor Libre</h1>
     </a>
 
     <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav">
@@ -68,6 +67,8 @@
                 type="search"
                 placeholder="Producto o etiqueta…"
                 autocomplete="off"
+                size="28"
+                maxlength="80"
               />
             </div>
 
@@ -78,6 +79,7 @@
                 class="shop-input"
                 type="number"
                 min="0"
+                max="999999"
                 placeholder="0"
               />
             </div>
@@ -89,6 +91,7 @@
                 class="shop-input"
                 type="number"
                 min="0"
+                max="999999"
                 placeholder="—"
               />
             </div>
@@ -125,9 +128,29 @@
       </div>
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer" aria-label="Pie de página">
       <div class="container">
-        <small>© Tenedor Libre — Buffet en casa.</small>
+        <div class="footer-top">
+          <div class="footer-brand">
+            <p class="brand-text">Tenedor Libre</p>
+            <p>Buffet en casa</p>
+          </div>
+          <nav class="footer-nav" aria-label="Links del footer">
+            <a href="recetas.html">Recetas</a>
+            <a href="index.html#mapa">Mapa</a>
+            <a href="tienda.html">Tienda</a>
+            <a href="index.html#resenas">Reseñas</a>
+            <a href="index.html#contacto">Contacto</a>
+          </nav>
+        </div>
+        <hr class="footer-divider" />
+        <div class="footer-bottom">
+          <small>© 2025 <span class="mono">Tenedor Libre</span>. Buffet en casa.</small>
+          <div class="footer-legal">
+            <a href="privacidad.html">Privacidad</a>
+            <a href="condiciones.html">Condiciones</a>
+          </div>
+        </div>
       </div>
     </footer>
 

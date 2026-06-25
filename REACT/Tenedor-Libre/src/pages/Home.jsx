@@ -1,54 +1,60 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "@context/AuthContext";
+import Button from "@components/Button";
 import "@styles/index.scss";
 
 const Home = () => {
-  // Estado reseñas //
+  const { auth } = useAuth();
+  const nombre = auth ? (auth.name || auth.username || "") : "";
+
   const [reseñas, setReseñas] = useState(() => {
     const saved = localStorage.getItem("tl_reviews");
     return saved ? JSON.parse(saved) : [];
   });
-  const [nombre, setNombre] = useState("");
+
   const [comentario, setComentario] = useState("");
   const [puntaje, setPuntaje] = useState(0);
+  const [hoveredStar, setHoveredStar] = useState(0);
 
-  // Guardar reseñas en localStorage //
+  useEffect(() => {
+    if (!localStorage.getItem('tl_reviews_v2')) {
+      localStorage.removeItem('tl_reviews');
+      localStorage.setItem('tl_reviews_v2', '1');
+      setReseñas([]);
+    }
+  }, []);
+
   useEffect(() => {
     localStorage.setItem("tl_reviews", JSON.stringify(reseñas));
   }, [reseñas]);
 
-  // Seleccionar estrellas
+  const promedio = reseñas.length > 0
+    ? (reseñas.reduce((a, b) => a + b.puntaje, 0) / reseñas.length).toFixed(1)
+    : "0.0";
+
+  /**
+   * Actualiza el puntaje seleccionado al hacer clic en una estrella
+   * @param {number} v - Valor de la estrella seleccionada (1–5)
+   */
   const handleStarClick = (v) => setPuntaje(v);
 
-  // Enviar reseña //
+  /**
+   * Envía la reseña — requiere sesión activa
+   * @param {Event} e - Evento de submit del formulario
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!nombre || !comentario || puntaje === 0) return;
-
-    const nueva = {
-      id: Date.now(),
-      nombre,
-      comentario,
-      puntaje,
-    };
-
-    setReseñas([nueva, ...reseñas]);
-    setNombre("");
+    if (!comentario || puntaje === 0) return;
+    setReseñas([{ id: Date.now(), nombre: auth?.name || auth?.username || "Anónimo", comentario, puntaje }, ...reseñas]);
     setComentario("");
     setPuntaje(0);
+    setHoveredStar(0);
   };
-
-  // Promedio
-  const promedio =
-    reseñas.length > 0
-      ? (reseñas.reduce((a, b) => a + b.puntaje, 0) / reseñas.length).toFixed(1)
-      : "0.0";
 
   return (
     <main>
-      <section
-        id="hero"
-        className="hero"
-      >
+      <section id="hero" className="hero">
         <div className="container">
           <span className="badge">Tenedor Libre — Buffet en casa</span>
           <h1 className="hero-title">
@@ -62,9 +68,8 @@ const Home = () => {
             experiencia con la comunidad.
           </p>
           <div className="cta">
-            <a href="#mapa" className="btn secondary">
-              Ver mapa
-            </a>
+            <a href="/recetas" className="btn">Explorar recetas</a>
+            <a href="#mapa" className="btn secondary">Ver mapa</a>
           </div>
         </div>
       </section>
@@ -99,7 +104,6 @@ const Home = () => {
         </div>
       </section>
 
-
       <section id="resenas" className="section">
         <div className="container narrow">
           <h2>Reseñas de la comunidad</h2>
@@ -107,43 +111,53 @@ const Home = () => {
             <div className="reseña-form card">
               <div className="card-body">
                 <h3>Dejá tu reseña</h3>
-                <form onSubmit={handleSubmit}>
-                  <label>Nombre</label>
-                  <input
-                    type="text"
-                    value={nombre}
-                    onChange={(e) => setNombre(e.target.value)}
-                    placeholder="Tu nombre"
-                    required
-                  />
 
-                  <label>Comentario</label>
-                  <textarea
-                    rows="4"
-                    value={comentario}
-                    onChange={(e) => setComentario(e.target.value)}
-                    placeholder="¿Cómo fue tu experiencia?"
-                    required
-                  ></textarea>
+                {auth ? (
+                  <form onSubmit={handleSubmit} className="form-grid">
+                    <p className="review-author-badge">
+                      Reseñando como <strong>{nombre.split(" ")[0]}</strong>
+                    </p>
 
-                  <label>Puntaje</label>
-                  <div className="stars" aria-label="Seleccionar puntaje">
-                    {[1, 2, 3, 4, 5].map((v) => (
-                      <button
-                        key={v}
-                        type="button"
-                        onClick={() => handleStarClick(v)}
-                        className={puntaje >= v ? "active" : ""}
-                      >
-                        ★
-                      </button>
-                    ))}
+                    <div className="form-row">
+                      <label htmlFor="r-comentario">Comentario</label>
+                      <textarea
+                        id="r-comentario"
+                        rows="4"
+                        value={comentario}
+                        onChange={(e) => setComentario(e.target.value)}
+                        placeholder="¿Cómo fue tu experiencia?"
+                        required
+                      />
+                    </div>
+
+                    <div className="form-row">
+                      <label htmlFor="r-puntaje">Puntaje</label>
+                      <input type="hidden" id="r-puntaje" value={puntaje} readOnly />
+                      <div className="stars" role="group" aria-label="Seleccionar puntaje">
+                        {[1, 2, 3, 4, 5].map((v) => (
+                          <button
+                            key={v}
+                            type="button"
+                            onClick={() => handleStarClick(v)}
+                            onMouseEnter={() => setHoveredStar(v)}
+                            onMouseLeave={() => setHoveredStar(0)}
+                            className={(hoveredStar || puntaje) >= v ? "active" : ""}
+                            aria-label={`${v} estrella${v > 1 ? "s" : ""}`}
+                          >
+                            ★
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <Button type="submit">Publicar reseña</Button>
+                  </form>
+                ) : (
+                  <div className="review-login-prompt">
+                    <p className="muted">Para dejar una reseña necesitás iniciar sesión.</p>
+                    <Link to="/login?redirect=/" className="btn">Iniciar sesión</Link>
                   </div>
-
-                  <button className="btn" type="submit">
-                    Publicar reseña
-                  </button>
-                </form>
+                )}
               </div>
             </div>
 
@@ -155,12 +169,15 @@ const Home = () => {
                 </div>
                 <ul className="reviews-scroll">
                   {reseñas.length === 0 ? (
-                    <p className="muted">Aún no hay reseñas.</p>
+                    <li className="muted">Aún no hay reseñas… ¡sé el primero!</li>
                   ) : (
                     reseñas.map((r) => (
                       <li key={r.id}>
-                        <strong>{r.nombre}</strong> — {"⭐".repeat(r.puntaje)}
-                        <p>{r.comentario}</p>
+                        <p className="review-text">
+                          <strong>{r.nombre}</strong><br />
+                          <span className="review-stars">{"★".repeat(r.puntaje)}{"☆".repeat(5 - r.puntaje)}</span>
+                        </p>
+                        <p className="review-comment">{r.comentario}</p>
                       </li>
                     ))
                   )}
@@ -176,14 +193,19 @@ const Home = () => {
           <h2>Contacto</h2>
           <p className="muted">¿Sos chef, escuela o marca? Conversemos.</p>
           <form className="contact-form">
-            <input type="email" placeholder="Tu@email.com" required />
-            <textarea
-              rows="3"
-              placeholder="Contanos cómo te gustaría participar"
-            ></textarea>
-            <button className="btn" type="submit">
-              Enviar
-            </button>
+            <div className="form-row">
+              <label htmlFor="c-email">Email</label>
+              <input id="c-email" type="email" placeholder="Tu@email.com" required />
+            </div>
+            <div className="form-row">
+              <label htmlFor="c-mensaje">Mensaje</label>
+              <textarea
+                id="c-mensaje"
+                rows="3"
+                placeholder="Contanos cómo te gustaría participar"
+              ></textarea>
+            </div>
+            <Button type="submit">Enviar</Button>
           </form>
         </div>
       </section>

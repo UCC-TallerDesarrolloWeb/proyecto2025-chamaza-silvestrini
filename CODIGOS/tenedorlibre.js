@@ -92,15 +92,27 @@
     };
   }
 
+  /**
+   * Inicializa el comportamiento básico de la barra de navegación
+   * @description Configura el menú hamburguesa y el efecto de scroll del header
+   */
   const wireNavBasics = () => {
     const header = document.querySelector('.site-header');
     const toggle = document.querySelector('.nav-toggle');
     const links  = document.getElementById('site-nav') || document.querySelector('.links');
-    if (toggle && links){
+    if (toggle && links && !toggle.dataset.navWired){
+      toggle.dataset.navWired = '1';
       toggle.addEventListener('click', ()=>{
         const open = links.classList.toggle('open');
         document.body.classList.toggle('nav-open', open);
         toggle.setAttribute('aria-expanded', String(open));
+      });
+      links.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('click', () => {
+          links.classList.remove('open');
+          document.body.classList.remove('nav-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
       });
     }
     const onScroll = ()=>{
@@ -108,17 +120,57 @@
       else header?.classList.remove('scrolled');
     };
     onScroll(); window.addEventListener('scroll', onScroll);
+
+    // Saludo personalizado si hay sesión activa
+    const navReg = document.getElementById('nav-register');
+    const navEl  = document.getElementById('site-nav') || document.querySelector('.links');
+    if (navReg && navEl) {
+      try {
+        const auth = JSON.parse(localStorage.getItem('cmf_auth') || 'null');
+        if (auth) {
+          const first = (auth.name || auth.username || 'Usuario').split(' ')[0];
+          // Saludo antes del primer link del nav
+          const greetingEl = document.createElement('span');
+          greetingEl.className = 'nav-greeting';
+          greetingEl.textContent = `Hola, ${first}`;
+          navEl.insertBefore(greetingEl, navEl.firstChild);
+          // Convertir #nav-register en botón de cerrar sesión
+          navReg.textContent = 'Cerrar sesión';
+          navReg.removeAttribute('href');
+          navReg.classList.add('nav-logout');
+          navReg.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('cmf_auth');
+            window.showToast?.('Sesión cerrada. ¡Hasta pronto!', 'info');
+            setTimeout(() => location.reload(), 1400);
+          });
+        }
+      } catch {}
+    }
+  };
+
+  /**
+   * Muestra un toast de notificación personalizado
+   * @param {string} msg - Mensaje a mostrar
+   * @param {'success'|'error'|'info'} [type='success'] - Tipo de notificación
+   * @param {number} [duration=3200] - Duración en milisegundos
+   */
+  window.showToast = (msg, type = 'success', duration = 3200) => {
+    let toast = document.getElementById('app-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'app-toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.className = `app-toast toast-${type} toast-show`;
+    clearTimeout(toast._hideTimer);
+    toast._hideTimer = setTimeout(() => toast.classList.remove('toast-show'), duration);
   };
 
   document.addEventListener('DOMContentLoaded', ()=>{
     try{ wireNavBasics(); }catch(e){}
-  });
-})();
-
-// Stub mínimo para evitar ERR_FILE_NOT_FOUND
-(() => {
-  // Código compartido del sitio (helpers, polyfills o init) puede ir aquí.
-  document.addEventListener('DOMContentLoaded', () => {
-    // placeholder: no hace nada por ahora
   });
 })();

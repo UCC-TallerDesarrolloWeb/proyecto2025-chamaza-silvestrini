@@ -1,0 +1,124 @@
+{
+  "productos": [
+    {
+      "id": "knife-chef",
+      "name": "Cuchillo Chef 20cm",
+      "price": 38999,
+      "img": "/assets/cuchillo.jpg",
+      "tags": ["Acero alemán", "Balanceado"],
+      "pop": 95
+    },
+    {
+      "id": "pan-26",
+      "name": "Sartén de hierro 26cm",
+      "price": 58999,
+      "img": "/assets/sarten26.webp",
+      "tags": ["Apta horno", "Curado"],
+      "pop": 98
+    },
+    {
+      "id": "spice-med",
+      "name": "Blend Especias Mediterráneas",
+      "price": 8999,
+      "img": "/assets/especias.jpg",
+      "tags": ["Romero", "Limón"],
+      "pop": 80
+    },
+    {
+      "id": "spatula",
+      "name": "Espátula silicona pro",
+      "price": 7499,
+      "img": "/assets/espatula.webp",
+      "tags": ["Alta temperatura"],
+      "pop": 70
+    },
+    {
+      "id": "mold-24",
+      "name": "Molde redondo 24cm",
+      "price": 21999,
+      "img": "/assets/molde.jpg",
+      "tags": ["Antiadherente"],
+      "pop": 74
+    },
+    {
+      "id": "rolling",
+      "name": "Palo de amasar madera",
+      "price": 12999,
+      "img": "/assets/palote.jpg",
+      "tags": ["Ergonómico"],
+      "pop": 60
+    },
+    {
+      "id": "gf-mix",
+      "name": "Mix pan SIN TACC 1kg",
+      "price": 15999,
+      "img": "/assets/pansin.jpg",
+      "tags": ["Premezcla"],
+      "pop": 77
+    },
+    {
+      "id": "board-wood",
+      "name": "Tabla para picar madera",
+      "price": 18999,
+      "img": "/assets/tabla-madera.jpg",
+      "tags": ["Antibacterial", "Con canal"],
+      "pop": 82
+    },
+    {
+      "id": "whisk-steel",
+      "name": "Batidor de acero inoxidable",
+      "price": 5999,
+      "img": "/assets/batidor.jpeg",
+      "tags": ["12 hilos", "Lavavajillas"],
+      "pop": 73
+    },
+    {
+      "id": "pot-20",
+      "name": "Olla 20cm con tapa",
+      "price": 47999,
+      "img": "/assets/olla20.jpg",
+      "tags": ["Base triple", "Vidrio templado"],
+      "pop": 88
+    },
+    {
+      "id": "ladle-sil",
+      "name": "Cucharón de silicona",
+      "price": 6499,
+      "img": "/assets/cucharon-silicona.webp",
+      "tags": ["Alta temperatura", "No raya"],
+      "pop": 69
+    },
+    {
+      "id": "thermo-probe",
+      "name": "Termómetro de cocina digital",
+      "price": 16999,
+      "img": "/assets/termometro.png",
+      "tags": ["Sonda inox", "Rápido"],
+      "pop": 86
+    },
+    {
+      "id": "measuring-jug",
+      "name": "Jarra medidora 1L",
+      "price": 8999,
+      "img": "/assets/jarra-medidora.webp",
+      "tags": ["ml/oz", "Libre BPA"],
+      "pop": 67
+    },
+    {
+      "id": "cookie-cutter-set",
+      "name": "Set cortantes para galletas (6u)",
+      "price": 10999,
+      "img": "/assets/cortantes-galleta.jpg",
+      "tags": ["Acero", "Varios tamaños"],
+      "pop": 71
+    },
+    {
+      "id": "brush-sil",
+      "name": "Pincel de silicona",
+      "price": 4999,
+      "img": "/assets/pincel-silicona.webp",
+      "tags": ["Resistente", "Antiadherente"],
+      "pop": 65
+    }
+  ]
+}

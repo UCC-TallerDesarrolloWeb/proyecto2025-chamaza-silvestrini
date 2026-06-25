@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" class="brand-tenedorlibre">
   <head>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="../imagenes/favicon.png">
     <title>Tenedor Libre — Buffet en casa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="Tenedor Libre" />
+    <meta name="author" content="Florencia Chamaza, Mia Silvestrini" />
     <meta name="keywords" content="recetas, comunidad, mapa, clases, tenedor libre" />
     <meta
       name="description"
@@ -13,14 +14,9 @@
     <meta name="color-scheme" content="dark light" />
 
     <link rel="stylesheet" href="tenedorlibre.css" />
+    <script src="tenedorlibre.js" defer></script>
     <script src="index.js" defer></script>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../imagenes/logo-tenedor.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../imagenes/logo-tenedor.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../imagenes/logo-tenedor.png">
-    <link rel="apple-touch-icon" href="../imagenes/logo-tenedor.png">
-    <link rel="shortcut icon" href="../imagenes/logo-tenedor.png">
   </head>
 
   <body>
@@ -33,7 +29,7 @@
             alt="Logo de Tenedor Libre"
             class="brand-logo"
           />
-          <span class="brand-text">Tenedor Libre</span>
+          <h1 class="brand-text">Tenedor Libre</h1>
         </a>
 
         <button
@@ -48,27 +44,7 @@
         </button>
 
         <nav id="site-nav" class="links" aria-label="Secciones">
-          <div class="menu-group has-dropdown">
-            <button
-              id="dd-recetas-btn"
-              class="dd-trigger"
-              aria-expanded="false"
-              aria-controls="dd-recetas"
-            >
-              Categorías ▾
-            </button>
-            <ul id="dd-recetas" class="dropdown" hidden>
-              <li><a href="#categorias" data-cat="saludable">Saludable</a></li>
-              <li><a href="#categorias" data-cat="vegetariano">Vegetariano</a></li>
-              <li><a href="#categorias" data-cat="dulce">Dulce</a></li>
-              <li><a href="#categorias" data-cat="romantica">Cena romántica</a></li>
-              <li><a href="#categorias" data-cat="paises">Países</a></li>
-              <li><a href="#categorias" data-cat="minutos">10 minutos</a></li>
-              <li><a href="#categorias" data-cat="sintacc">SIN TACC</a></li>
-              <li><a href="#categorias" data-cat="pastas">Pastas y Salsas</a></li>
-              <li><a href="recetas.html" data-see-all>Ver todo</a></li>
-            </ul>
-          </div>
+          <a href="recetas.html">Categorías</a>
 
           <a href="#mapa">Mapa</a>
           <a href="tienda.html">Tienda</a>
@@ -185,20 +161,26 @@
             <div class="reseña-form card">
               <div class="card-body">
                 <h3>Dejá tu reseña</h3>
-                <form id="review-form">
-                  <label for="nombre">Nombre</label>
-                  <input id="nombre" name="name" type="text" placeholder="Tu nombre" />
-                  <label for="comentario">Comentario</label>
-                  <textarea id="comentario" name="text" rows="4" placeholder="¿Cómo fue tu experiencia?" required></textarea>
-                  <label>Puntaje</label>
-                  <div class="stars" id="stars-input" aria-label="Seleccionar puntaje">
-                    <button type="button" data-v="1">★</button>
-                    <button type="button" data-v="2">★</button>
-                    <button type="button" data-v="3">★</button>
-                    <button type="button" data-v="4">★</button>
-                    <button type="button" data-v="5">★</button>
+                <form id="review-form" class="form-grid">
+                  <div class="form-row">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" name="name" type="text" autocomplete="name" placeholder="Tu nombre" size="25" maxlength="60" />
                   </div>
-                  <input type="hidden" id="puntaje" name="puntaje" value="0" />
+                  <div class="form-row">
+                    <label for="comentario">Comentario</label>
+                    <textarea id="comentario" name="text" autocomplete="off" rows="4" placeholder="¿Cómo fue tu experiencia?" required maxlength="500"></textarea>
+                  </div>
+                  <fieldset class="form-row stars-fieldset">
+                    <legend>Puntaje</legend>
+                    <div class="stars" id="stars-input" aria-label="Seleccionar puntaje">
+                      <button type="button" data-v="1">★</button>
+                      <button type="button" data-v="2">★</button>
+                      <button type="button" data-v="3">★</button>
+                      <button type="button" data-v="4">★</button>
+                      <button type="button" data-v="5">★</button>
+                    </div>
+                    <input type="hidden" id="puntaje" name="puntaje" value="0" />
+                  </fieldset>
                   <button class="btn" type="submit">Publicar reseña</button>
                 </form>
               </div>
@@ -223,9 +205,15 @@
         <div class="container narrow">
           <h2>Contacto</h2>
           <p class="muted">¿Sos chef, escuela o marca? Conversemos.</p>
-          <form class="contact-form">
-            <input type="email" placeholder="Tu@email.com" required />
-            <textarea rows="3" placeholder="Contanos cómo te gustaría participar"></textarea>
+          <form class="contact-form" id="contact-form">
+            <div class="form-row">
+              <label for="contact-email">Email</label>
+              <input id="contact-email" type="email" autocomplete="email" placeholder="Tu@email.com" required size="30" maxlength="100" />
+            </div>
+            <div class="form-row">
+              <label for="contact-mensaje">Mensaje</label>
+              <textarea id="contact-mensaje" autocomplete="off" rows="3" placeholder="Contanos cómo te gustaría participar" maxlength="1000"></textarea>
+            </div>
             <button class="btn" type="submit">Enviar</button>
           </form>
         </div>
@@ -233,10 +221,30 @@
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="site-footer">
+    <footer class="site-footer" aria-label="Pie de página">
       <div class="container">
-        <small>©️ <span class="mono">Tenedor Libre</span>. Buffet en casa.</small>
-        <a class="back-to-top" href="#hero" aria-label="Volver arriba">↑</a>
+        <div class="footer-top">
+          <div class="footer-brand">
+            <p class="brand-text">Tenedor Libre</p>
+            <p>Buffet en casa</p>
+          </div>
+          <nav class="footer-nav" aria-label="Links del footer">
+            <a href="recetas.html">Categorías</a>
+            <a href="index.html#mapa">Mapa</a>
+            <a href="tienda.html">Tienda</a>
+            <a href="index.html#resenas">Reseñas</a>
+            <a href="index.html#contacto">Contacto</a>
+            <a class="back-to-top" href="#hero" aria-label="Volver arriba">↑ Arriba</a>
+          </nav>
+        </div>
+        <hr class="footer-divider" />
+        <div class="footer-bottom">
+          <small>© 2025 <span class="mono">Tenedor Libre</span>. Buffet en casa.</small>
+          <div class="footer-legal">
+            <a href="privacidad.html">Privacidad</a>
+            <a href="condiciones.html">Condiciones</a>
+          </div>
+        </div>
       </div>
     </footer>
   </body>

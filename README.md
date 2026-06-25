@@ -10,10 +10,10 @@ Sitio web de recetas interactivas con categorias, login/registro, tienda, reseñ
 
 ## Indice
 
-1. [Descripcion del Proyecto](#descripción-del-proyecto)
+1. [Descripcion del Proyecto](#descripcion-del-proyecto)
 2. [Autores](#autores)
-3. [Contenido del Sitio](#contenido-del-sitio)
-4. [Tecnologías Utilizadas](#tecnologías-utilizadas)
+3. [Contenido de la Pagina](#contenido-de-la-pagina)
+4. [Tecnologias Utilizadas](#tecnologias-utilizadas)
 5. [Estructura del Proyecto](#estructura-del-proyecto)
 6. [Licencia](#licencia)
 
@@ -77,6 +77,10 @@ El usuario puede:
 | **HTML5** | Estructura del sitio |
 | **CSS3 (Flexbox, Grid)** | Estilos, diseño responsivo y tema visual |
 | **JavaScript (Vanilla)** | Interactividad, login, categorias dinamicas y modales |
+| **React 18 + Vite** | Versión SPA del sitio (segunda etapa) |
+| **SCSS (Sass)** | Estilos de la versión React con variables y anidamiento |
+| **react-router-dom** | Enrutamiento de páginas en la versión React |
+| **json-server** | Mock REST API para datos de productos |
 | **LocalStorage / SessionStorage** | Almacenamiento local de usuario y recetas |
 | **Markdown (.md)** | Documentacion del proyecto |
 | **Git & GitHub** | Control de versiones y hosting |
@@ -84,9 +88,64 @@ El usuario puede:
 
 ---
 
+## Pasos para ejecutar el proyecto
+
+### Versión HTML (sin instalación)
+Abrir `CODIGOS/index.html` directamente en el navegador.
+
+### Versión React
+```bash
+cd REACT/Tenedor-Libre
+npm install
+npm run dev
+```
+Para activar la API de productos (json-server):
+```bash
+npm run server
+```
+Luego acceder a `http://localhost:5173`
+
+---
+
 ## 📁 Estructura del Proyecto
 
+```
+proyecto2025-chamaza-silvestrini/
+├── CODIGOS/
+│   ├── index.html          # Página principal
+│   ├── recetas.html        # Catálogo de recetas por categoría
+│   ├── tienda.html         # Tienda de productos de cocina
+│   ├── login.html          # Login y registro de usuario
+│   ├── tenedorlibre.css    # Estilos globales del sitio
+│   ├── index.js            # Lógica de la página principal
+│   ├── recetas.js          # Lógica de recetas y categorías
+│   ├── tienda.js           # Lógica de tienda y carrito
+│   ├── tenedorlibre.js     # Utilidades compartidas (Auth, Nav)
+│   └── login.js            # Lógica de login y registro
+├── imagenes/               # Imágenes del sitio
+├── SKETCH/                 # Bocetos en papel (desktop y mobile)
+├── WIREFRAME/              # Wireframes digitales (Draw.io)
+└── REACT/
+    └── Tenedor-Libre/      # Versión React con Vite
+        ├── src/
+        │   ├── components/ # Componentes reutilizables
+        │   ├── pages/      # Páginas de la aplicación
+        │   ├── styles/     # Estilos SCSS
+        │   └── api/        # Datos y servicios mock
+        └── public/         # Assets públicos
+```
 
+## 🔗 GitHub Pages
+
+[Ver el sitio en vivo](https://ucc-tallerdesarrolloweb.github.io/proyecto2025-chamaza-silvestrini/CODIGOS/index.html)
+
+---
+
+## 📄 Licencia
+
+Este proyecto fue desarrollado con fines académicos para la materia **Taller de Desarrollo Web** — Universidad Católica de Córdoba, 2025.
+
+---
 
 ## Requisitos del Primer Parcial
 

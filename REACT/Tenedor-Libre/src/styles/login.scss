@@ -1,31 +1,30 @@
-@use "../styles/index" as *; 
+@use "../styles/index" as *;
 
 .login-container {
   max-width: 420px;
   margin: 3rem auto;
   padding: 2rem;
-  background: $ink-light; 
-  border: 1px solid rgba(90, 70, 50, 0.25);
+  background: #fff;
+  border: 1px solid $border;
   border-radius: 16px;
   text-align: center;
-  color: $fg;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  color: $espresso;
+  box-shadow: 0 4px 16px rgba(28,20,16,.08);
   font-family: "Inter", "Segoe UI", Roboto, sans-serif;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 24px rgba(28,20,16,.12);
   }
 
   h2 {
     margin-bottom: 1.2rem;
-    color: $fg;
+    color: $espresso;
     font-weight: 800;
     font-size: 1.5rem;
   }
 
-  // Iniciar sesión / Registrarme
   .tabs {
     display: flex;
     justify-content: center;
@@ -35,28 +34,27 @@
     button {
       padding: 0.55rem 1.1rem;
       border-radius: 10px;
-      border: 1px solid rgba(90, 70, 50, 0.25);
-      background-color: mix($beige-300, white, 85%);
-      color: $fg;
+      border: 1px solid $border;
+      background-color: $linen-soft;
+      color: $espresso;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.25s ease;
 
       &:hover {
-        background-color: mix($beige-200, white, 80%);
+        background-color: $linen;
         transform: translateY(-1px);
       }
 
       &.active {
-        background-color: $brown-500;
+        background-color: $terra;
         color: #fff;
-        border-color: $brown-500;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        border-color: $terra-hover;
+        box-shadow: 0 3px 10px rgba(200,92,42,.25);
       }
     }
   }
 
-  // Formulario 
   .login-form {
     display: flex;
     flex-direction: column;
@@ -65,23 +63,23 @@
     input {
       padding: 0.7rem 0.9rem;
       border-radius: 10px;
-      border: 1px solid rgba(90, 70, 50, 0.25);
-      background: #fffdfa;
-      color: $fg;
+      border: 1px solid $border;
+      background: #fff;
+      color: $espresso;
       font-size: 1rem;
       transition: all 0.25s ease;
 
       &:focus {
         outline: none;
-        border-color: $beige-400;
-        box-shadow: 0 0 0 3px rgba(212, 184, 122, 0.35);
+        border-color: $terra;
+        box-shadow: 0 0 0 3px rgba(200,92,42,.15);
       }
     }
 
     .btn.primary {
-      background-color: $brown-500;
+      background-color: $terra;
       color: #fff;
-      border: none;
+      border: 1px solid $terra-hover;
       padding: 0.75rem;
       border-radius: 12px;
       cursor: pointer;
@@ -91,7 +89,7 @@
       font-size: 1rem;
 
       &:hover {
-        background-color: $brown-700;
+        background-color: $terra-hover;
         transform: translateY(-1px);
       }
     }
@@ -109,7 +107,6 @@
     }
   }
 
-  // Campos dobles 
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;

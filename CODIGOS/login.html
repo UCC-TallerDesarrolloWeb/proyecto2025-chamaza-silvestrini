@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" class="brand-tenedorlibre">
   <head>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="../imagenes/favicon.png">
     <title>Ingresar / Registrarme — Tenedor Libre</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="Tu Nombre" />
+    <meta name="author" content="Florencia Chamaza, Mia Silvestrini" />
     <meta name="keywords" content="registro, login, cuenta, tenedor libre, recetas" />
     <meta name="color-scheme" content="dark light" />
     <meta
@@ -16,11 +17,7 @@
     <script src="login.js" defer></script>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../imagenes/logo-tenedor.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../imagenes/logo-tenedor.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../imagenes/logo-tenedor.png">
     <link rel="apple-touch-icon" href="../imagenes/logo-tenedor.png">
-    <link rel="shortcut icon" href="../imagenes/logo-tenedor.png">
   </head>
   <body>
     <header class="site-header" aria-label="Barra principal">
@@ -31,7 +28,7 @@
             alt="Logo de Tenedor Libre"
             class="brand-logo"
           />
-          <span class="brand-text">Tenedor Libre</span>
+          <h1 class="brand-text">Tenedor Libre</h1>
         </a>
 
         <button
@@ -58,7 +55,7 @@
     <main class="auth-wrap">
       <section class="auth-card" role="dialog" aria-labelledby="title">
         <header class="auth-head">
-          <div class="brand"><span class="brand-text">Tenedor Libre</span></div>
+          <div class="brand"><h1 class="brand-text">Tenedor Libre</h1></div>
           <h1 id="title" class="auth-title">Iniciá sesión o registrate</h1>
           <p class="auth-sub">
             Para ver recetas completas y “Todas las recetas”,
@@ -112,6 +109,8 @@
                   inputmode="text"
                   autocomplete="username"
                   placeholder="Tu usuario"
+                  size="24"
+                  maxlength="40"
                   required
                 />
               </div>
@@ -123,6 +122,8 @@
                   type="password"
                   autocomplete="current-password"
                   placeholder="••••••••"
+                  size="24"
+                  maxlength="100"
                   required
                 />
               </div>
@@ -138,7 +139,10 @@
                     name="sg-first"
                     type="text"
                     inputmode="text"
+                    autocomplete="given-name"
                     placeholder="Tu nombre"
+                    size="18"
+                    maxlength="40"
                   />
                 </div>
                 <div class="form-row">
@@ -148,7 +152,10 @@
                     name="sg-last"
                     type="text"
                     inputmode="text"
+                    autocomplete="family-name"
                     placeholder="Tu apellido"
+                    size="18"
+                    maxlength="40"
                   />
                 </div>
               </div>
@@ -159,7 +166,10 @@
                   name="sg-phone"
                   type="tel"
                   inputmode="tel"
+                  autocomplete="tel"
                   placeholder="+54 9 ..."
+                  size="20"
+                  maxlength="20"
                 />
               </div>
               <div class="form-row">
@@ -171,6 +181,8 @@
                   inputmode="email"
                   autocomplete="email"
                   placeholder="Tu@email.com"
+                  size="26"
+                  maxlength="100"
                 />
               </div>
               <div class="grid-2">
@@ -181,7 +193,10 @@
                     name="sg-username"
                     type="text"
                     inputmode="text"
+                    autocomplete="username"
                     placeholder="Tu usuario"
+                    size="18"
+                    maxlength="40"
                   />
                 </div>
                 <div class="form-row">
@@ -192,6 +207,8 @@
                     type="password"
                     autocomplete="new-password"
                     placeholder="Mínimo 6 caracteres"
+                    size="18"
+                    maxlength="100"
                   />
                 </div>
               </div>
@@ -201,14 +218,37 @@
             <button class="btn btn-wide" type="submit">Continuar</button>
             <div class="hl"></div>
             <p class="legal">
-              Al continuar aceptás nuestras <a href="#!">condiciones</a> y
-              <a href="#!">política de privacidad</a>.
+              Al continuar aceptás nuestras condiciones y política de privacidad.
             </p>
           </div>
         </form>
       </section>
     </main>
 
-    <!-- Lógica en login.js -->
+    <footer class="site-footer" aria-label="Pie de página">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <p class="brand-text">Tenedor Libre</p>
+            <p>Buffet en casa</p>
+          </div>
+          <nav class="footer-nav" aria-label="Links del footer">
+            <a href="recetas.html">Recetas</a>
+            <a href="index.html#mapa">Mapa</a>
+            <a href="tienda.html">Tienda</a>
+            <a href="index.html#resenas">Reseñas</a>
+            <a href="index.html#contacto">Contacto</a>
+          </nav>
+        </div>
+        <hr class="footer-divider" />
+        <div class="footer-bottom">
+          <small>© 2025 <span class="mono">Tenedor Libre</span>. Buffet en casa.</small>
+          <div class="footer-legal">
+            <a href="privacidad.html">Privacidad</a>
+            <a href="condiciones.html">Condiciones</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

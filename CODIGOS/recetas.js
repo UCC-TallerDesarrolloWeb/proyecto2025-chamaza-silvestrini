@@ -91,11 +91,19 @@ const wireNavBasics = () => {
   const toggle = document.querySelector('.nav-toggle');
   const links  = document.getElementById('site-nav') || document.querySelector('.links');
 
-  if (toggle && links){
+  if (toggle && links && !toggle.dataset.navWired){
+    toggle.dataset.navWired = '1';
     toggle.addEventListener('click', () => {
       const open = links.classList.toggle('open');
       document.body.classList.toggle('nav-open', open);
       toggle.setAttribute('aria-expanded', String(open));
+    });
+    links.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('click', () => {
+        links.classList.remove('open');
+        document.body.classList.remove('nav-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
     });
   }
 
@@ -277,6 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const TITLE   = document.getElementById('category-title');
   const GALLERY = document.getElementById('category-gallery');
   const SEE_ALL = document.getElementById('btn-see-all');
+  const BACK    = document.getElementById('back-to-cats');
 
   const RECIPES = [
     { id:'ensalada-quinoa', title:'Ensalada de quinoa y palta', img:'../imagenes/quinoa.jpg', time:18, servings:2, method:'crudo', cats:['saludable'], ingredients:['Quinoa','Palta','Tomate','Pepino','Limón','Aceite de oliva','Sal'] },
@@ -584,12 +593,15 @@ const renderCards = (list) => {
  * @description Filtra las recetas por categoría, actualiza la URL y muestra la vista
  */
 const showCategory = (catKey) => {
-    TITLE.textContent = `Categoría: ${NAME[catKey] || catKey}`;
+    TITLE.hidden = false;
+    TITLE.textContent = NAME[catKey] || catKey;
+    if (SEE_ALL) SEE_ALL.hidden = false;
+    if (BACK) BACK.hidden = false;
     renderCards(RECIPES.filter(r => r.cats.includes(catKey)));
     catGrid.hidden = true;
     catView.hidden = false;
     try { history.replaceState(null, '', `#${catKey}`); } catch {}
-    GALLERY.scrollIntoView({ behavior:'smooth', block:'start' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 /**
@@ -598,12 +610,15 @@ const showCategory = (catKey) => {
  * @description Muestra la lista completa de recetas y actualiza la URL
  */
 const showAll = () => {
-    TITLE.textContent = 'Todas las recetas';
+    TITLE.textContent = '';
+    TITLE.hidden = true;
+    if (SEE_ALL) SEE_ALL.hidden = true;
+    if (BACK) BACK.hidden = false;
     renderCards(RECIPES);
     catGrid.hidden = true;
     catView.hidden = false;
     try { history.replaceState(null, '', '#all'); } catch {}
-    GALLERY.scrollIntoView({ behavior:'smooth', block:'start' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
   catGrid.addEventListener('click', e=>{
@@ -615,14 +630,22 @@ const showAll = () => {
 
   SEE_ALL?.addEventListener('click', e=>{ e.preventDefault(); showAll(); });
 
-  document.getElementById('back-to-cats')?.addEventListener('click', e=>{
+  BACK?.addEventListener('click', e=>{
     e.preventDefault();
     catGrid.hidden = false;
     catView.hidden = true;
+    TITLE.hidden = true;
+    TITLE.textContent = '';
+    if (SEE_ALL) SEE_ALL.hidden = false;
+    if (BACK) BACK.hidden = true;
     try { history.replaceState(null, '', '#'); } catch {}
-    catGrid.scrollIntoView({ behavior:'smooth', block:'start' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
+  /**
+   * Lee el hash de la URL al cargar la página y muestra la vista correspondiente
+   * @description Si el hash es '#all' muestra todas las recetas; si es una categoría válida, la muestra
+   */
   const initFromHash = () => {
     const h = (location.hash||'').slice(1);
     if (h === 'all') showAll();

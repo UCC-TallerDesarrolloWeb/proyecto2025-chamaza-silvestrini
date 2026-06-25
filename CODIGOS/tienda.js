@@ -37,7 +37,19 @@
     ];
 
   // ======== HELPERS (scoped) ========
+  /**
+   * Selector de elemento DOM simplificado
+   * @param {string} s - Selector CSS
+   * @param {Document|Element} [ctx=document] - Contexto de búsqueda
+   * @returns {Element|null} Primer elemento que coincide o null
+   */
   const $  = (s, ctx=document) => ctx.querySelector(s);
+
+  /**
+   * Formatea un número como moneda argentina (ARS)
+   * @param {number} x - Valor numérico a formatear
+   * @returns {string} Precio formateado (ej: "$38.999")
+   */
   const money = x => new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(x);
 
   /**
@@ -77,13 +89,19 @@
   /**
    * Actualiza el contador visual del carrito
    */
+  /**
+   * Actualiza el contador visual del carrito en el botón del header
+   */
   const updateCartCount = () => {
     const n = cartCount();
     const badge = $('#cart-count');
     if (badge) badge.textContent = n;
   };
 
-  // Controla visibilidad/estado de botones del pie del carrito
+  /**
+   * Muestra u oculta los botones de acción del pie del carrito
+   * @param {boolean} hasItems - true si el carrito tiene al menos un producto
+   */
   const setCartControlsVisibility = (hasItems) => {
     const emptyBtn = document.getElementById('emptyCart');
     const finishBtn = document.getElementById('finishOrder');
@@ -101,8 +119,10 @@
     }
   };
 
-  // Ya no necesitamos esta función, el control de botones está en renderCart
-
+  /**
+   * Agrega una unidad de un producto al carrito y notifica el cambio
+   * @param {string} id - ID del producto a agregar
+   */
   const addToCart = (id) => {
     const c = loadCart();
     c[id] = (c[id] || 0) + 1;
@@ -110,6 +130,10 @@
     updateCartCount();
     notifyCartChanged();
   };
+  /**
+   * Quita una unidad de un producto del carrito; si llega a 0 lo elimina
+   * @param {string} id - ID del producto a decrementar
+   */
   const removeFromCart = (id) => {
     const c = loadCart();
     if(c[id]) {
@@ -120,6 +144,9 @@
       notifyCartChanged();
     }
   };
+  /**
+   * Vacía el carrito completamente y actualiza la interfaz
+   */
   const emptyCart = () => {
     saveCart({});
     renderCart();
@@ -127,6 +154,9 @@
     notifyCartChanged();
   };
 
+  /**
+   * Renderiza el contenido del modal del carrito con los productos actuales y el total
+   */
   const renderCart = () => {
     const c = loadCart();
     const list = $('#cartList');
@@ -209,6 +239,9 @@
     return {term,min,max,sort,alpha};
   };
 
+  /**
+   * Filtra y ordena los productos según los criterios activos y actualiza la grilla
+   */
   const applyFilters = () => {
     const {term,min,max,sort,alpha} = currentFilters();
 
@@ -223,7 +256,7 @@
     switch(sort){
       case 'price-asc':  list.sort((a,b)=>a.price-b.price); break;
       case 'price-desc': list.sort((a,b)=>b.price-a.price); break;
-      default:           list.sort((a,b)=>a.pop-a.pop);
+      default:           list.sort((a,b)=>b.pop-a.pop);
     }
 
     // Orden secundario: alfabético (opcional)
@@ -271,8 +304,12 @@
       const btn = e.target.closest('[data-add]');
       if(!btn) return;
       addToCart(btn.dataset.add);
-      btn.textContent='Agregado ✓';
-      setTimeout(()=>btn.textContent='Agregar',900);
+      btn.textContent = 'Agregado ✓';
+      btn.classList.add('added');
+      setTimeout(() => {
+        btn.textContent = 'Agregar';
+        btn.classList.remove('added');
+      }, 1400);
     });
 
     // Carrito
@@ -290,6 +327,10 @@
     });
 
     /* ========= Botón "Finalizar compra" con camión (mejorado) ========= */
+    /**
+     * Transforma el botón "Finalizar compra" con animación de camión de entrega
+     * @description Se ejecuta una sola vez; anima el envío y vacía el carrito al completar
+     */
     const enhanceOrderButton = () => {
       const btn = document.querySelector('.cart-foot .btn.primary');
       if(!btn || btn.dataset.enhanced) return;
@@ -312,6 +353,10 @@
       `;
 
       // Habilitado / tooltip según cantidad
+      /**
+       * Habilita o deshabilita el botón según la cantidad de items en el carrito
+       * @param {number} [n=cartCount()] - Cantidad total de items
+       */
       const updateState = (n = cartCount()) => {
         btn.classList.toggle('is-empty', n===0);
         btn.toggleAttribute('disabled', n===0);
@@ -328,8 +373,26 @@
         if (btn.classList.contains('ordering')) return;
 
         if (cartCount() === 0) {
-          btn.classList.add('nope');                // shake sutil
+          btn.classList.add('nope');
           setTimeout(()=>btn.classList.remove('nope'), 450);
+          return;
+        }
+
+        /**
+         * Verifica si el usuario tiene una sesión activa
+         * @returns {boolean} true si hay sesión iniciada
+         */
+        const isLoggedIn = () => {
+          try { return !!JSON.parse(localStorage.getItem('cmf_auth')); }
+          catch { return false; }
+        };
+
+        if (!isLoggedIn()) {
+          showToast('Debés registrarte para finalizar la compra.', 'info');
+          setTimeout(() => {
+            Intent.save({ reason: 'checkout', href: 'tienda.html' });
+            location.href = 'login.html?redirect=tienda.html';
+          }, 1800);
           return;
         }
 

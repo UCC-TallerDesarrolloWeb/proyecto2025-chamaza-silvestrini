@@ -1,7 +1,27 @@
+/**
+ * @fileoverview Lógica principal de la página de inicio de Tenedor Libre
+ * @description Maneja autenticación, navegación, reseñas, contacto y menú desplegable
+ * @module index
+ */
+
+/**
+ * Módulo de autenticación de usuario usando localStorage
+ * @namespace Auth
+ */
 const Auth = {
+  /**
+   * Verifica si el usuario está autenticado
+   * @returns {boolean} true si el usuario tiene sesión activa
+   */
   isAuthed: () => {
     try { return localStorage.getItem('authed') === '1'; } catch { return false; }
   },
+
+  /**
+   * Guarda el estado de autenticación del usuario
+   * @param {string} email - Email del usuario
+   * @param {string} name - Nombre del usuario
+   */
   setAuthed: (email, name) => {
     try {
       localStorage.setItem('authed', '1');
@@ -9,6 +29,10 @@ const Auth = {
       if (name)  localStorage.setItem('userName',  name);
     } catch {}
   },
+
+  /**
+   * Elimina los datos de sesión del usuario
+   */
   clear: () => {
     try {
       localStorage.removeItem('authed');
@@ -17,25 +41,58 @@ const Auth = {
     } catch {}
   }
 };
-window.cmfLogout = () => { Auth.clear(); alert('Sesión borrada. Probá de nuevo.'); };
 
-/* ============== INTENT (a dónde quería ir) ============== */
+/**
+ * Cierra la sesión actual y muestra aviso al usuario
+ */
+window.cmfLogout = () => { Auth.clear(); showToast('Sesión cerrada. Podés volver a ingresar.', 'info'); };
+
+/**
+ * Módulo para guardar y recuperar la intención de navegación del usuario
+ * @namespace Intent
+ */
 const Intent = {
+  /**
+   * Guarda una intención en sessionStorage
+   * @param {Object} intent - Objeto con la intención
+   * @param {string} intent.reason - Motivo de la redirección
+   * @param {string} intent.href - URL destino
+   */
   save: (intent) => { try { sessionStorage.setItem('intent', JSON.stringify(intent)); } catch {} },
+
+  /**
+   * Recupera la intención guardada
+   * @returns {Object|null} La intención guardada o null si no existe
+   */
   load: () => { try { return JSON.parse(sessionStorage.getItem('intent')||'null'); } catch { return null; } },
+
+  /**
+   * Elimina la intención guardada
+   */
   clear: () => { try { sessionStorage.removeItem('intent'); } catch {} }
 };
 
-/* ============== NAV básico ============== */
+/**
+ * Inicializa el comportamiento básico de la barra de navegación
+ * @description Configura el menú hamburguesa para móvil y el efecto de scroll del header
+ */
 const wireNavBasics = () => {
   const header = document.querySelector('.site-header');
   const toggle = document.querySelector('.nav-toggle');
   const links  = document.getElementById('site-nav') || document.querySelector('.links');
-  if (toggle && links){
+  if (toggle && links && !toggle.dataset.navWired){
+    toggle.dataset.navWired = '1';
     toggle.addEventListener('click', () => {
       const open = links.classList.toggle('open');
       document.body.classList.toggle('nav-open', open);
       toggle.setAttribute('aria-expanded', String(open));
+    });
+    links.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('click', () => {
+        links.classList.remove('open');
+        document.body.classList.remove('nav-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
     });
   }
   const onScroll = () => {
@@ -46,7 +103,10 @@ const wireNavBasics = () => {
   window.addEventListener('scroll', onScroll);
 };
 
-/* ============== MENÚ DESPLEGABLE DE CATEGORÍAS ============== */
+/**
+ * Inicializa el menú desplegable de categorías de recetas
+ * @description Abre y cierra el dropdown al hacer clic y lo cierra al hacer clic fuera
+ */
 const wireDropdownMenu = () => {
   const ddBtn  = document.getElementById("dd-recetas-btn");
   const ddMenu = document.getElementById("dd-recetas");
@@ -71,7 +131,10 @@ const wireDropdownMenu = () => {
   });
 };
 
-/* ============== LOGIN POPUP ============== */
+/**
+ * Configura el modal de login una única vez para evitar duplicar listeners
+ * @param {HTMLDialogElement} dialog - El elemento dialog del modal de login
+ */
 const wireLoginPopupOnce = (dialog) => {
   if (!dialog || dialog.dataset.wired === '1') return;
   dialog.dataset.wired = '1';
@@ -100,6 +163,11 @@ const wireLoginPopupOnce = (dialog) => {
   });
 };
 
+/**
+ * Abre el popup de login o redirige a login.html si el popup no está disponible
+ * @param {string} [reason='manual'] - Razón por la que se solicita el login
+ * @param {string} [href=location.pathname] - URL a la que redirigir tras el login
+ */
 const openLoginPopup = (reason = 'manual', href = location.pathname) => {
   const loginDialog = document.getElementById('login-modal');
   if (!loginDialog) { Intent.save({ reason, href }); location.href = 'login.html'; return; }
@@ -109,23 +177,26 @@ const openLoginPopup = (reason = 'manual', href = location.pathname) => {
   catch { location.href = 'login.html'; }
 };
 
-/* ============== Reseñas (arreglo total estrellas + estética) ============== */
+/**
+ * Inicializa el sistema de reseñas: muestra las guardadas, gestiona estrellas y envío
+ * @description Lee y escribe en localStorage con la clave 'reviews'
+ */
 const wireReviews = () => {
   const form = document.getElementById('review-form');
   const list = document.getElementById('reviews-list');
   const avgSpan = document.getElementById('avg');
-  const stars = form?.querySelectorAll('#stars-input button');
-  const puntajeInput = form?.querySelector('#puntaje');
 
   if (!form || !list) return;
 
-  // Mostrar reseñas guardadas
+  /**
+   * Renderiza la lista de reseñas guardadas y actualiza el promedio
+   */
   const renderReviews = () => {
     const data = JSON.parse(localStorage.getItem('reviews') || '[]');
     list.innerHTML = '';
     if (data.length === 0) {
       list.innerHTML = '<li class="muted">Aún no hay reseñas… ¡sé el primero!</li>';
-      avgSpan.textContent = '⭐ 0.0';
+      if (avgSpan) avgSpan.textContent = '⭐ 0.0';
       return;
     }
     let sum = 0;
@@ -144,48 +215,69 @@ const wireReviews = () => {
       `;
       list.appendChild(li);
     });
-  if (list.lastChild) list.lastChild.classList.add('no-border');
-    const avg = (sum / data.length).toFixed(1);
-    avgSpan.textContent = `⭐ ${avg}`;
+    if (list.lastChild) list.lastChild.classList.add('no-border');
+    if (avgSpan) avgSpan.textContent = `⭐ ${(sum / data.length).toFixed(1)}`;
   };
   renderReviews();
 
-  // === Estrellas interactivas correctamente orientadas ===
+  // Verificar sesión activa
+  const auth = (() => {
+    try { return JSON.parse(localStorage.getItem('cmf_auth')); }
+    catch { return null; }
+  })();
+
+  if (!auth) {
+    // Sin sesión: reemplazar el formulario con un prompt de login
+    form.innerHTML = `
+      <div class="review-login-prompt">
+        <p class="muted">Para dejar una reseña necesitás iniciar sesión.</p>
+        <a href="login.html?redirect=index.html" class="btn">Iniciar sesión</a>
+      </div>
+    `;
+    return;
+  }
+
+  // Con sesión: ocultar el campo nombre y pre-completarlo
+  const nombreRow = form.querySelector('.form-row:has(#nombre)') || document.getElementById('nombre')?.closest('.form-row');
+  const nombreInput = document.getElementById('nombre');
+  if (nombreInput) nombreInput.value = auth.name || auth.username || 'Usuario';
+  if (nombreRow) nombreRow.hidden = true;
+
+  // Mostrar badge de quién está reseñando
+  const badge = document.createElement('p');
+  badge.className = 'review-author-badge';
+  badge.innerHTML = `Reseñando como <strong>${auth.name?.split(' ')[0] || auth.username}</strong>`;
+  form.prepend(badge);
+
+  const stars = form.querySelectorAll('#stars-input button');
+  const puntajeInput = form.querySelector('#puntaje');
+
   if (stars && puntajeInput) {
     stars.forEach(btn => {
       btn.addEventListener('mouseenter', () => {
         const val = parseInt(btn.dataset.v);
-        stars.forEach(s => {
-          const v = parseInt(s.dataset.v);
-          s.classList.toggle('active', v <= val);
-        });
+        stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.v) <= val));
       });
       btn.addEventListener('mouseleave', () => {
         const current = parseInt(puntajeInput.value || 0);
-        stars.forEach(s => {
-          const v = parseInt(s.dataset.v);
-          s.classList.toggle('active', v <= current);
-        });
+        stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.v) <= current));
       });
       btn.addEventListener('click', () => {
         const val = parseInt(btn.dataset.v);
         puntajeInput.value = val;
-        stars.forEach(s => {
-          const v = parseInt(s.dataset.v);
-          s.classList.toggle('active', v <= val);
-        });
+        stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.v) <= val));
       });
     });
   }
 
-  // Enviar reseña
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = form.nombre?.value || form.name?.value || 'Anónimo';
-    const text = form.comentario?.value || form.text?.value || '';
-    const rating = parseInt(form.puntaje?.value || 0);
-    if (!text.trim() || rating === 0) {
-      alert('Por favor, completá el comentario y seleccioná un puntaje.');
+    const name = auth.name || auth.username || 'Anónimo';
+    const text = (form.querySelector('#comentario') || form.querySelector('[name="text"]'))?.value.trim() || '';
+    const rating = parseInt(puntajeInput?.value || 0);
+
+    if (!text || rating === 0) {
+      showToast('Completá el comentario y elegí un puntaje ⭐', 'error');
       return;
     }
 
@@ -193,32 +285,51 @@ const wireReviews = () => {
     data.unshift({ name, text, rating, date: new Date().toISOString() });
     localStorage.setItem('reviews', JSON.stringify(data));
     form.reset();
-    puntajeInput.value = 0;
-  stars.forEach(s => { s.classList.remove('active'); });
+    if (nombreInput) nombreInput.value = auth.name || auth.username || '';
+    if (puntajeInput) puntajeInput.value = 0;
+    stars.forEach(s => s.classList.remove('active'));
+    showToast('¡Reseña publicada! Gracias 🎉', 'success');
     renderReviews();
   });
-}
+};
+
+/**
+ * Inicializa el formulario de contacto con validación y feedback al usuario
+ * @description Valida email y mensaje antes de confirmar el envío
+ */
+const wireContactForm = () => {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const emailInput = document.getElementById('contact-email');
+    const mensajeInput = document.getElementById('contact-mensaje');
+    const email = emailInput?.value.trim() || '';
+    const mensaje = mensajeInput?.value.trim() || '';
+    if (!email) {
+      showToast('Por favor ingresá tu email.', 'error');
+      emailInput?.focus();
+      return;
+    }
+    if (!mensaje) {
+      showToast('Por favor escribí un mensaje.', 'error');
+      mensajeInput?.focus();
+      return;
+    }
+    showToast('¡Mensaje enviado! Nos pondremos en contacto pronto. 🎉', 'success');
+    form.reset();
+  });
+};
 
 /* ============== BOOT ============== */
 document.addEventListener('DOMContentLoaded', () => {
+  // Limpieza única de reseñas viejas
+  if (!localStorage.getItem('tl_reviews_v2')) {
+    localStorage.removeItem('reviews');
+    localStorage.setItem('tl_reviews_v2', '1');
+  }
+
   wireNavBasics();
-  wireDropdownMenu();
   wireReviews();
-
-  // Navegación entre categorías
-  document.addEventListener('click', (e) => {
-    const tile = e.target.closest('.cat-card[data-cat]');
-    if (!tile) return;
-    e.preventDefault();
-    location.href = `recetas.html#${tile.getAttribute('data-cat')}`;
-  });
-
-  document.getElementById('dd-recetas')?.addEventListener('click', (e)=>{
-    const a = e.target.closest('a'); if (!a) return;
-    if (a.hasAttribute('data-see-all')) {
-      e.preventDefault(); location.href = 'recetas.html#all';
-    } else if (a.hasAttribute('data-cat')) {
-      e.preventDefault(); location.href = `recetas.html#${a.getAttribute('data-cat')}`;
-    }
-  });
+  wireContactForm();
 });

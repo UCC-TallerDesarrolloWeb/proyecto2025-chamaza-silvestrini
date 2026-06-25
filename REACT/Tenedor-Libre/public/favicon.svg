@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#C85C2A">
+  <!-- 4 tines -->
+  <rect x="2"   y="1" width="3" height="11" rx="1.5"/>
+  <rect x="7"   y="1" width="3" height="11" rx="1.5"/>
+  <rect x="12"  y="1" width="3" height="11" rx="1.5"/>
+  <rect x="17"  y="1" width="3" height="11" rx="1.5"/>
+  <!-- neck -->
+  <rect x="2" y="11" width="18" height="3" rx="1.5"/>
+  <!-- handle -->
+  <rect x="9.5" y="13" width="5" height="10" rx="2.5"/>
+</svg>
