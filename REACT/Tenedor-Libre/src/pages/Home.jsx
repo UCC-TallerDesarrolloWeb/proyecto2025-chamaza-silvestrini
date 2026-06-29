@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@context/AuthContext";
 import Button from "@components/Button";
+import especiasImg from "@assets/especias.jpg";
 import "@styles/index.scss";
 
 const Home = () => {
@@ -16,6 +17,10 @@ const Home = () => {
   const [comentario, setComentario] = useState("");
   const [puntaje, setPuntaje] = useState(0);
   const [hoveredStar, setHoveredStar] = useState(0);
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactMensaje, setContactMensaje] = useState("");
+  const [contactError, setContactError] = useState("");
+  const [contactOk, setContactOk] = useState(false);
 
   useEffect(() => {
     if (!localStorage.getItem('tl_reviews_v2')) {
@@ -52,6 +57,41 @@ const Home = () => {
     setHoveredStar(0);
   };
 
+  /**
+   * Valida el formulario de contacto en tiempo real al cambiar un campo
+   * @param {React.ChangeEvent} e - Evento de cambio del input
+   */
+  const handleContactChange = (e) => {
+    const { id, value } = e.target;
+    if (id === "c-email") {
+      setContactEmail(value);
+      setContactError(
+        value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+          ? "Email inválido."
+          : ""
+      );
+    } else if (id === "c-mensaje") {
+      setContactMensaje(value);
+      if (value.trim()) setContactError("");
+    }
+  };
+
+  /**
+   * Procesa el envío del formulario de contacto con validación completa
+   * @param {React.FormEvent} e - Evento de submit del formulario
+   */
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    if (!contactEmail) { setContactEmail(""); setContactError("Por favor ingresá tu email."); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) { setContactError("Email inválido."); return; }
+    if (!contactMensaje.trim()) { setContactMensaje(""); setContactError("Por favor escribí un mensaje."); return; }
+    setContactError("");
+    setContactOk(true);
+    setContactEmail("");
+    setContactMensaje("");
+    setTimeout(() => setContactOk(false), 3000);
+  };
+
   return (
     <main>
       <section id="hero" className="hero">
@@ -77,6 +117,11 @@ const Home = () => {
       <section id="acerca" className="section section-soft">
         <div className="container narrow">
           <h2>Nuestra cocina</h2>
+          <img
+            src={especiasImg}
+            alt="Especias y hierbas frescas"
+            style={{ width: "100%", maxHeight: "260px", objectFit: "cover", borderRadius: "10px", marginBottom: "1.25rem" }}
+          />
           <p>
             Curamos técnicas, ingredientes y <b>sabores de temporada</b> con una
             mirada contemporánea. Unimos <b>recetas probadas</b>, productos
@@ -130,9 +175,8 @@ const Home = () => {
                       />
                     </div>
 
-                    <div className="form-row">
-                      <label htmlFor="r-puntaje">Puntaje</label>
-                      <input type="hidden" id="r-puntaje" value={puntaje} readOnly />
+                    <fieldset className="form-row stars-fieldset">
+                      <legend>Puntaje</legend>
                       <div className="stars" role="group" aria-label="Seleccionar puntaje">
                         {[1, 2, 3, 4, 5].map((v) => (
                           <button
@@ -148,7 +192,7 @@ const Home = () => {
                           </button>
                         ))}
                       </div>
-                    </div>
+                    </fieldset>
 
                     <Button type="submit">Publicar reseña</Button>
                   </form>
@@ -192,10 +236,17 @@ const Home = () => {
         <div className="container narrow">
           <h2>Contacto</h2>
           <p className="muted">¿Sos chef, escuela o marca? Conversemos.</p>
-          <form className="contact-form">
+          <form className="contact-form" onSubmit={handleContactSubmit}>
             <div className="form-row">
               <label htmlFor="c-email">Email</label>
-              <input id="c-email" type="email" placeholder="Tu@email.com" required />
+              <input
+                id="c-email"
+                type="email"
+                placeholder="Tu@email.com"
+                value={contactEmail}
+                onChange={handleContactChange}
+                required
+              />
             </div>
             <div className="form-row">
               <label htmlFor="c-mensaje">Mensaje</label>
@@ -203,8 +254,12 @@ const Home = () => {
                 id="c-mensaje"
                 rows="3"
                 placeholder="Contanos cómo te gustaría participar"
+                value={contactMensaje}
+                onChange={handleContactChange}
               ></textarea>
             </div>
+            {contactError && <p className="form-error">{contactError}</p>}
+            {contactOk && <p className="form-ok">¡Mensaje enviado! Nos pondremos en contacto pronto.</p>}
             <Button type="submit">Enviar</Button>
           </form>
         </div>

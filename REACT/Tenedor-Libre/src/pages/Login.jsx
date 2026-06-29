@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@context/AuthContext";
+import { api } from "@api/mockService";
 import Button from "@components/Button";
 import "@styles/login.scss";
 
@@ -19,10 +20,19 @@ const Login = () => {
   });
   const [mensaje, setMensaje] = useState("");
   const [error, setError] = useState("");
+  const [cargando, setCargando] = useState(false);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setError("");
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+
+    if (name === "email" && value && !validarEmail(value)) {
+      setError("Email inválido.");
+    } else if (name === "contrasenia" && value && !validarContrasenia(value)) {
+      setError("La contraseña debe tener al menos 6 caracteres.");
+    } else {
+      setError("");
+    }
   };
 
   const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -37,9 +47,10 @@ const Login = () => {
   };
 
   /**
-   * Persiste las credenciales en localStorage y actualiza el contexto global
+   * Persiste las credenciales en localStorage y actualiza el contexto global.
+   * @method saveAuth
    * @param {string} usuario - Nombre de usuario
-   * @param {string} [nombre=''] - Nombre completo opcional
+   * @param {string} nombre - Nombre completo del usuario
    */
   const saveAuth = (usuario, nombre = "") => {
     try {
@@ -47,52 +58,90 @@ const Login = () => {
       localStorage.setItem("cmf_auth", JSON.stringify(data));
       setAuth(data);
       window.dispatchEvent(new CustomEvent("cmf:auth-changed"));
-    } catch {}
+    } catch { /* localStorage no disponible */ }
   };
 
-  const handleSubmit = (e) => {
+  /**
+   * Maneja el envío del formulario: registra o inicia sesión según el modo activo.
+   * En registro verifica que el usuario no exista y guarda el nuevo usuario.
+   * En login busca el usuario y compara la contraseña antes de autenticar.
+   * @method handleSubmit
+   * @param {React.FormEvent} e - Evento de envío del formulario
+   */
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setMensaje("");
+    setCargando(true);
 
-    if (modo === "registro") {
-      const { nombre, apellido, telefono, email, usuario, contrasenia } = form;
+    try {
+      const todosLosUsuarios = await api.getUsuarios();
 
-      if (!nombre || !apellido || !telefono || !email || !usuario || !contrasenia) {
-        setError("Completa todos los campos.");
+      if (modo === "registro") {
+        const { nombre, apellido, telefono, email, usuario, contrasenia } = form;
+
+        if (!nombre || !apellido || !telefono || !email || !usuario || !contrasenia) {
+          setError("Completa todos los campos.");
+          return;
+        }
+        if (!validarEmail(email)) {
+          setError("Email inválido.");
+          return;
+        }
+        if (!validarContrasenia(contrasenia)) {
+          setError("La contraseña debe tener al menos 6 caracteres.");
+          return;
+        }
+
+        const yaExiste = todosLosUsuarios.some(
+          (u) => u.username.toLowerCase() === usuario.toLowerCase()
+        );
+        if (yaExiste) {
+          setError("Ese nombre de usuario ya está en uso. Elegí otro.");
+          return;
+        }
+
+        await api.addUsuario({
+          username: usuario,
+          password: contrasenia,
+          name: `${nombre} ${apellido}`,
+          email,
+        });
+
+        saveAuth(usuario, `${nombre} ${apellido}`);
+        setMensaje("¡Te registraste correctamente!");
+        resetForm();
+        setTimeout(() => navigate(getRedirect()), 1500);
         return;
       }
-      if (!validarEmail(email)) {
-        setError("Email inválido.");
-        return;
-      }
-      if (!validarContrasenia(contrasenia)) {
-        setError("La contraseña debe tener al menos 6 caracteres.");
+
+      // MODO LOGIN
+      if (!form.usuario || !form.contrasenia) {
+        setError("Completá usuario y contraseña.");
         return;
       }
 
-      saveAuth(usuario, nombre + " " + apellido);
-      setMensaje("¡Te registraste correctamente!");
+      const encontrado = todosLosUsuarios.find(
+        (u) =>
+          u.username.toLowerCase() === form.usuario.toLowerCase() &&
+          u.password === form.contrasenia
+      );
+
+      if (!encontrado) {
+        setError("Usuario o contraseña incorrectos.");
+        return;
+      }
+
+      saveAuth(encontrado.username, encontrado.name || encontrado.username);
+      setMensaje(`¡Bienvenido, ${encontrado.name || encontrado.username}!`);
       resetForm();
       setTimeout(() => navigate(getRedirect()), 1500);
-      return;
-    }
 
-    // MODO LOGIN
-    if (!form.usuario || !form.contrasenia) {
-      setError("Completá usuario y contraseña.");
-      return;
+    } catch {
+      setError("Error al conectar con el servidor. Intentá de nuevo.");
+    } finally {
+      setCargando(false);
     }
-
-    if (!validarContrasenia(form.contrasenia)) {
-      setError("Contraseña incorrecta o inválida.");
-      return;
-    }
-
-    saveAuth(form.usuario);
-    setMensaje(`¡Bienvenido ${form.usuario}!`);
-    resetForm();
-    setTimeout(() => navigate(getRedirect()), 1500);
   };
 
   return (
@@ -195,10 +244,12 @@ const Login = () => {
           />
         </div>
 
-        {error && <p className="form-error">{error}</p>}
+        {error && <p className="form-error" role="alert">{error}</p>}
         {mensaje && <p className="form-ok">{mensaje}</p>}
 
-        <Button type="submit">Continuar</Button>
+        <Button type="submit" disabled={cargando}>
+          {cargando ? "Verificando..." : "Continuar"}
+        </Button>
       </form>
     </section>
   );

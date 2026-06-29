@@ -1,7 +1,4 @@
-/* =========================================================
-   Tenedor Libre — JS principal (RECETAS)
-   ========================================================= */
-
+(() => {
 /**
  * Objeto que maneja la autenticación del usuario en el almacenamiento local
  * @namespace
@@ -9,6 +6,7 @@
 const Auth = {
   /**
    * Verifica si el usuario está autenticado
+   * @method isAuthed
    * @returns {boolean} true si el usuario está autenticado, false en caso contrario
    */
   isAuthed: () => { 
@@ -21,6 +19,7 @@ const Auth = {
 
   /**
    * Establece el estado de autenticación del usuario
+   * @method setAuthed
    * @param {string} email - El email del usuario
    * @param {string} name - El nombre del usuario
    */
@@ -34,6 +33,7 @@ const Auth = {
 
   /**
    * Limpia los datos de autenticación del usuario
+   * @method clear
    */
   clear: () => {
     try {
@@ -51,6 +51,7 @@ const Auth = {
 const Intent = {
   /**
    * Guarda una intención en el almacenamiento de sesión
+   * @method save
    * @param {Object} i - La intención a guardar
    */
   save: (i) => { 
@@ -61,6 +62,7 @@ const Intent = {
 
   /**
    * Carga la intención guardada del almacenamiento de sesión
+   * @method load
    * @returns {Object|null} La intención guardada o null si no hay ninguna
    */
   load: () => { 
@@ -73,9 +75,10 @@ const Intent = {
 
   /**
    * Limpia la intención guardada
+   * @method clear
    */
-  clear: () => { 
-    try { 
+  clear: () => {
+    try {
       sessionStorage.removeItem('intent'); 
     } catch {} 
   }
@@ -83,7 +86,7 @@ const Intent = {
 
 /**
  * Inicializa la funcionalidad básica de navegación
- * @function
+ * @method wireNavBasics
  * @description Configura el comportamiento del menú móvil y los efectos de scroll
  */
 const wireNavBasics = () => {
@@ -109,6 +112,7 @@ const wireNavBasics = () => {
 
   /**
    * Maneja el evento de scroll para aplicar efectos visuales al header
+   * @method onScroll
    * @private
    */
   const onScroll = () => {
@@ -122,7 +126,7 @@ const wireNavBasics = () => {
 
 /**
  * Abre el modal de una receta a partir de una tarjeta
- * @function
+ * @method openRecipeFromCard
  * @param {HTMLElement} card - El elemento DOM de la tarjeta de receta
  * @param {HTMLDialogElement} dialog - El elemento dialog que sirve como modal
  * @description Extrae la información de la tarjeta y la muestra en el modal
@@ -171,6 +175,7 @@ const openRecipeFromCard = (card, dialog) => {
 
   /**
    * Cierra el modal de manera segura
+   * @method close
    * @private
    */
   const close = () => { 
@@ -195,7 +200,7 @@ const openRecipeFromCard = (card, dialog) => {
 
 /**
  * Configura el modal de inicio de sesión una sola vez
- * @function
+ * @method wireLoginPopupOnce
  * @param {HTMLDialogElement} dialog - El elemento dialog que sirve como modal de login
  * @description Inicializa los eventos del formulario de login y maneja el cierre del modal
  */
@@ -236,7 +241,7 @@ const wireLoginPopupOnce = (dialog) => {
 
 /**
  * Abre el modal de inicio de sesión o redirige a la página de login
- * @function
+ * @method openLoginPopup
  * @param {string} [reason='manual'] - Razón por la que se solicita el login
  * @param {string} [href=location.pathname] - URL a la que redirigir después del login
  * @description Si existe el modal lo muestra, si no redirige a login.html
@@ -262,7 +267,7 @@ const openLoginPopup = (reason='manual', href=location.pathname) => {
   }
 };
 
-/* ---- Eventos globales ---- */
+// Inicialización: clic en tarjeta abre modal si hay sesión, o pide login si no hay
 document.addEventListener('DOMContentLoaded', () => {
   wireNavBasics();
   document.addEventListener('click', (e) => {
@@ -274,9 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-/* =====================================================================
-   ===============  Recetas.html — lógica de categorías  ================
-   ===================================================================== */
+// Lógica de categorías: filtrado, visualización y navegación entre vistas
 (function () {
   const catGrid = document.getElementById('cat-grid');
   const catView = document.getElementById('category-view');
@@ -334,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Renderiza las tarjetas de recetas en la galería
- * @function
+ * @method renderCards
  * @param {Recipe[]} list - Lista de recetas a mostrar
  * @description Genera el HTML para cada receta y lo inserta en la galería
  */
@@ -588,7 +591,7 @@ const renderCards = (list) => {
 
   /**
  * Muestra las recetas de una categoría específica
- * @function
+ * @method showCategory
  * @param {string} catKey - Clave de la categoría a mostrar
  * @description Filtra las recetas por categoría, actualiza la URL y muestra la vista
  */
@@ -606,7 +609,7 @@ const showCategory = (catKey) => {
 
 /**
  * Muestra todas las recetas disponibles
- * @function
+ * @method showAll
  * @description Muestra la lista completa de recetas y actualiza la URL
  */
 const showAll = () => {
@@ -644,6 +647,7 @@ const showAll = () => {
 
   /**
    * Lee el hash de la URL al cargar la página y muestra la vista correspondiente
+   * @method initFromHash
    * @description Si el hash es '#all' muestra todas las recetas; si es una categoría válida, la muestra
    */
   const initFromHash = () => {
@@ -658,4 +662,5 @@ const showAll = () => {
     if (h === 'all') showAll();
     else if (NAME[h]) showCategory(h);
   });
+})();
 })();

@@ -4,7 +4,6 @@
  * @module tenedorlibre
  */
 (() => {
-  // No sobrescribir si ya existe
   /**
    * @namespace
    * @global
@@ -14,6 +13,7 @@
     window.Auth = {
       /**
        * Verifica si el usuario está autenticado
+       * @method isAuthed
        * @returns {boolean} true si el usuario está autenticado, false en caso contrario
        */
       isAuthed: () => { 
@@ -26,6 +26,7 @@
 
       /**
        * Establece el estado de autenticación del usuario
+       * @method setAuthed
        * @param {string} email - Email del usuario
        * @param {string} name - Nombre del usuario
        */
@@ -39,6 +40,7 @@
 
       /**
        * Limpia los datos de autenticación
+       * @method clear
        */
       clear: () => { 
         try { 
@@ -59,6 +61,7 @@
     window.Intent = {
       /**
        * Guarda una intención de navegación
+       * @method save
        * @param {Object} i - Objeto con la información de la intención
        * @param {string} i.reason - Razón de la intención
        * @param {string} i.href - URL destino
@@ -71,6 +74,7 @@
 
       /**
        * Carga la intención guardada
+       * @method load
        * @returns {Object|null} La intención guardada o null si no hay ninguna
        */
       load: () => { 
@@ -83,8 +87,9 @@
 
       /**
        * Limpia la intención guardada
+       * @method clear
        */
-      clear: () => { 
+      clear: () => {
         try { 
           sessionStorage.removeItem('intent'); 
         } catch {} 
@@ -94,6 +99,7 @@
 
   /**
    * Inicializa el comportamiento básico de la barra de navegación
+   * @method wireNavBasics
    * @description Configura el menú hamburguesa y el efecto de scroll del header
    */
   const wireNavBasics = () => {
@@ -121,7 +127,6 @@
     };
     onScroll(); window.addEventListener('scroll', onScroll);
 
-    // Saludo personalizado si hay sesión activa
     const navReg = document.getElementById('nav-register');
     const navEl  = document.getElementById('site-nav') || document.querySelector('.links');
     if (navReg && navEl) {
@@ -129,12 +134,10 @@
         const auth = JSON.parse(localStorage.getItem('cmf_auth') || 'null');
         if (auth) {
           const first = (auth.name || auth.username || 'Usuario').split(' ')[0];
-          // Saludo antes del primer link del nav
           const greetingEl = document.createElement('span');
           greetingEl.className = 'nav-greeting';
           greetingEl.textContent = `Hola, ${first}`;
           navEl.insertBefore(greetingEl, navEl.firstChild);
-          // Convertir #nav-register en botón de cerrar sesión
           navReg.textContent = 'Cerrar sesión';
           navReg.removeAttribute('href');
           navReg.classList.add('nav-logout');
@@ -151,6 +154,7 @@
 
   /**
    * Muestra un toast de notificación personalizado
+   * @method showToast
    * @param {string} msg - Mensaje a mostrar
    * @param {'success'|'error'|'info'} [type='success'] - Tipo de notificación
    * @param {number} [duration=3200] - Duración en milisegundos

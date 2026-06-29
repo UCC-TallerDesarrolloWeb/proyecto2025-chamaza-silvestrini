@@ -15,7 +15,7 @@
   </head>
 
   <body>
-    <!-- ================= HEADER ================= -->
+    <!-- Encabezado con logo y navegación -->
     <header class="site-header" aria-label="Barra principal">
       <div class="container nav">
         <a class="brand" href="index.html#hero" aria-label="Volver al inicio">
@@ -49,11 +49,10 @@
       </div>
     </header>
 
-    <!-- ================= MAIN ================= -->
     <main class="section">
       <div class="container">
         <div class="actions-row">
-          <h1>Todas las recetas</h1>
+          <h2>Todas las recetas</h2>
           <div class="actions-btns">
             <button id="back-to-cats" class="btn secondary small" hidden>← Volver a categorías</button>
             <button id="btn-see-all" class="btn secondary small">Ver todas</button>
@@ -61,7 +60,7 @@
         </div>
         <h2 id="category-title" class="category-heading" hidden></h2>
         <p class="lead">
-          Elegí una <b>categoría</b> o mirá <b>todas</b> las recetas.
+          Elegí una <strong>categoría</strong> o mirá <strong>todas</strong> las recetas.
         </p>
 
         <!-- GRID DE CATEGORÍAS -->
@@ -130,7 +129,6 @@
       </div>
     </main>
 
-    <!-- ================= FOOTER ================= -->
     <footer class="site-footer" aria-label="Pie de página">
       <div class="container">
         <div class="footer-top">
@@ -157,7 +155,7 @@
       </div>
     </footer>
 
-    <!-- ================= MODAL DE RECETA ================= -->
+    <!-- Modal de detalle de receta: se abre al hacer clic en una tarjeta -->
     <dialog
       id="recipe-modal"
       class="recipe-modal"
@@ -189,11 +187,11 @@
       </div>
     </dialog>
 
-    <!-- ================= LOGIN MODAL ================= -->
+    <!-- Modal de login: aparece cuando el usuario intenta ver una receta sin sesión -->
     <dialog id="login-modal" class="login-modal" aria-labelledby="login-title">
       <button class="login-modal-close" aria-label="Cerrar">×</button>
       <header class="login-head">
-        <div class="brand"><h1 class="brand-text">Tenedor Libre</h1></div>
+        <div class="brand"><span class="brand-text">Tenedor Libre</span></div>
         <h2 id="login-title">Iniciá sesión o registrate</h2>
         <p class="muted">
           Para ver ingredientes y “Todas las recetas”, iniciá sesión. ¡A
@@ -253,6 +251,8 @@
               inputmode="email"
               autocomplete="email"
               placeholder="tu@email.com"
+              size="26"
+              maxlength="100"
               required
             />
           </div>
@@ -265,6 +265,8 @@
               type="password"
               autocomplete="current-password"
               placeholder="••••••••"
+              size="24"
+              maxlength="100"
               required
             />
           </div>

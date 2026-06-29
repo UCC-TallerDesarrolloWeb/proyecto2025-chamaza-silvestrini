@@ -16,7 +16,6 @@
     <script src="tenedorlibre.js" defer></script>
     <script src="login.js" defer></script>
 
-    <!-- Favicon -->
     <link rel="apple-touch-icon" href="../imagenes/logo-tenedor.png">
   </head>
   <body>
@@ -55,11 +54,11 @@
     <main class="auth-wrap">
       <section class="auth-card" role="dialog" aria-labelledby="title">
         <header class="auth-head">
-          <div class="brand"><h1 class="brand-text">Tenedor Libre</h1></div>
-          <h1 id="title" class="auth-title">Iniciá sesión o registrate</h1>
-          <p class="auth-sub">
+          <div class="brand"><span class="brand-text">Tenedor Libre</span></div>
+          <h2 id="title" class="auth-title">Iniciá sesión o registrate</h2>
+          <p class=”auth-sub”>
             Para ver recetas completas y “Todas las recetas”,
-            <b>iniciá sesión o creá tu cuenta</b>. 🍳
+            <strong>iniciá sesión o creá tu cuenta</strong>. 🍳
           </p>
         </header>
 
@@ -71,13 +70,14 @@
               id="tab-signin"
               value="signin"
               checked
+              onchange="window.loginSetMode?.(this.value)"
             />
             <label for="tab-signin" role="tab" aria-controls="panel-auth"
               >Iniciar sesión</label
             >
           </div>
           <div class="auth-tab">
-            <input type="radio" name="mode" id="tab-signup" value="signup" />
+            <input type="radio" name="mode" id="tab-signup" value="signup" onchange="window.loginSetMode?.(this.value)" />
             <label for="tab-signup" role="tab" aria-controls="panel-auth"
               >Registrarme</label
             >
@@ -98,7 +98,7 @@
             role="tabpanel"
             aria-labelledby="tab-signin"
           >
-            <!-- ======= INICIAR SESIÓN: USUARIO + CONTRASEÑA ======= -->
+            <!-- Campos para iniciar sesión -->
             <fieldset id="signin-fields">
               <div class="form-row">
                 <label for="su-username">Nombre de usuario</label>
@@ -129,7 +129,7 @@
               </div>
             </fieldset>
 
-            <!-- ======= REGISTRARME: NOMBRE, APELLIDO, TELÉFONO, MAIL, USUARIO, CONTRASEÑA ======= -->
+            <!-- Campos para registrarse: nombre, apellido, teléfono, email, usuario y contraseña -->
             <fieldset id="signup-fields">
               <div class="grid-2">
                 <div class="form-row">

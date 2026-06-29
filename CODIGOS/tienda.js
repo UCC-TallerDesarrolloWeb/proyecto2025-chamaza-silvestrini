@@ -36,9 +36,9 @@
     {id:'brush-sil', name:'Pincel de silicona', price:4999, img:'../imagenes/pincel-silicona.webp', tags:['Resistente','Antiadherente'], pop:65},
     ];
 
-  // ======== HELPERS (scoped) ========
   /**
    * Selector de elemento DOM simplificado
+   * @method $
    * @param {string} s - Selector CSS
    * @param {Document|Element} [ctx=document] - Contexto de búsqueda
    * @returns {Element|null} Primer elemento que coincide o null
@@ -47,6 +47,7 @@
 
   /**
    * Formatea un número como moneda argentina (ARS)
+   * @method money
    * @param {number} x - Valor numérico a formatear
    * @returns {string} Precio formateado (ej: "$38.999")
    */
@@ -61,24 +62,28 @@
 
   /**
    * Carga el carrito desde localStorage
+   * @method loadCart
    * @returns {Object.<string, number>} Mapa de ID de producto a cantidad
    */
   const loadCart = () => JSON.parse(localStorage.getItem(CART_KEY) || '{}');
 
   /**
    * Guarda el carrito en localStorage
+   * @method saveCart
    * @param {Object.<string, number>} c - Mapa de ID de producto a cantidad
    */
   const saveCart = c => localStorage.setItem(CART_KEY, JSON.stringify(c));
 
   /**
    * Calcula el número total de items en el carrito
+   * @method cartCount
    * @returns {number} Total de items
    */
   const cartCount = () => Object.values(loadCart()).reduce((a,b)=>a+b,0);
 
   /**
    * Dispara un evento personalizado cuando el carrito cambia
+   * @method notifyCartChanged
    * @fires CustomEvent#tl:cart-changed
    */
   const notifyCartChanged = () => {
@@ -87,10 +92,8 @@
   };
 
   /**
-   * Actualiza el contador visual del carrito
-   */
-  /**
    * Actualiza el contador visual del carrito en el botón del header
+   * @method updateCartCount
    */
   const updateCartCount = () => {
     const n = cartCount();
@@ -100,6 +103,7 @@
 
   /**
    * Muestra u oculta los botones de acción del pie del carrito
+   * @method setCartControlsVisibility
    * @param {boolean} hasItems - true si el carrito tiene al menos un producto
    */
   const setCartControlsVisibility = (hasItems) => {
@@ -121,6 +125,7 @@
 
   /**
    * Agrega una unidad de un producto al carrito y notifica el cambio
+   * @method addToCart
    * @param {string} id - ID del producto a agregar
    */
   const addToCart = (id) => {
@@ -132,6 +137,7 @@
   };
   /**
    * Quita una unidad de un producto del carrito; si llega a 0 lo elimina
+   * @method removeFromCart
    * @param {string} id - ID del producto a decrementar
    */
   const removeFromCart = (id) => {
@@ -146,6 +152,7 @@
   };
   /**
    * Vacía el carrito completamente y actualiza la interfaz
+   * @method emptyCart
    */
   const emptyCart = () => {
     saveCart({});
@@ -156,6 +163,7 @@
 
   /**
    * Renderiza el contenido del modal del carrito con los productos actuales y el total
+   * @method renderCart
    */
   const renderCart = () => {
     const c = loadCart();
@@ -163,7 +171,6 @@
     if(!list) return;
 
     if(!Object.keys(c).length){
-      // carrito vacío: mostrar mensaje y ocultar botones
       list.innerHTML = '<li class="empty">Tu carrito está vacío.</li>';
       const total = $('#cartTotal');
       if (total) total.textContent = '$0';
@@ -192,7 +199,7 @@
 
   /**
    * Renderiza la lista de productos en la grilla
-   * @function
+   * @method renderProducts
    * @param {Product[]} list - Lista de productos a mostrar
    * @description Genera el HTML para cada producto y lo inserta en la grilla
    */
@@ -227,7 +234,7 @@
 
   /**
    * Obtiene los filtros actuales del formulario
-   * @function
+   * @method currentFilters
    * @returns {Filters} Estado actual de los filtros
    */
   const currentFilters = () => {
@@ -241,6 +248,7 @@
 
   /**
    * Filtra y ordena los productos según los criterios activos y actualiza la grilla
+   * @method applyFilters
    */
   const applyFilters = () => {
     const {term,min,max,sort,alpha} = currentFilters();
@@ -329,6 +337,7 @@
     /* ========= Botón "Finalizar compra" con camión (mejorado) ========= */
     /**
      * Transforma el botón "Finalizar compra" con animación de camión de entrega
+     * @method enhanceOrderButton
      * @description Se ejecuta una sola vez; anima el envío y vacía el carrito al completar
      */
     const enhanceOrderButton = () => {
@@ -355,6 +364,7 @@
       // Habilitado / tooltip según cantidad
       /**
        * Habilita o deshabilita el botón según la cantidad de items en el carrito
+       * @method updateState
        * @param {number} [n=cartCount()] - Cantidad total de items
        */
       const updateState = (n = cartCount()) => {
@@ -380,6 +390,7 @@
 
         /**
          * Verifica si el usuario tiene una sesión activa
+         * @method isLoggedIn
          * @returns {boolean} true si hay sesión iniciada
          */
         const isLoggedIn = () => {

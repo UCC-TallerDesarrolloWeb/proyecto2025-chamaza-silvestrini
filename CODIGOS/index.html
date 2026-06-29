@@ -20,7 +20,7 @@
   </head>
 
   <body>
-    <!-- ================= HEADER ================= -->
+    <!-- Encabezado con logo y navegación principal -->
     <header class="site-header" aria-label="Barra principal">
       <div class="container nav">
         <a class="brand" href="#hero" aria-label="Volver al inicio">
@@ -55,9 +55,8 @@
       </div>
     </header>
 
-    <!-- ================= MAIN ================= -->
     <main>
-      <!-- ===== HERO ===== -->
+      <!-- Sección hero: banner de bienvenida y llamada a la acción -->
       <section id="hero" class="hero">
         <img
           src="../imagenes/banner.jpg"
@@ -66,11 +65,11 @@
         />
         <div class="container">
           <span class="badge">Tenedor Libre — Buffet en casa</span>
-          <h1 class="hero-title">Cocina con estilo, técnica y comunidad</h1>
+          <h2 class="hero-title">Cocina con estilo, técnica y comunidad</h2>
           <p class="lead">
-            Recetas de autor con <b>paso a paso</b>,
-            <b>filtros inteligentes</b> y fotos editoriales.<br />
-            Descubrí clases y ferias en el <b>mapa</b> y compartí tu experiencia
+            Recetas de autor con <strong>paso a paso</strong>,
+            <strong>filtros inteligentes</strong> y fotos editoriales.<br />
+            Descubrí clases y ferias en el <strong>mapa</strong> y compartí tu experiencia
             con la comunidad.
           </p>
           <div class="cta">
@@ -80,20 +79,20 @@
         </div>
       </section>
 
-      <!-- ===== NUESTRA COCINA ===== -->
+      <!-- Descripción del proyecto y propuesta de valor -->
       <section id="acerca" class="section section-soft">
         <div class="container narrow">
           <h2>Nuestra cocina</h2>
           <p>
-            Curamos técnicas, ingredientes y <b>sabores de temporada</b> con una
-            mirada contemporánea. Unimos <b>recetas probadas</b>, productos
-            recomendados y experiencias para que tu cocina <b>florezca</b> todos
+            Curamos técnicas, ingredientes y <strong>sabores de temporada</strong> con una
+            mirada contemporánea. Unimos <strong>recetas probadas</strong>, productos
+            recomendados y experiencias para que tu cocina <strong>florezca</strong> todos
             los días.
           </p>
         </div>
       </section>
 
-      <!-- ===== CATEGORÍAS ===== -->
+      <!-- Tarjetas de categorías con imagen y navegación a recetas.html -->
       <section id="categorias" class="section">
         <div class="container">
           <h2>Categorías</h2>
@@ -134,7 +133,7 @@
         </div>
       </section>
 
-      <!-- ===== MAPA ===== -->
+      <!-- Mapa embebido de Google Maps con restaurantes y ferias -->
       <section id="mapa" class="section section-soft">
         <div class="container">
           <h2>Mapa de clases, ferias y restaurantes</h2>
@@ -152,12 +151,11 @@
         </div>
       </section>
 
-      <!-- ===== RESEÑAS ===== -->
+      <!-- Sistema de reseñas: formulario + lista con promedio de puntaje -->
       <section id="resenas" class="section">
         <div class="container narrow">
           <h2>Reseñas de la comunidad</h2>
           <div class="reseñas-grid">
-            <!-- Formulario -->
             <div class="reseña-form card">
               <div class="card-body">
                 <h3>Dejá tu reseña</h3>
@@ -186,7 +184,6 @@
               </div>
             </div>
 
-            <!-- Lista -->
             <div class="reseña-list card">
               <div class="card-body">
                 <div class="row-between">
@@ -200,12 +197,12 @@
         </div>
       </section>
 
-      <!-- ===== CONTACTO ===== -->
+      <!-- Formulario de contacto para chefs y marcas -->
       <section id="contacto" class="section section-soft">
         <div class="container narrow">
           <h2>Contacto</h2>
           <p class="muted">¿Sos chef, escuela o marca? Conversemos.</p>
-          <form class="contact-form" id="contact-form">
+          <form class="contact-form" id="contact-form" onsubmit="return window.handleContactForm?.(event)">
             <div class="form-row">
               <label for="contact-email">Email</label>
               <input id="contact-email" type="email" autocomplete="email" placeholder="Tu@email.com" required size="30" maxlength="100" />
@@ -220,7 +217,6 @@
       </section>
     </main>
 
-    <!-- ===== FOOTER ===== -->
     <footer class="site-footer" aria-label="Pie de página">
       <div class="container">
         <div class="footer-top">

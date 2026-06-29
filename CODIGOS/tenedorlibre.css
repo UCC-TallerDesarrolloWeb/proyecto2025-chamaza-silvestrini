@@ -1,20 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
 :root {
-  /* ── 4 tonos base ── */
+  
   --ivory:    #F8F5F0;
   --linen:    #EDE5DA;
   --terra:    #C85C2A;
   --espresso: #1C1410;
 
-  /* ── Derivados de la misma familia ── */
+  
   --linen-soft:   #F3EDE5;
   --linen-border: #D5C9BC;
   --muted:        #6E5C4E;
   --terra-hover:  #A54620;
   --terra-tint:   #F6E4D8;
 
-  /* ── Alias semánticos ── */
+  
   --fg:          var(--espresso);
   --bg:          var(--ivory);
   --surface:     var(--linen);
@@ -25,7 +25,7 @@
   --shadow:      0 4px 20px rgba(28,20,16,.09);
   --ink-light:   var(--ivory);
 
-  /* ── Compatibilidad con escala vieja ── */
+  
   --beige-25:  var(--ivory);
   --beige-50:  var(--ivory);
   --beige-100: var(--linen-soft);
@@ -41,7 +41,7 @@
   --brown-500: var(--terra);
   --brown-400: #D98260;
 
-  /* ── Camión (tienda) ── */
+  
   --truck-body:  #e9edf1;
   --truck-cab:   var(--terra);
   --truck-glass1:#e7f6ff;
@@ -52,7 +52,6 @@
   --truck-deco:  #d4dde6;
 }
 
-/* Reset + Base ==== */
 * {
   box-sizing: border-box;
 }
@@ -102,7 +101,6 @@ h1, h2, h3, h4 {
   margin-top: 2rem;
 }
 
-/* Header ===== */
 .site-header {
   position: sticky;
   top: 0;
@@ -145,7 +143,7 @@ h1, h2, h3, h4 {
   height: 42px;
   display: block;
 }
-/* Botón Tenedor */
+
 .nav-toggle {
   margin-left: auto;
   display: none;
@@ -238,13 +236,9 @@ h1, h2, h3, h4 {
   }
 }
 
-/* =========================================================
-   HERO SECTION
-========================================================= */
-
 .hero {
   position: relative;
-  isolation: isolate;        /* crea un nuevo contexto de apilado */
+  isolation: isolate;        
   display: grid;
   place-items: center;
   text-align: center;
@@ -255,7 +249,6 @@ h1, h2, h3, h4 {
   background: none;
 }
 
-/* Imagen de fondo real */
 .hero-banner {
   position: absolute;
   inset: 0;
@@ -269,7 +262,6 @@ h1, h2, h3, h4 {
   display: block;
 }
 
-/* Capa translúcida arriba de la imagen */
 .hero::before {
   content: "";
   position: absolute;
@@ -284,13 +276,11 @@ h1, h2, h3, h4 {
   pointer-events: none;
 }
 
-/* Asegura que el contenido quede sobre todo */
 .hero .container {
   position: relative;
   z-index: 2;
 }
 
-/* Hero content ===== */
 .badge {
   display: inline-block;
   padding: 6px 14px;
@@ -324,7 +314,6 @@ h1, h2, h3, h4 {
   margin-top: 18px;
 }
 
-/* Cards: card-body, row-between, chips, reviews ===== */
 .card-body {
   display: flex;
   flex-direction: column;
@@ -376,7 +365,6 @@ h1, h2, h3, h4 {
 .review-meta  { color: var(--muted); font-size: .82rem; }
 .review-comment { margin: 4px 0 0; color: var(--espresso); }
 
-/* Estrellas (rating) ===== */
 .stars {
   display: flex;
   gap: 6px;
@@ -409,7 +397,6 @@ h1, h2, h3, h4 {
   transform: scale(1.08);
 }
 
-/* Botones ===== */
 .btn {
   display: inline-block;
   padding: 12px 16px;
@@ -470,7 +457,7 @@ h1, h2, h3, h4 {
 .btn.secondary.inline:hover {
   background: var(--linen);
 }
-/* Toast de notificación ===== */
+
 .app-toast {
   position: fixed;
   bottom: 28px;
@@ -499,7 +486,6 @@ h1, h2, h3, h4 {
 .app-toast.toast-error   { background: #5c1a1a; border-left-color: #e05252; }
 .app-toast.toast-info    { background: #1a2b3c; border-left-color: #5aabff; }
 
-/* Reseñas — auth ===== */
 .review-author-badge {
   font-size: .9rem;
   color: var(--muted);
@@ -518,7 +504,6 @@ h1, h2, h3, h4 {
   padding: 16px 0 4px;
 }
 
-/* Botón "Agregado ✓" en cards de tienda ===== */
 .btn.added {
   background: #2d7a3a;
   border-color: #1d5228;
@@ -527,7 +512,6 @@ h1, h2, h3, h4 {
   transition: background .2s ease, transform .15s ease;
 }
 
-/* Saludo de sesión en nav ===== */
 .nav-greeting {
   color: var(--terra);
   font-weight: 700;
@@ -551,13 +535,11 @@ h1, h2, h3, h4 {
   font-weight: 800;
 }
 
-/* Mapa ===== */
 .map-embed{aspect-ratio:16/9;max-width:600px;margin:0 auto;border-radius:12px;overflow:hidden;
 	border:1px solid var(--border)}
 .map-embed iframe{width:100%;height:100%;border:0}
 #mapa .muted{text-align:center} #mapa .map-embed{margin-top:10px}
 
-/* Recetas (galería y cards con overlay) ===== */
 .recipe-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
 .recipe-card{position:relative;display:block;border-radius:16px;overflow:hidden;background:var(--surface-alt);
 	box-shadow:0 1px 0 rgba(0,0,0,.06);transition:transform .25s,box-shadow .25s;transform-origin:center;will-change:transform,box-shadow;cursor:zoom-in}
@@ -567,7 +549,6 @@ h1, h2, h3, h4 {
 	background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.75) 100%);color:var(--ink-light);display:grid;gap:6px}
 .recipe-card .overlay .overlay-top{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 
-/* Reseñas: grid lado a lado ===== */
 .reseñas-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -575,7 +556,6 @@ h1, h2, h3, h4 {
 	align-items: start;
 }
 
-/* Formularios: estructura label + campo ===== */
 .form-grid {
 	display: grid;
 	gap: 14px;
@@ -637,7 +617,6 @@ h1, h2, h3, h4 {
 	gap: 14px;
 }
 
-/* Contacto (form + #contacto) ===== */
 .contact-form input,.contact-form textarea,
 #contacto input[type="email"],#contacto textarea{
 	width:100%;padding:10px 12px;border-radius:12px;background:#fff;color:var(--espresso);
@@ -650,7 +629,6 @@ h1, h2, h3, h4 {
 #contacto input::placeholder,#contacto textarea::placeholder{color:var(--muted);opacity:.85}
 #contacto textarea{min-height:130px;resize:vertical}
 
-/* Footer ===== */
 .site-footer {
   background: var(--linen);
   color: var(--espresso);
@@ -719,22 +697,17 @@ h1, h2, h3, h4 {
 }
 .site-footer .back-to-top:hover { background: var(--ivory); color: var(--terra); }
 
-/* El modal de receta está definido más abajo (sección gourmet) ===== */
 .recipe-modal::backdrop { background: rgba(0,0,0,.5); backdrop-filter: blur(2px); }
 
-/* Accesibilidad ===== */
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
-/*  */
-/* LOGIN (UI)  ============================= */
-/*  */
 .auth-wrap{min-height:100svh;display:grid;place-items:center;padding:clamp(24px,4vw,42px);
 	background:linear-gradient(160deg, var(--ivory) 0%, var(--linen) 100%)}
 .auth-card{width:min(780px,100%);background:#fff;border:1px solid var(--border);border-radius:20px;
 	box-shadow:0 16px 48px rgba(28,20,16,.12);overflow:hidden}
 .auth-head{padding:28px 28px 12px}
 .auth-head .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.12em;color:var(--espresso);text-transform:uppercase}
-.auth-head h1{margin:6px 0;font-size:clamp(26px,4.6vw,40px);line-height:1.05;color:var(--espresso)}
+.auth-head h1,.auth-head h2{margin:6px 0;font-size:clamp(26px,4.6vw,40px);line-height:1.05;color:var(--espresso)}
 .auth-sub{color:var(--muted);display:flex;align-items:center;gap:6px}
 .auth-tabs{display:flex;gap:12px;padding:0 20px 12px}
 .auth-tab{display:flex}
@@ -762,13 +735,11 @@ input:focus,textarea:focus{outline:none;border-color:var(--terra);box-shadow:0 0
 form[data-mode="signin"] #signup-fields{display:none}
 form[data-mode="signup"] #signin-fields{display:none}
 
-/* Quitar recuadro/borde del fieldset en login */
 #auth-form fieldset,.login-body fieldset,.auth-body fieldset{
 	border:0;outline:none;box-shadow:none;padding:0;margin:0;
 	appearance:none;-webkit-appearance:none;-moz-appearance:none;min-inline-size:0}
 #auth-form fieldset::before,#auth-form fieldset::after{content:none}
 
-/* NAV: Dropdown ===== */
 .links .menu-group{position:relative}
 .dd-trigger{background:none;border:0;font:inherit;color:inherit;padding:8px 10px;border-radius:10px;cursor:pointer}
 .dd-trigger:hover{background:var(--linen-soft)}
@@ -779,7 +750,7 @@ body .dropdown[hidden]{display:none}
 .dropdown li{list-style:none;margin:0;padding:0}
 .dropdown a{display:block;padding:10px 12px;border-radius:10px;color:var(--espresso);text-decoration:none}
 .dropdown a:hover{background:var(--linen-soft)}
-/* Sección CATEGORÍAS (strip horizontal) ===== */
+
 .section-dark {
   background: var(--espresso);
   color: var(--ivory);
@@ -797,7 +768,6 @@ body .dropdown[hidden]{display:none}
   -webkit-overflow-scrolling: touch;
 }
 
-/* Tarjetas ===== */
 .cat-card {
   min-width: min(620px, 86vw);
   background: #fff;
@@ -809,16 +779,14 @@ body .dropdown[hidden]{display:none}
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Efecto hover (POP) */
 .cat-card:hover {
   transform: scale(1.04);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
 }
 
-/* Imágenes un poco más grandes */
 .cat-card img {
   width: 100%;
-  height: 105%; /* más alto para eliminar el espacio en blanco */
+  height: 105%; 
   object-fit: cover;
   display: block;
   aspect-ratio: 16/9;
@@ -826,12 +794,10 @@ body .dropdown[hidden]{display:none}
   transition: transform 0.3s ease;
 }
 
-/* Leve zoom sobre la imagen al hover */
 .cat-card:hover img {
   transform: scale(1.05);
 }
 
-/* Overlay con título ===== */
 .cat-footer {
   position: absolute;
   inset: auto 0 0 0;
@@ -853,7 +819,6 @@ body .dropdown[hidden]{display:none}
   opacity: 0.85;
 }
 
-/* Scrollbar */
 .cat-strip::-webkit-scrollbar {
   height: 6px;
 }
@@ -866,7 +831,6 @@ body .dropdown[hidden]{display:none}
   border-radius: 999px;
 }
 
-/* Categorías compactas (home) */
 #categorias.section {
   padding-top: 24px;
   padding-bottom: 24px;
@@ -894,7 +858,6 @@ body #categorias .cat-card {
   font-size: 0.95rem;
 }
 
-/* Recetas.html — grid de categorías ===== */
 .cat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -916,7 +879,6 @@ body #categorias .cat-card {
   aspect-ratio: auto;
 }
 
-/* Controles de vista y utilidades */
 body #cat-grid[hidden],
 body #category-view[hidden] {
   display: none;
@@ -951,7 +913,6 @@ body #category-view[hidden] {
   }
 }
 
-/* Tienda: espaciado mejorado ===== */
 .tienda-page main.section,
 .tienda-page .section {
   padding-top: 56px;
@@ -969,20 +930,15 @@ body #category-view[hidden] {
   }
 }
 
-
-/* Recetas: cards (preview) solo con título ===== */
 body #category-view .recipe-card .overlay .meta { display: none; }
 
-/* Recetas: achicar un toque las tarjetas ===== */
-#category-view .recipe-card img { aspect-ratio: 3 / 2; } /* un 12% más bajas */
+#category-view .recipe-card img { aspect-ratio: 3 / 2; } 
 #category-view .recipe-card .overlay { padding: 10px 12px; }
 #category-view .recipe-card .overlay .title { font-size: clamp(16px, 2.4vw, 20px); }
 
-/* Modal de receta: visibilidad de dialog ===== */
 #recipe-modal { display: none; }
 #recipe-modal[open] { display: block; }
 
-/* Cards: layout para recipe-card y cat-card-tile (recetas.html) ===== */
 .recipes-grid .recipe-card,
 #recipes-grid .recipe-card,
 .cat-card-tile {
@@ -1014,11 +970,6 @@ body #category-view .recipe-card .overlay .meta { display: none; }
 	color: #fff;
 }
 
-/* =========================================================
-   Modal de receta — diseño gourmet
-========================================================= */
-
-/* ----- Modal de receta ----- */
 .recipe-modal {
 	border: none;
 	padding: 0;
@@ -1043,7 +994,6 @@ body #category-view .recipe-card .overlay .meta { display: none; }
 	backdrop-filter: blur(2px);
 }
 
-/* ----- Imagen superior ----- */
 .recipe-modal-media {
 	width: 100%;
 	max-height: 300px;
@@ -1061,7 +1011,6 @@ body #category-view .recipe-card .overlay .meta { display: none; }
 	transform: scale(1.04);
 }
 
-/* ----- Contenido ----- */
 .recipe-modal-content {
 	padding: 28px 32px 36px;
 	background: var(--ivory);
@@ -1095,7 +1044,6 @@ body #category-view .recipe-card .overlay .meta { display: none; }
 	margin-bottom: 1.2rem;
 }
 
-/* ----- Metadatos (una sola línea estética) ----- */
 .recipe-meta {
 	display: flex;
 	flex-wrap: wrap;
@@ -1118,7 +1066,6 @@ body #category-view .recipe-card .overlay .meta { display: none; }
 	border: 1px solid var(--border);
 }
 
-/* ----- Sección de ingredientes ----- */
 .recipe-modal-body h4 {
 	font-size: 1.15rem;
 	color: var(--espresso);
@@ -1146,7 +1093,6 @@ body #category-view .recipe-card .overlay .meta { display: none; }
 	font-weight: 600;
 }
 
-/* ----- Botón cerrar ----- */
 .modal-actions {
 	margin-top: 26px;
 	text-align: right;
@@ -1165,14 +1111,12 @@ body #category-view .recipe-card .overlay .meta { display: none; }
 	transform: translateY(-1px);
 }
 
-/* ----- Transiciones suaves ----- */
 .recipe-modal-content,
 .recipe-meta,
 .recipe-modal-body li {
 	transition: opacity .25s ease, transform .25s ease;
 }
 
-/* Ajuste visual: párrafo debajo del título (alineado a la izquierda) ===== */
 body .actions-row ~ .lead {
 	text-align: left;
 	margin-left: 6px;
@@ -1182,9 +1126,6 @@ body .actions-row ~ .lead {
 	color: var(--muted);
 }
 
-/* ===== Tenedor Libre — Tienda ===== */
-
-/* === Grilla de productos === */
 .shop-grid{
 	display:grid;
 	grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
@@ -1212,7 +1153,6 @@ body .actions-row ~ .lead {
 .tag{font-size:.78rem;padding:3px 8px;border:1px solid var(--border);border-radius:999px;background:var(--linen-soft);color:var(--espresso)}
 .empty{padding:18px;border:1px dashed var(--border);border-radius:14px;text-align:center;color:var(--muted);background:#fff}
 
-/* ===== Toolbar de filtros ===== */
 .shop-toolbar{
 	background:#fff;border:1px solid var(--border);
 	padding:14px 16px;border-radius:18px;box-shadow:0 2px 8px rgba(28,20,16,.06);margin-bottom:22px;transition:.3s ease
@@ -1232,7 +1172,6 @@ body .actions-row ~ .lead {
 	outline:none;border-color:var(--terra);box-shadow:0 0 0 3px rgba(200,92,42,.15)
 }
 
-/* ===== Carrito ===== */
 .cart-btn{position:relative}
 .cart-count{position:absolute;top:-6px;right:-6px;background:var(--terra);color:#fff;border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;padding:0 6px;font-size:.8rem;font-weight:800}
 dialog.cart{
@@ -1295,8 +1234,6 @@ dialog.cart{
 	border:1px dashed var(--border);
 }
 
-
-/* Responsive fino */
 @media (max-width:540px){
 	.field{min-width:140px}
 	.field.short{min-width:100px;width:100px}
@@ -1304,7 +1241,6 @@ dialog.cart{
 	.cart-item > div:nth-child(3){justify-self:end}
 }
 
-/* Botón de pedido con camión (centrado + profundidad + inclinación) ===== */
 .order-btn{
 	position:relative; overflow:hidden; isolation:isolate;
 	display:inline-flex; align-items:center; justify-content:center; gap:10px;
@@ -1316,23 +1252,18 @@ dialog.cart{
 .order-btn:disabled{opacity:.9; cursor:default}
 .order-btn.nope{animation:btn-shake .45s ease}
 
-/* Texto: oculto suave pero mantiene ancho fijo */
 .order-btn .label{position:relative; z-index:2; white-space:nowrap; transition:opacity .35s ease;}
 .order-btn.ordering .label{opacity:0}
 
-/* Pista suave */
 .order-btn .road{
 	position:absolute; inset:0 10px; border-radius:999px;
 	background:linear-gradient(to bottom, rgba(255,255,255,.08), rgba(0,0,0,.1));
 	opacity:.2; z-index:1;
 }
 
-/* Caja + Camión (la caja se ve llegar, entra al centro y luego parte) === */
-
-/* La caja nace FUERA del camión (a la izquierda) para que se vea el recorrido */
 .order-btn .box{
 	position:absolute;
-	left:calc(50% - 32px - 20px); /* 50% (centro botón) - 32px (mitad camión) - 20px (margen fuera) */
+	left:calc(50% - 32px - 20px); 
 	top:50%;
 	width:12px; height:12px;
 	transform:translateY(-50%); transform-origin:center;
@@ -1343,23 +1274,19 @@ dialog.cart{
 }
 .order-btn .box::before,
 .order-btn .box::after{
-	/* cinta vertical y brillito de tapa */
+	
 	content:""; position:absolute; left:50%; transform:translateX(-50%);
 	border-radius:1px; pointer-events:none;
 }
 .order-btn .box::before{ top:0; width:2px; height:100%; background:rgba(0,0,0,.08); }
 .order-btn .box::after{ top:-2px; width:110%; height:2px; background:rgba(255,255,255,.65); }
 
-/* Camión CENTRADO y más alto en z-index, así la caja desaparece "adentro" al final */
 .order-btn .truck{
 	position:absolute; top:50%; left:50%;
 	transform:translate(-50%,-50%);
 	width:64px; height:32px; z-index:3; display:block; opacity:0;
 }
 
-/* Secuencia:
-	 0–1.35s → camión centrado, aparece la caja a la izquierda, sube a horquillas, se mete al centro y se pierde detrás
-	 1.35–2.7s → camión arranca y se va */
 .order-btn.ordering .box{
 	visibility:visible; opacity:1;
 	animation:box-load-visible 1.35s ease-out forwards;
@@ -1371,33 +1298,30 @@ dialog.cart{
 		truck-drive-centered 1.35s 1.35s cubic-bezier(.25,.9,.25,1) forwards;
 }
 
-/* Ruedas: ritmo acorde */
 .order-btn.ordering .wheel{ animation:wheel-spin 1.6s linear infinite paused; }
 
-/* Estados extra */
 .order-btn.done .truck{ animation:truck-exit-centered .6s ease-in forwards; }
 .order-btn.done .box{ opacity:0; }
 
-/* ---- Partes del camión — estética mejorada ---- */
 .truck .body{
 	position:absolute; left:10px; top:3px; width:30px; height:18px; border-radius:4px;
 	background:linear-gradient(180deg, var(--truck-body) 0%, #dfe6ee 100%);
 	box-shadow:inset 0 -1px 0 rgba(0,0,0,.14), 0 0 0 1px rgba(0,0,0,.06);
 }
 .truck .body::before{
-	/* panel puerta trasera */
+	
 	content:""; position:absolute; inset:3px 4px 4px 4px; border-radius:3px;
 	background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(0,0,0,.04));
 	box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);
 }
 .truck .body::after{
-	/* franja lateral (y también usamos este ::after para la profundidad animada) */
+	
 	content:""; position:absolute; inset:0;
 	border-radius:4px; pointer-events:none;
 	background:
 		radial-gradient(120% 140% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,.45) 70%),
 		linear-gradient(90deg, transparent 3px, var(--truck-deco) 20%, transparent calc(100% - 3px));
-	opacity:.12; /* sube con cargo-depth */
+	opacity:.12; 
 }
 .order-btn.ordering .truck .body::after{ animation:cargo-depth 1.35s ease-out forwards; }
 
@@ -1408,18 +1332,18 @@ dialog.cart{
 	box-shadow:inset 0 -1px 0 rgba(0,0,0,.15), 0 0 0 1px rgba(0,0,0,.06);
 }
 .truck .cab::before{
-	/* paragolpe */
+	
 	content:""; position:absolute; left:-2px; right:-1px; bottom:-2px; height:4px;
 	background:linear-gradient(180deg, #d0d6dc, #aab3bd);
 	border-radius:2px; box-shadow:0 1px 0 rgba(0,0,0,.15);
 }
 .truck .cab::after{
-	/* vidrio */
+	
 	content:""; position:absolute; left:3px; right:4px; top:3px; height:8px; border-radius:2px;
 	background:linear-gradient(180deg, var(--truck-glass1), var(--truck-glass2));
 	box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);
 }
-/* reflejo suave al ordenar */
+
 .order-btn.ordering .cab::after{ animation:glass-sheen 1.2s ease-out forwards; }
 
 .truck .light{
@@ -1452,31 +1376,27 @@ dialog.cart{
 .truck .wheel.left{left:14px}
 .truck .wheel.right{right:6px}
 
-/* Estela/exhaust (suave) */
 .order-btn.ordering .truck::before{
 	content:""; position:absolute; left:-10px; top:8px; width:8px; height:8px;
 	border-radius:50%; background:rgba(255,255,255,.35); filter:blur(0.6px);
 	animation:exhaust 1s ease-out infinite;
 }
 
-/* Keyframes — caja visible, entra al centro y parte ===== */
 @keyframes box-load-visible{
 	0%   { transform:translate(0px, -50%)  rotate(0)     scale(1);   opacity:0; }
-	12%  { transform:translate(6px, -50%)  rotate(0)     scale(1);   opacity:1; }      /* aparece y se acerca */
-	35%  { transform:translate(16px,-122%) rotate(-12deg) scale(1);  opacity:1; }      /* sube a horquillas */
-	60%  { transform:translate(30px,-122%) rotate(-8deg)  scale(1);  opacity:1; }      /* avanza hacia el centro */
-	82%  { transform:translate(38px, -90%) rotate(-3deg)  scale(.97);opacity:.9; }     /* entrando */
-	100% { transform:translate(44px, -50%) rotate(0)      scale(.9); opacity:0; }      /* adentro y detrás */
+	12%  { transform:translate(6px, -50%)  rotate(0)     scale(1);   opacity:1; }      
+	35%  { transform:translate(16px,-122%) rotate(-12deg) scale(1);  opacity:1; }      
+	60%  { transform:translate(30px,-122%) rotate(-8deg)  scale(1);  opacity:1; }      
+	82%  { transform:translate(38px, -90%) rotate(-3deg)  scale(.97);opacity:.9; }     
+	100% { transform:translate(44px, -50%) rotate(0)      scale(.9); opacity:0; }      
 }
 
-/* Profundidad del interior del furgón (oscurece al cargar) */
 @keyframes cargo-depth{
 	0%   { opacity:.12; }
 	50%  { opacity:.28; }
 	100% { opacity:.48; }
 }
 
-/* Camión centrado: rebote quieto y salida a la derecha */
 @keyframes truck-bounce-centered{
 	0%,100%{ transform:translate(-50%,-50%); }
 	50%    { transform:translate(-50%, calc(-50% - 1px)); }
@@ -1490,7 +1410,6 @@ dialog.cart{
 	to   { left:130%; transform:translate(-50%,-50%); }
 }
 
-/* Extras de estilo/feedback */
 @keyframes glass-sheen{
 	0% { box-shadow:inset 0 0 0 1px rgba(255,255,255,.25); }
 	50%{ box-shadow:inset -12px 0 12px rgba(255,255,255,.35), inset 0 0 0 1px rgba(255,255,255,.25); }
@@ -1506,7 +1425,6 @@ dialog.cart{
 	80%{transform:translateX(3px)}
 }
 
-/* Nuevas clases para reemplazar estilos inline ===== */
 .category-heading {
     margin: 16px 0 8px 0;
     font-size: 1.6rem;
@@ -1533,7 +1451,6 @@ dialog.cart{
     color: var(--espresso);
 }
 
-/* Estilos para los elementos de reseña */
 .review-item {
     list-style: none;
     margin-bottom: 16px;
@@ -1546,12 +1463,8 @@ dialog.cart{
 #stars-input button{ color: #bbb; background: transparent; border: 0; font-size: 1.2rem; cursor: pointer }
 #stars-input button.active{ color: #ffcc00 }
 
-/* Utilidad: quitar borde inferior en el último elemento mediante clase desde JS */
 .review-item.no-border{ border-bottom: none }
 
-/* =========================================================
-   RESPONSIVE MOBILE
-========================================================= */
 @media (max-width: 600px) {
   .section { padding: 40px 0; }
   .hero { min-height: 55vh; padding-top: 80px; }

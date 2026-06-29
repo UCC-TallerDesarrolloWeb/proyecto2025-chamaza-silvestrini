@@ -323,6 +323,15 @@ a {
   }
 }
 
+// Separación visual entre secciones
+#acerca {
+  background: $linen-soft;
+}
+
+#mapa {
+  background: $linen;
+}
+
 // MAPA
 .map-embed {
   aspect-ratio: 16 / 9;

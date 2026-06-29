@@ -1,4 +1,20 @@
 {
+  "usuarios": [
+    {
+      "id": "user-seed-1",
+      "username": "admin",
+      "password": "admin123",
+      "name": "Admin Tenedor",
+      "email": "admin@tenedorlibre.com"
+    },
+    {
+      "id": "user-seed-2",
+      "username": "florencia",
+      "password": "flor2025",
+      "name": "Florencia Chamaza",
+      "email": "florencia@tenedorlibre.com"
+    }
+  ],
   "productos": [
     {
       "id": "knife-chef",

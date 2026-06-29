@@ -6,6 +6,7 @@
 (() => {
   /**
    * Selector simplificado de elementos DOM
+   * @method $
    * @param {string} s - Selector CSS
    * @returns {Element|null} Elemento encontrado o null
    */
@@ -13,6 +14,7 @@
 
   /**
    * Selector múltiple simplificado de elementos DOM
+   * @method $$
    * @param {string} s - Selector CSS
    * @returns {Element[]} Array de elementos encontrados
    */
@@ -21,12 +23,15 @@
   const form = $("#auth-form");
   const err = $(".form-error");
 
-  // ===== Tabs: cambiar modo y requireds =====
+  /**
+   * Cambia el modo del formulario entre iniciar sesión y registrarse
+   * @method setMode
+   * @param {string} mode - Modo a aplicar ('signin' o 'signup')
+   */
   const setMode = (mode) => {
     form.setAttribute("data-mode", mode);
 
     const up = mode === "signup";
-    // Sign in requireds
     $("#su-username").required = !up;
     $("#su-password").required = !up;
     // Sign up requireds
@@ -44,6 +49,7 @@
 
     err.textContent = "";
   };
+  window.loginSetMode = setMode;
   $$("#tab-signin, #tab-signup").forEach((r) => {
     r.addEventListener("change", () => setMode(r.value));
   });
@@ -77,6 +83,7 @@
 
   /**
    * Carga la lista de usuarios registrados
+   * @method loadUsers
    * @returns {Object.<string, User>} Mapa de usuarios por nombre de usuario
    */
   const loadUsers = () => {
@@ -89,6 +96,7 @@
 
   /**
    * Guarda la lista de usuarios
+   * @method saveUsers
    * @param {Object.<string, User>} obj - Mapa de usuarios
    */
   const saveUsers = (obj) => {
@@ -99,6 +107,7 @@
 
   /**
    * Establece el usuario actualmente logueado
+   * @method setCurrent
    * @param {string} username - Nombre de usuario
    */
   const setCurrent = (username) => {
@@ -109,6 +118,7 @@
 
   /**
    * Determina la URL de redirección después del login
+   * @method getRedirectTarget
    * @returns {string} URL destino
    * @description Busca primero en Intent, luego en query params, o usa default
    */
@@ -129,6 +139,7 @@
 
   /**
    * Valida formato de email
+   * @method isEmail
    * @param {string} s - String a validar
    * @returns {boolean} true si es un email válido
    */
@@ -136,13 +147,14 @@
 
   /**
    * Valida longitud mínima de un string
+   * @method minLen
    * @param {string} s - String a validar
    * @param {number} n - Longitud mínima requerida
    * @returns {boolean} true si cumple la longitud mínima
    */
   const minLen = (s, n) => (s || "").length >= n;
 
-  // ===== Submit =====
+  // Manejo del envío: valida y procesa tanto el login como el registro
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     err.textContent = "";
@@ -154,15 +166,17 @@
       const users = loadUsers();
       const u = users[user];
       if (!u) {
+        $("#su-username").value = '';
         err.textContent = "Usuario no encontrado.";
         return;
       }
       if (u.password !== pass) {
+        $("#su-password").value = '';
         err.textContent = "Contraseña incorrecta.";
         return;
       }
 
-      // Sesión
+      // Login correcto: guardamos la sesión en localStorage
       try {
         Auth?.setAuthed?.(u.email, u.first + " " + u.last);
       } catch {}
@@ -182,7 +196,6 @@
       return;
     }
 
-    // signup
     const first = $("#sg-first").value.trim();
     const last = $("#sg-last").value.trim();
     const phone = $("#sg-phone").value.trim();
@@ -195,20 +208,24 @@
       return;
     }
     if (!isEmail(email)) {
+      $("#sg-email").value = '';
       err.textContent = "Email inválido.";
       return;
     }
     if (!minLen(pass, 6)) {
+      $("#sg-password").value = '';
       err.textContent = "La contraseña debe tener al menos 6 caracteres.";
       return;
     }
 
     const users = loadUsers();
     if (users[user]) {
+      $("#sg-username").value = '';
       err.textContent = "Ese nombre de usuario ya existe.";
       return;
     }
     if (Object.values(users).some((u) => u.email === email)) {
+      $("#sg-email").value = '';
       err.textContent = "Ese email ya está registrado.";
       return;
     }

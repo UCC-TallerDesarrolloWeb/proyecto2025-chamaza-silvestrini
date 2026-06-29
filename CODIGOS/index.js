@@ -3,6 +3,7 @@
  * @description Maneja autenticación, navegación, reseñas, contacto y menú desplegable
  * @module index
  */
+(() => {
 
 /**
  * Módulo de autenticación de usuario usando localStorage
@@ -11,6 +12,7 @@
 const Auth = {
   /**
    * Verifica si el usuario está autenticado
+   * @method isAuthed
    * @returns {boolean} true si el usuario tiene sesión activa
    */
   isAuthed: () => {
@@ -19,6 +21,7 @@ const Auth = {
 
   /**
    * Guarda el estado de autenticación del usuario
+   * @method setAuthed
    * @param {string} email - Email del usuario
    * @param {string} name - Nombre del usuario
    */
@@ -32,6 +35,7 @@ const Auth = {
 
   /**
    * Elimina los datos de sesión del usuario
+   * @method clear
    */
   clear: () => {
     try {
@@ -44,6 +48,7 @@ const Auth = {
 
 /**
  * Cierra la sesión actual y muestra aviso al usuario
+ * @method cmfLogout
  */
 window.cmfLogout = () => { Auth.clear(); showToast('Sesión cerrada. Podés volver a ingresar.', 'info'); };
 
@@ -54,6 +59,7 @@ window.cmfLogout = () => { Auth.clear(); showToast('Sesión cerrada. Podés volv
 const Intent = {
   /**
    * Guarda una intención en sessionStorage
+   * @method save
    * @param {Object} intent - Objeto con la intención
    * @param {string} intent.reason - Motivo de la redirección
    * @param {string} intent.href - URL destino
@@ -62,18 +68,21 @@ const Intent = {
 
   /**
    * Recupera la intención guardada
+   * @method load
    * @returns {Object|null} La intención guardada o null si no existe
    */
   load: () => { try { return JSON.parse(sessionStorage.getItem('intent')||'null'); } catch { return null; } },
 
   /**
    * Elimina la intención guardada
+   * @method clear
    */
   clear: () => { try { sessionStorage.removeItem('intent'); } catch {} }
 };
 
 /**
  * Inicializa el comportamiento básico de la barra de navegación
+ * @method wireNavBasics
  * @description Configura el menú hamburguesa para móvil y el efecto de scroll del header
  */
 const wireNavBasics = () => {
@@ -105,6 +114,7 @@ const wireNavBasics = () => {
 
 /**
  * Inicializa el menú desplegable de categorías de recetas
+ * @method wireDropdownMenu
  * @description Abre y cierra el dropdown al hacer clic y lo cierra al hacer clic fuera
  */
 const wireDropdownMenu = () => {
@@ -133,6 +143,7 @@ const wireDropdownMenu = () => {
 
 /**
  * Configura el modal de login una única vez para evitar duplicar listeners
+ * @method wireLoginPopupOnce
  * @param {HTMLDialogElement} dialog - El elemento dialog del modal de login
  */
 const wireLoginPopupOnce = (dialog) => {
@@ -165,6 +176,7 @@ const wireLoginPopupOnce = (dialog) => {
 
 /**
  * Abre el popup de login o redirige a login.html si el popup no está disponible
+ * @method openLoginPopup
  * @param {string} [reason='manual'] - Razón por la que se solicita el login
  * @param {string} [href=location.pathname] - URL a la que redirigir tras el login
  */
@@ -179,6 +191,7 @@ const openLoginPopup = (reason = 'manual', href = location.pathname) => {
 
 /**
  * Inicializa el sistema de reseñas: muestra las guardadas, gestiona estrellas y envío
+ * @method wireReviews
  * @description Lee y escribe en localStorage con la clave 'reviews'
  */
 const wireReviews = () => {
@@ -190,6 +203,7 @@ const wireReviews = () => {
 
   /**
    * Renderiza la lista de reseñas guardadas y actualiza el promedio
+   * @method renderReviews
    */
   const renderReviews = () => {
     const data = JSON.parse(localStorage.getItem('reviews') || '[]');
@@ -294,34 +308,43 @@ const wireReviews = () => {
 };
 
 /**
- * Inicializa el formulario de contacto con validación y feedback al usuario
- * @description Valida email y mensaje antes de confirmar el envío
+ * Expone el manejador del formulario de contacto como función global,
+ * invocada desde el atributo onsubmit del HTML
+ * @method wireContactForm
+ * @description Valida email y mensaje; muestra alert y borra el campo inválido
  */
 const wireContactForm = () => {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
-  form.addEventListener('submit', (e) => {
+  /**
+   * Valida y procesa el envío del formulario de contacto
+   * @method handleContactForm
+   * @param {Event} e - Evento de submit disparado desde el HTML
+   * @returns {boolean} false para cancelar el envío nativo del formulario
+   */
+  window.handleContactForm = (e) => {
     e.preventDefault();
     const emailInput = document.getElementById('contact-email');
     const mensajeInput = document.getElementById('contact-mensaje');
     const email = emailInput?.value.trim() || '';
     const mensaje = mensajeInput?.value.trim() || '';
     if (!email) {
-      showToast('Por favor ingresá tu email.', 'error');
+      if (emailInput) emailInput.value = '';
+      alert('Por favor ingresá tu email.');
       emailInput?.focus();
-      return;
+      return false;
     }
     if (!mensaje) {
-      showToast('Por favor escribí un mensaje.', 'error');
+      if (mensajeInput) mensajeInput.value = '';
+      alert('Por favor escribí un mensaje.');
       mensajeInput?.focus();
-      return;
+      return false;
     }
     showToast('¡Mensaje enviado! Nos pondremos en contacto pronto. 🎉', 'success');
-    form.reset();
-  });
+    document.getElementById('contact-form')?.reset();
+    return false;
+  };
 };
 
-/* ============== BOOT ============== */
+// Inicialización: cuando el DOM está listo ejecutamos todas las funciones del sitio
 document.addEventListener('DOMContentLoaded', () => {
   // Limpieza única de reseñas viejas
   if (!localStorage.getItem('tl_reviews_v2')) {
@@ -333,3 +356,4 @@ document.addEventListener('DOMContentLoaded', () => {
   wireReviews();
   wireContactForm();
 });
+})();

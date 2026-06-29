@@ -7,7 +7,6 @@ import Login from "@pages/Login";
 import Recetas from "@pages/Recetas";
 import Privacidad from "@pages/Privacidad";
 import Condiciones from "@pages/Condiciones";
-import "@styles/index.scss";
 
 const App = () => {
   return (
